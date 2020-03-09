@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 class content extends Component {
     render() {
-      return (
-        <div className="header">
-            This is the body part.......
-        </div>
+      return (        
+          <h1 className="mt-5 text-center">This is the home page content part</h1>
         );
     }
   }

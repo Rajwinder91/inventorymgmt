@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 class footer extends Component {
     render() {
       return (
-        <div className="header">
-            This is the footer part.......
-        </div>
+        <footer className="footer bg-secondary">
+          <div className="container footer-copyright text-center py-3 text-white">© 2020 Copyright
+            <a href="http://localhost:3000/" className="text-white"> Inventorymgmt.com</a>
+          </div>      
+        </footer>
         );
     }
   }
