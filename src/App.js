@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+
+/* Start Load Components */
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
-import Content from './components/BodyPart/content';
-
-import LoginPost from './components/Login/LoginPost';
-
-
-import './css/bootstrap.min.css';
-import './css/sticky-footer-navbar.css';
-import './css/style.css';
+import Home from './components/BodyPart/content';
+import Login from './components/Login/login';
 import SignUp from "./components/Signup/signup"
 import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
 import NotFoundPage from "./components/PageNotFound/pageNotFound"
+/* End Load Components */
+
+/* Start Load CSS */
+import './css/bootstrap.min.css';
+import './css/sticky-footer-navbar.css';
+import './css/style.css';
+/* Start Load CSS */
+
 import {
   BrowserRouter ,
   Route,
@@ -19,12 +23,12 @@ import {
   Redirect
 
 } from "react-router-dom";
+
+/* Start App Class*/
 class App extends Component {
     render() {
-      return (
-        
-
-        <html lang="en">
+      return ( 
+      <html lang="en">
           <head>
             <meta charset="utf-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -37,12 +41,13 @@ class App extends Component {
               <body>           
                 {/* Load Header Component */}
                   <Header/>
-                {/* Load Body Component */}
+                {/* Load Home,Login,Signup and Notfound Components */}
                 <main role="main" class="container content">
                   <Switch>               
-                      <Route exact path="/" component={Content}/>
-                      <Route  exact path="/404" component={NotFoundPage}/>
+                      <Route exact path="/" component={Home}/> 
+                      <Route exact path="/login" component={Login}/>                      
                       <Route  exact path="/signup" component={SignUp}/>
+                      <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
                 </main>  
@@ -53,6 +58,5 @@ class App extends Component {
         </html>
       );
     }
-  }
-  
+  }  
   export default App;

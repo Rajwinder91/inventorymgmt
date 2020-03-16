@@ -1,6 +1,8 @@
+/*Home Page CSS*/
 .custom-video{margin-left: 145px;}
 .logoImg{width: 30%;}
 
+/* Signup Page CSS*/
 .register{    
     margin-top: 3%;
     padding: 3%;
@@ -12,7 +14,6 @@
     -webkit-animation: mover 2s infinite  alternate;
     animation: mover 1s infinite  alternate;
 }
-
 .register-left p{
     font-weight: lighter;
     padding: 12%;
@@ -35,4 +36,22 @@
 }
 .register-heading{  
     margin-top: 2%;
+}
+
+/* Login Page CSS*/
+.label {
+    font-size: 18px;
+}
+body, html, .App, #root, .auth-wrapper {
+    width: 100%;
+    height: 100%;
+}
+.forgot-password,
+.forgot-password a {
+    text-align: right;
+    padding-top: 10px;
+    margin: 0;
+}
+.forgot-password a {
+    color: #167bff;
 }
