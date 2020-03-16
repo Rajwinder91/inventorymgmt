@@ -8,7 +8,17 @@ import LoginPost from './components/Login/LoginPost';
 
 import './css/bootstrap.min.css';
 import './css/sticky-footer-navbar.css';
+import './css/style.css';
+import SignUp from "./components/Signup/signup"
+import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
+import NotFoundPage from "./components/PageNotFound/pageNotFound"
+import {
+  BrowserRouter ,
+  Route,
+  Switch,
+  Redirect
 
+} from "react-router-dom";
 class App extends Component {
     render() {
       return (
@@ -22,19 +32,25 @@ class App extends Component {
             <meta name="author" content="Rajwinder-Manjinder-Kuljit"/>
             <link rel="icon" href="favicon.ico"/>
             <title>Inventory Management</title>
-          </head>
-          <body>
-            {/* Header Part */}
-            <Header />
-            {/* Body Part */}
-            <main role="main" class="container">
-             <content/>
-            </main>
-            {/* Footer Part */}
+          </head>          
+            <BrowserRouter>
+              <body>           
+                {/* Load Header Component */}
+                  <Header/>
+                {/* Load Body Component */}
+                <main role="main" class="container content">
+                  <Switch>               
+                      <Route exact path="/" component={Content}/>
+                      <Route  exact path="/404" component={NotFoundPage}/>
+                      <Route  exact path="/signup" component={SignUp}/>
+                      <Redirect to="/404" />
+                  </Switch> 
+                </main>  
+              </body>
+            </BrowserRouter>           
+            {/* Load Footer Component */}
             <Footer />
-           
-          </body>
-         </html>
+        </html>
       );
     }
   }
