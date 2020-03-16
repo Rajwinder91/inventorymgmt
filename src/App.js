@@ -5,6 +5,7 @@ import Content from './components/BodyPart/content';
 import './css/bootstrap.min.css';
 import './css/sticky-footer-navbar.css';
 import './css/style.css';
+import SignUp from "./components/Signup/signup"
 import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
 import NotFoundPage from "./components/PageNotFound/pageNotFound"
 import {
@@ -35,7 +36,7 @@ class App extends Component {
                   <Switch>               
                       <Route exact path="/" component={Content}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
-                      <Route  exact path="/ForgotPass" component={ForgotPass}/>
+                      <Route  exact path="/signup" component={SignUp}/>
                       <Redirect to="/404" />
                   </Switch> 
                 </main>  
