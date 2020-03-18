@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { setUserSession } from '../Utils/common';
 class login extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        successMsg: '',
+        errorMessage: ''
     }
     
     ChangeHandler = e => {
@@ -29,21 +31,23 @@ class login extends Component {
             console.log("Response"+response.data.message);
             console.log("Response"+response.data.data.Fname);
             setUserSession(response.data.token, response.data.data);
-            this.props.history.push("/dashboard");
+            //this.props.history.push("/dashboard");
+            window.location.href ='/dashboard';
         })
         .catch(error => {
             console.log("Error"+error);
             console.log("Something went wrong. Please try again later.");
-            this.props.history.push("/login");
+           // this.props.history.push("/login");
+            window.location.href ='/login';
         });
     };
     render() {
         return (
-            <div class="row">      
+            <div class="row loginbody">      
                 <div class="col-md-3"></div>  
                 <div class="col-md-6">            
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <h3 class="text-primary">Sign in to Account</h3>                  
+                        <h3 class="text-primary">Sign in to Account</h3>              
                         <form onSubmit={this.submitHandler}>
                             <div class="form-group">
                                 <div class="form-group">

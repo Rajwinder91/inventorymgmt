@@ -63,6 +63,8 @@ class signup extends Component {
               })
                .then(response => {
                 console.log("Response"+response.data.message);
+                this.setState({success: response.data.message})
+                window.location.href ='/login';
                })
                .catch(error => {
                 console.log("Error"+error);

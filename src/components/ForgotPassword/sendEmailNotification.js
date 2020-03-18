@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 class sendEmailNotification extends Component {
     render() {
       return (
-        <div class="row">      
+        <div class="row forgotbody">      
             <div class="col-md-3"></div>  
             <div class="col-md-6">            
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">

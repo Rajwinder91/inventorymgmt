@@ -24,7 +24,7 @@ body {
 
 .sidebar-sticky {
   position: relative;
-  top: 0;
+  top: 25px;
   height: calc(100vh - 48px);
   padding-top: .5rem;
   overflow-x: hidden;
@@ -34,7 +34,6 @@ body {
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
     position: -webkit-sticky;
-    position: sticky;
   }
 }
 
