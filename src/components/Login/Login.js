@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NavLink } from "react-router-dom";
 import { setUserSession } from '../Utils/common';
 class login extends Component {
     state = {
@@ -58,8 +59,8 @@ class login extends Component {
                                 <button type="submit" class="btnRegister">Sign In</button>
                             </div>
                             <div class="form-group">
-                                <p className="forgot-password text-left">
-                                 <a href="#"> Forgot password?</a>
+                                <p className="forgot-password text-left">   
+                                 <NavLink to="/forgotpassword"> Forgot password?</NavLink> 
                                 </p>
                             </div>
                         </form>
