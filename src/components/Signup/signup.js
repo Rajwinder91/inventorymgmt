@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import logo from '../../images/logo.png';
+import inventoryimg1 from '../../images/inventory.jpg';
+import inventoryimg2 from '../../images/inventory1.jpg';
+import inventoryimg3 from '../../images/inventory2.jpg';
 import axios from 'axios';
 import Select from 'react-select'; 
 import CountryList from "./countryList"
 import ProvinceList from "./provinceList"
-const countries = [
-    { label: "India", value: 1 },
-    { label: "Canada", value: 2 },
-    { label: "America", value: 3 },
-    { label: "Iran", value: 4 },
-    { label: "New", value: 5 },
-    { label: "Test", value: 6 },
-  ];
 
 class signup extends Component {   
     state = {
@@ -79,14 +74,20 @@ class signup extends Component {
     render() {
          return (
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 sidebarborder">
                     <img className="logoImg" src={logo} alt="Inventory Management"/>
                     <h3>Inventory Management System</h3>
                     <p>Inventory and Order Management Software for your small business</p>
-                    <ul>
-                        <li>Feature 1</li>
-                        <li>Feature 2</li>
-                        <li>Feature 3</li>
+                    <ul class="signupsidebar">
+                        <li>
+                            <img className="invenImg float-left " src={inventoryimg1} alt="Inventory Management img1"/> <p class="signup_p1"> &nbsp;Inventory management system is a tool that allows you to track goods quantity.</p>
+                        </li>
+                        <li>
+                            <img className="invenImg" src={inventoryimg2} alt="Inventory Management img2"/> &nbsp;<p class="signup_p2"> &nbsp;Maintain just the right amount of inventory for each product.</p>
+                        </li>
+                        <li>
+                            <img className="invenImg" src={inventoryimg3} alt="Inventory Management img3"/> &nbsp;<p class="signup_p3"> &nbsp;Receive alerts and notifications when there’s over- or under-stocking. </p>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-9">                    

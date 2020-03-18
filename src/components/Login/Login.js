@@ -26,12 +26,14 @@ class login extends Component {
         })
         .then(response => {
             console.log("Response"+response.data.message);
-            setUserSession(response.data.token, response.data.data.Fname);
+            console.log("Response"+response.data.data.Fname);
+            setUserSession(response.data.token, response.data.data);
             this.props.history.push("/dashboard");
         })
         .catch(error => {
             console.log("Error"+error);
             console.log("Something went wrong. Please try again later.");
+            this.props.history.push("/login");
         });
     };
     render() {

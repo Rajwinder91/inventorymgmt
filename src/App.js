@@ -8,6 +8,8 @@ import Login from './components/Login/login';
 import SignUp from "./components/Signup/signup"
 import Dashboard from "./components/Dashboard/dashboard"
 import NotFoundPage from "./components/PageNotFound/pageNotFound"
+import PrivateRoute from './components/Utils/privateRoute';
+import PublicRoute from './components/Utils/publicRoute';
 /* End Load Components */
 
 /* Start Load CSS */
@@ -46,9 +48,9 @@ class App extends Component {
                 <main role="main" class="container content">
                   <Switch>               
                       <Route exact path="/" component={Home}/> 
-                      <Route exact path="/login" component={Login}/>                      
-                      <Route  exact path="/signup" component={SignUp}/>
-                      <Route  exact path="/dashboard" component={Dashboard}/>
+                      <PublicRoute exact path="/login" component={Login}/>                      
+                      <PublicRoute  exact path="/signup" component={SignUp}/>
+                      <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

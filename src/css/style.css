@@ -58,3 +58,32 @@ body, html, .App, #root, .auth-wrapper {
 .zindex{
     z-index: 111;
 }
+
+.invenImg{
+    width: 20%;
+    margin-left: -40px;
+    margin-top: 7px;
+}
+.signupsidebar li{
+
+    margin-top:27px;
+    margin-bottom: 27px;
+}
+.signup_p1{
+    margin-top: -7px;
+    margin-bottom: -18px;
+    margin-left: 10px;
+}
+.signup_p2{
+    margin-top: -40px;
+    margin-bottom: -20px;
+    margin-left: 10px;
+}
+.signup_p3{
+    margin-top: -61px;
+    margin-left: 10px;
+}
+
+.sidebarborder{
+    border-right: 1px dashed #007bff;
+}
