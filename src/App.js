@@ -6,12 +6,13 @@ import Footer from './components/Footer/footer';
 import Home from './components/BodyPart/content';
 import Login from './components/Login/login';
 import SignUp from "./components/Signup/signup"
-import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
+import Dashboard from "./components/Dashboard/dashboard"
 import NotFoundPage from "./components/PageNotFound/pageNotFound"
 /* End Load Components */
 
 /* Start Load CSS */
 import './css/bootstrap.min.css';
+import './css/dashboard.css';
 import './css/sticky-footer-navbar.css';
 import './css/style.css';
 /* Start Load CSS */
@@ -47,6 +48,7 @@ class App extends Component {
                       <Route exact path="/" component={Home}/> 
                       <Route exact path="/login" component={Login}/>                      
                       <Route  exact path="/signup" component={SignUp}/>
+                      <Route  exact path="/dashboard" component={Dashboard}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
