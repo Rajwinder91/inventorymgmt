@@ -56,7 +56,7 @@ class login extends Component {
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input class="form-control" name="password" value ={this.state.password}  onChange={e => this.ChangeHandler(e)}  placeholder="Password*" required   type="password"/>
+                                    <input class="form-control" name="password" value ={this.state.password}  onChange={e => this.ChangeHandler(e)}  placeholder="Password*" minlength="8" required pattern="^(?=.*\d).{8,15}$" title="Password must be between 8 and 15 digits long and include at least one numeric digit."  type="password"/>
                                 </div>
                             </div>
                             <div class="form-group">

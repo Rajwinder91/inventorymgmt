@@ -99,7 +99,7 @@ class signup extends Component {
                             <div class="row register-form">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" required name="fname" placeholder="First Name*" value={this.state.fname} onChange={e => this.ChangeHandler(e)}/>
+                                        <input type="text" class="form-control" required pattern="[A-Za-z]{1,20}" title="Firstname should only contain lowercase and uppercase letters. e.g. John" name="fname" placeholder="First Name*" value={this.state.fname} onChange={e => this.ChangeHandler(e)}/>
                                     </div>
                                     <div class="form-group">
                                         <input type="email" class="form-control" required name="emailAddress" placeholder="Email Address*" value={this.state.emailAddress} onChange={e => this.ChangeHandler(e)} />
@@ -110,17 +110,16 @@ class signup extends Component {
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="lname" required placeholder="Last Name*" value={this.state.lname}  onChange={e => this.ChangeHandler(e)}/>
+                                        <input type="text" class="form-control" name="lname" required pattern="[A-Za-z]{1,20}" title="Lastname should only contain lowercase and uppercase letters. e.g. Wuf" placeholder="Last Name*" value={this.state.lname}  onChange={e => this.ChangeHandler(e)}/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" minlength="8" required name="password" placeholder="Password*" value={this.state.password} onChange={e => this.ChangeHandler(e)}/>
+                                        <input type="password" class="form-control" minlength="8" required pattern="^(?=.*\d).{8,15}$" title="Password must be between 8 and 15 digits long and include at least one numeric digit." name="password" placeholder="Password*" value={this.state.password} onChange={e => this.ChangeHandler(e)}/>
                                     </div>                                        
                                     <div class="form-group">
-                                        <select name="country" value={this.state.country} onChange={e => this.ChangeHandler(e)} class="form-control">
-                                            <option selected disabled>Country*</option>
-                                            <option value="1">Canada</option>
-                                            <option value="2">India</option>
-                                            <option value="3">Test</option>
+                                        <select name="country" value={this.state.country} onChange={e => this.ChangeHandler(e)} class="form-control" required>
+                                            <option value="1">Select Country*</option>
+                                            <option value="2">Canada</option>
+                                            <option value="3">India</option>
                                         </select>              
                                     </div>              
                                 </div>
@@ -139,10 +138,10 @@ class signup extends Component {
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                    <textarea class="form-control" name="address1" rows="3" required value={this.state.address1} onChange={e => this.ChangeHandler(e)}>Address 1*</textarea>
+                                    <textarea class="form-control" placeholder="Address 1*" name="address1" rows="3" required value={this.state.address1} onChange={e => this.ChangeHandler(e)}>Address 1*</textarea>
                                     </div>
                                     <div class="form-group">
-                                    <textarea class="form-control" name="address2" rows="3" value={this.state.address2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
+                                    <textarea class="form-control" placeholder="Address 2" name="address2" rows="3" value={this.state.address2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
                                     </div>
                                 </div>    
                                 <div class="col-md-6">
@@ -150,16 +149,15 @@ class signup extends Component {
                                         <input type="text" name="city" class="form-control" required placeholder="City*" value={this.state.city} onChange={e => this.ChangeHandler(e)}/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="postalCode" class="form-control" /* pattern="[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]"*/ required placeholder="Postal Code*" value={this.state.postalCode} onChange={e => this.ChangeHandler(e)}/>
+                                        <input type="text" name="postalCode" class="form-control"  required pattern="[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]" title="Postal Code should only contain letters and digits. e.g. G3H6A3" placeholder="Postal Code*" value={this.state.postalCode} onChange={e => this.ChangeHandler(e)}/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <select name="province" value={this.state.province} onChange={e => this.ChangeHandler(e)} class="form-control">
-                                            <option class="hidden"  selected disabled>Province*</option>
+                                        <select name="province" value={this.state.province} onChange={e => this.ChangeHandler(e)} required class="form-control">
+                                            <option value="1">Select Province*</option>
                                             <option value="1">Quebec</option>
                                             <option value="2">Ottawa</option>
-                                            <option value="3">Punjab</option>
                                         </select>  
                                     </div>
                                 </div>

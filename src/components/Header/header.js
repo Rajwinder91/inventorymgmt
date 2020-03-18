@@ -20,7 +20,7 @@ class header extends Component {
         <header>
           <nav className="navbar navbar-expand-md navbar-dark bg-info zindex">
             <div className="navbar-header">    
-              <NavLink to="/" className="navbar-brand"><strong><img className="logoImg" src={logo} alt="Inventory Management"/></strong></NavLink>
+              <NavLink to="/" className=""><strong><img className="logoImg" src={logo} alt="Inventory Management"/></strong></NavLink>
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
