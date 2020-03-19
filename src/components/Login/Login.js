@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink, Redirect } from "react-router-dom";
 import { setUserSession } from '../Utils/common';
+let searchParams = new URLSearchParams(window.location.search);
+console.log(searchParams.has('success'));
+console.log(searchParams.get('success'));
+
 class login extends Component {
+   
     state = {
         email: '',
         password: '',
@@ -15,12 +20,13 @@ class login extends Component {
             [e.target.name]: e.target.value
         });
     };
-
+    
     submitHandler = e => {
         //console.log(this.state);
         e.preventDefault();       
         axios({
             method: 'POST',
+            responseType: 'json',
             url: 'http://18.218.124.225:3000/api/companyuser/authcompanyuser',
             data: {
                 "email" : this.state.email,
@@ -28,17 +34,16 @@ class login extends Component {
             }                
         })
         .then(response => {
-            console.log("Response"+response.data.message);
-            console.log("Response"+response.data.data.Fname);
+            //debugger;
+            //console.log('1'+response.data.success);
+            this.setState({successMsg: response.data.message})
             setUserSession(response.data.token, response.data.data);
-            //this.props.history.push("/dashboard");
             window.location.href ='/dashboard';
         })
         .catch(error => {
-            console.log("Error"+error);
-            console.log("Something went wrong. Please try again later.");
-           // this.props.history.push("/login");
-            window.location.href ='/login';
+            //debugger;
+            //console.log('2'+error);
+            this.setState({errorMessage: "Invalid email or password"});
         });
     };
     render() {
@@ -47,7 +52,13 @@ class login extends Component {
                 <div class="col-md-3"></div>  
                 <div class="col-md-6">            
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <h3 class="text-primary">Sign in to Account</h3>              
+                        <h3 class="text-primary">Sign in to Account</h3> 
+                        { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                        } 
+                        { this.state.successMsg &&
+                            <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                        }             
                         <form onSubmit={this.submitHandler}>
                             <div class="form-group">
                                 <div class="form-group">

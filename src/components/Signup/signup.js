@@ -23,7 +23,9 @@ class signup extends Component {
         address2: '',
         city: '',
         province: '1',
-        postalCode: ''
+        postalCode: '',
+        errorMessage: '',
+        successMsg:''
 
     }
     
@@ -35,10 +37,7 @@ class signup extends Component {
     };
 
     submitHandler = e => {
-        console.log(this.state);
         e.preventDefault();
-        console.log(this.state);
-        try{
             axios({
                 method: 'POST',
                 responseType: 'json',
@@ -60,18 +59,20 @@ class signup extends Component {
                     "PostalCode": this.state.postalCode
                 }
                 
-              })
-               .then(response => {
-                console.log("Response"+response.data.message);
-                this.setState({success: response.data.message})
-                window.location.href ='/login';
-               })
-               .catch(error => {
-                console.log("Error"+error);
-               });
-        } catch (error) {
-            console.error(error);
-        }
+            })
+            .then(response => {
+                //console.log("Response"+response.data.success);
+                if(response.data.success === 0){
+                    this.setState({errorMessage: response.data.message});
+                }else{
+                    this.setState({successMsg: response.data.message})
+                    window.location.href ='/login';
+                }                
+            })
+            .catch(error => {
+                //console.log("Error"+error);
+                this.setState({errorMessage: error.message});
+            });
     };
     render() {
          return (
@@ -94,6 +95,12 @@ class signup extends Component {
                 </div>
                 <div class="col-md-9">                    
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                        } 
+                        { this.state.successMsg &&
+                            <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                        } 
                         <h3 class="text-primary">Let's get started..</h3>
                         <form method="post" name="register" onSubmit={this.submitHandler}>
                             <div class="row register-form">

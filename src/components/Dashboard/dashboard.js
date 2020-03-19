@@ -3,10 +3,6 @@ import { getUser, removeUserSession } from '../Utils/common';
 
 /* Get User From Session */
 const user = getUser();
-const handleLogout = (props) => {
-    removeUserSession();
-    window.location.href ='/login';
-}
  
 class dashboard extends Component { 
     render() {

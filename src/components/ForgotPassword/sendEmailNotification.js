@@ -1,17 +1,58 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { NavLink } from "react-router-dom";
 class sendEmailNotification extends Component {
+    state = {
+        email: '',
+        successMsg: '',
+        errorMessage: ''
+    }
+    
+    ChangeHandler = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    submitHandler = e => {
+        //console.log(this.state);
+        e.preventDefault();       
+        axios({
+            method: 'POST',
+            url: 'http://18.218.124.225:3000/api/companyuser/forgetPasswordCompany',
+            data: {
+                "email" : this.state.email
+            }                
+        })
+        .then(response => {
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+            } 
+        })
+        .catch(error => {
+            //console.log(error);
+            this.setState({errorMessage: "Something went wrong with server. Please try again later."});
+        });
+    };
+
     render() {
       return (
         <div class="row forgotbody">      
             <div class="col-md-3"></div>  
             <div class="col-md-6">            
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="text-primary">Forgot Password</h3>                  
-                    <form>
+                    <h3 class="text-primary">Forgot Password</h3>
+                    { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                    } 
+                    { this.state.successMsg &&
+                        <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                    }                   
+                    <form onSubmit={this.submitHandler}>
                         <div class="form-group">
                             <div class="form-group">
-                                <input class="form-control"  name="email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="User Email*" type="text"/>
+                                <input class="form-control"  name="email" value={this.state.email} onChange={e => this.ChangeHandler(e)} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="User Email*" type="text"/>
                             </div>
                         </div>
                         <div class="form-group">
