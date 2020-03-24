@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard/dashboard"
 import NotFoundPage from "./components/PageNotFound/pageNotFound"
 import PrivateRoute from './components/Utils/privateRoute';
 import PublicRoute from './components/Utils/publicRoute';
+import CreateSupplier from './components/AdminSuppliers/createSupplier';
 
 /* End Load Components */
 
@@ -54,6 +55,7 @@ class App extends Component {
                       <PublicRoute  exact path="/signup" component={SignUp}/>
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
+                      <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
