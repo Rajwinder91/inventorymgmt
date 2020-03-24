@@ -42,8 +42,7 @@ class login extends Component {
         })
         .catch(error => {
             //debugger;
-            //console.log('2'+error);
-            this.setState({errorMessage: "Invalid email or password"});
+            this.setState({errorMessage: error.response.data.message});
         });
     };
     render() {

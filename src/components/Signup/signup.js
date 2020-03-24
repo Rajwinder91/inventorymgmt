@@ -9,31 +9,93 @@ import CountryList from "./countryList"
 import ProvinceList from "./provinceList"
 
 class signup extends Component {   
+   
     state = {
         fname: '',
         lname: '',
         emailAddress: '',
         phone: '',
         password: '',
-        country: '1',
+        country: '',
         companyName: '',
         companyUrl: '',
         logo:'logo.jpg',
         address1: '',
         address2: '',
         city: '',
-        province: '1',
+        province: '',
         postalCode: '',
         errorMessage: '',
-        successMsg:''
-
+        successMsg:'',
+        countries: [],
+        provinces: []
     }
     
+    handleChange = this.handleChange.bind(this);  
+    
+    componentDidMount() {  
+        let initialCountries = [];
+        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        .then(response => {
+            return response.json();
+            }).then(data => {           
+                initialCountries = data.data.map((country) => {
+                return {value: country.CountryId, display: country.name}
+                
+            });
+            this.setState({
+                countries: [{value: '', display: 'Please select your country'}].concat(initialCountries)
+            })            
+        })
+        .catch(error => {
+            this.setState({errorMessage: error.response});
+        })        
+    }
 
+    handleChange(event) {
+
+        let initialProvinces = [];
+        this.setState({
+           country: event.target.value,
+           errorMessage: event.target.value === "" ? "You must select your country" : ""
+        });
+
+        axios({
+            method: 'POST',
+            responseType: 'json',
+            url: `http://18.218.124.225:3000/api/provinces/province`,
+            data: {
+                "country_id" : event.target.value
+            }            
+        })
+        .then(response => {
+            //console.log(response.data.success);
+            if(response.data.success === 1){
+                initialProvinces = response.data.data.map((province) => {
+                    return {value: province.ProvinceId, display: province.name} 
+                })
+                this.setState({
+                    provinces: [{value: '', display: 'Please select your province'}].concat(initialProvinces)
+                })
+            }else{
+                this.setState({
+                    provinces: []
+                })
+            }
+        })        
+        .catch(error => {
+            console.log("Error:"+ error.response)
+            this.setState({
+                provinces: []
+            })
+           this.setState({errorMessage: error.response});
+        })
+    }
     ChangeHandler = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
+        
     };
 
     submitHandler = e => {
@@ -71,11 +133,11 @@ class signup extends Component {
             })
             .catch(error => {
                 //console.log("Error"+error);
-                this.setState({errorMessage: error.message});
+                this.setState({errorMessage: error.response.data.message});
             });
     };
     render() {
-         return (
+        return (
             <div class="row">
                 <div class="col-md-3 sidebarborder">
                     <img className="logoImg" src={logo} alt="Inventory Management"/>
@@ -122,12 +184,21 @@ class signup extends Component {
                                     <div class="form-group">
                                         <input type="password" class="form-control" minlength="8" required pattern="^(?=.*\d).{8,15}$" title="Password must be between 8 and 15 digits long and include at least one numeric digit." name="password" placeholder="Password*" value={this.state.password} onChange={e => this.ChangeHandler(e)}/>
                                     </div>                                        
-                                    <div class="form-group">
-                                        <select name="country" value={this.state.country} onChange={e => this.ChangeHandler(e)} class="form-control" required>
-                                            <option value="1">Select Country*</option>
-                                            <option value="2">Canada</option>
-                                            <option value="3">India</option>
-                                        </select>              
+                                    <div class="form-group">   
+                                        <select name="country" class="form-control" required
+                                            value={this.state.country}
+                                            onChange={this.handleChange}
+                                            
+                                            >
+                                            {this.state.countries.map(country => (
+                                                <option
+                                                key={country.value}
+                                                value={country.value}
+                                                >
+                                                {country.display}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>              
                                 </div>
                                 <div className="col-md-12 register-heading">
@@ -161,11 +232,29 @@ class signup extends Component {
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <select name="province" value={this.state.province} onChange={e => this.ChangeHandler(e)} required class="form-control">
-                                            <option value="1">Select Province*</option>
-                                            <option value="1">Quebec</option>
-                                            <option value="2">Ottawa</option>
-                                        </select>  
+                                    <div class="form-group">   
+                                        <select name="country" class="form-control" required
+                                            value={this.state.province}
+                                            onChange={e =>
+                                                this.setState({
+                                                province: e.target.value,
+                                                errorMessage:
+                                                    e.target.value === ""
+                                                    ? "You must select your province"
+                                                    : ""
+                                                })
+                                            }
+                                            >
+                                            {this.state.provinces.map(province => (
+                                                <option
+                                                key={province.value}
+                                                value={province.value}
+                                                >
+                                                {province.display}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>            
                                     </div>
                                 </div>
                                 <div className="col-md-12">

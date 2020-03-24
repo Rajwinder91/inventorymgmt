@@ -31,8 +31,7 @@ class sendEmailNotification extends Component {
             } 
         })
         .catch(error => {
-            //console.log(error);
-            this.setState({errorMessage: "Something went wrong with server. Please try again later."});
+            this.setState({errorMessage: error.response.data.message});
         });
     };
 

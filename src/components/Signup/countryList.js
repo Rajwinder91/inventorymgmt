@@ -1,33 +1,40 @@
-import React, { Component } from 'react'  
-import Select from 'react-select';  
+import React, { Component } from 'react'
 import axios from 'axios';  
+import Signup from './signup';
   
 export class countryList extends Component {  
-    constructor(props) {  
-        super(props)  
 
-        this.state = {  
-            country: []  
-        }  
+    constructor(props) {
+        super();
+        this.state = {
+            countries: [],
+        };
     }  
-    componentWillMount() {  
-        axios.get('http://18.218.124.225:3000/api/Countrylist')
-        .then(response => {  
-            console.log(response);  
-            this.setState({  
-                country: response.data  
-            })  
-        })  
+    componentDidMount() {  
+        let initialPlanets = [];
+        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        .then(response => {
+            return response.json();
+        }).then(data => {
+        initialPlanets = data.results.map((country) => {
+            return country
+        });
+        console.log(initialPlanets);
+        this.setState({
+            countries: initialPlanets,
+        })
+    })
+        .catch(error => {
+            //console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        })
     }  
-    Country() {  
-
-        return (this.state.country.map(data => ({ label: data.Name, value: data.Id })))  
-    }  
+    
     render() {  
         return (             
-            <Select name="country" options={this.Country()} class="form-control" />  
+            <Signup state={this.state}/>
         )  
     }  
 }  
   
-export default countryList;  
+export default countryList;
