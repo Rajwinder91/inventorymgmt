@@ -83,3 +83,22 @@
 .sidebarborder{
     border-right: 1px dashed #007bff;
 }
+
+/* Category Page CSS*/
+.btn_cate{
+    margin-top: 3%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 20%;
+    cursor: pointer;
+}
+
+.top_button{
+    padding-left: 82%;
+    margin-top: -37px;
+}
+
