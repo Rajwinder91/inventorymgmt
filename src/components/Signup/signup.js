@@ -4,9 +4,6 @@ import inventoryimg1 from '../../images/inventory.jpg';
 import inventoryimg2 from '../../images/inventory1.jpg';
 import inventoryimg3 from '../../images/inventory2.jpg';
 import axios from 'axios';
-import Select from 'react-select'; 
-import CountryList from "./countryList"
-import ProvinceList from "./provinceList"
 
 class signup extends Component {   
    
@@ -233,7 +230,7 @@ class signup extends Component {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                     <div class="form-group">   
-                                        <select name="country" class="form-control" required
+                                        <select name="province" class="form-control" required
                                             value={this.state.province}
                                             onChange={e =>
                                                 this.setState({

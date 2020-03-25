@@ -14,6 +14,8 @@ import PublicRoute from './components/Utils/publicRoute';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
 import CreateCategory from './components/AdminCatgeories/createCategory';
 
+import GetSupplier from './components/AdminSuppliers/getSuppliers';
+
 /* End Load Components */
 
 /* Start Load CSS */
@@ -57,7 +59,10 @@ class App extends Component {
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
+
                       <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
+
+                      <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
