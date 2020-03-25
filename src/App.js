@@ -12,6 +12,7 @@ import NotFoundPage from "./components/PageNotFound/pageNotFound"
 import PrivateRoute from './components/Utils/privateRoute';
 import PublicRoute from './components/Utils/publicRoute';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
+import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
 import GetSupplier from './components/AdminSuppliers/getSuppliers';
 
 /* End Load Components */
@@ -57,6 +58,7 @@ class App extends Component {
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
+                      <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />

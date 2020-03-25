@@ -5,9 +5,10 @@ import { getUser } from '../Utils/common';
 import { getToken } from '../Utils/common';
 
 
-/* Get User From Session */
+/* Get User and Token From Session */
 const user = getUser();
 const token = getToken();
+
 class createSupplier extends Component {
     
     state = {
@@ -28,8 +29,9 @@ class createSupplier extends Component {
     }
     handleChange = this.handleChange.bind(this);  
     
-    componentDidMount() {  
-        console.log(token);
+    //Fetch Country List
+    componentDidMount() { 
+
         let initialCountries = [];
         fetch(`http://18.218.124.225:3000/api/countries/country`)
         .then(response => {
@@ -48,6 +50,8 @@ class createSupplier extends Component {
         })        
     }
 
+
+    //Get Provinces list on chnage of country
     handleChange(event) {
 
         let initialProvinces = [];
@@ -66,7 +70,7 @@ class createSupplier extends Component {
         })
         .then(response => {
             //console.log(response.data.success);
-            if(response.data.success === 1){
+            if(response.data.success == 1){
                 initialProvinces = response.data.data.map((province) => {
                     return {value: province.ProvinceId, display: province.name} 
                 })
@@ -87,6 +91,28 @@ class createSupplier extends Component {
            this.setState({errorMessage: error.response});
         })
     }
+
+    //Reset Button functionality
+    cancelCourse = () => { 
+        this.setState({
+            supplierName: '',
+            supplierPhone: '',
+            supplierEmailAddress: '',
+            supplierDiscount: '',
+            country: '',
+            province: '',
+            supplierCity: '',
+            supplierAddress1: '',
+            supplierAddress2: '',
+            supplierPostalCode: '',
+            errorMessage: '',
+            successMsg:'',
+            countries: [],
+            provinces: []
+        });
+    }
+
+    //Get form values on chnage handler
     ChangeHandler = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -94,6 +120,7 @@ class createSupplier extends Component {
         
     };
 
+    //Submit supplier form after clicking on save button
     submitHandler = e => {
         e.preventDefault();
             axios({
@@ -133,7 +160,8 @@ class createSupplier extends Component {
                 this.setState({errorMessage: error.response.data.message});
             });
     };
-
+   
+    // Start Render Function
     render() {       
       return ( 
         <div class="container-fluid">
@@ -149,9 +177,9 @@ class createSupplier extends Component {
                         } 
                        
                         <h3 class="text-primary">Create Supplier</h3>                        
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">
                             <div  class="top_button">         
-                                <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
+                                <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
                                 &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                             </div>
                             <div class="row register-form">
@@ -169,7 +197,7 @@ class createSupplier extends Component {
                                         <input type="email" class="form-control" required name="supplierEmailAddress" value={this.state.supplierEmailAddress} onChange={e => this.ChangeHandler(e)} placeholder="Email Address*"  />
                                     </div>
                                     <div class="input-group mb-2">
-                                        <input type="text" class="form-control" id="inlineFormInputGroup" name="supplierDiscount" value={this.state.supplierDiscount} onChange={e => this.ChangeHandler(e)} placeholder="Discount Rate"/>
+                                        <input type="text" class="form-control" name="supplierDiscount" value={this.state.supplierDiscount} onChange={e => this.ChangeHandler(e)} placeholder="Discount Rate"/>
                                         <div class="input-group-prepend">
                                         <div class="input-group-text">%</div>
                                         </div>
@@ -245,6 +273,7 @@ class createSupplier extends Component {
              
       );
     }
+    // End Render Function
   }
   
   export default createSupplier;
