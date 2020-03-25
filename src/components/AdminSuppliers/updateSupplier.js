@@ -10,16 +10,286 @@ const token = getToken();
 
 class updatrSupplier extends Component {
 
+    //Set the update supplier state values
+    state = {
+        supplierName: '',
+        supplierPhone: '',
+        supplierEmailAddress: '',
+        supplierDiscount: '',
+        country: '',
+        province: '',
+        supplierCity: '',
+        supplierAddress1: '',
+        supplierAddress2: '',
+        supplierPostalCode: '',
+        errorMessage: '',
+        successMsg:'',
+        countries: [],
+        provinces: []
+    }
+    handleChange = this.handleChange.bind(this);  
+    
+    //Fetch Country List and get supplier by id api
+    componentDidMount() { 
+
+        //Declare variable for country array and get supplier id from url
+        let initialCountries = [];             
+        const supplierid = new URLSearchParams(this.props.location.search).get('supplierId');
+
+        //Get all countries api
+        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        .then(response => {
+            return response.json();
+            }).then(data => {           
+                initialCountries = data.data.map((country) => {
+                return {value: country.CountryId, display: country.name}
+                
+            });
+            this.setState({
+                countries: [{value: '', display: 'Please select your country'}].concat(initialCountries)
+            })            
+        })
+        .catch(error => {
+            this.setState({errorMessage: error.response});
+        }) 
+        
+        //Get Supplier by id API
+        axios({
+            method: 'GET',
+            responseType: 'json',
+            url: `http://18.218.124.225:3000/api/supplier/getsupplierbyId?SupplierId=${supplierid}&CompanyId=${user.CompanyId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            }         
+        })
+        .then(response => {
+            
+            if(response.data.success == 1){console.log(response.data.data[0].SupplierName);
+                this.setState({ 
+                    supplierName: response.data.data[0].SupplierName,
+                    supplierPhone: response.data.data[0].SupplierPhone,
+                    supplierEmailAddress: response.data.data[0].SupplierEmail,
+                    supplierDiscount: response.data.data[0].DiscountRate,
+                    supplierCity: response.data.data[0].City,
+                    supplierAddress1: response.data.data[0].Address1,
+                    supplierAddress2: response.data.data[0].Address2,
+                    supplierPostalCode: response.data.data[0].PostalCode,
+                    country: response.data.data[0].CountryId,
+                    province: response.data.data[0].ProvinceId
+              })
+            }
+            
+        })        
+        .catch(error => {
+            console.log("Error:"+ error)
+            this.setState({errorMessage: error.response});
+        })
+    }
+
+    //Get Provinces list on change of country
+    handleChange(event) {
+        let initialProvinces = [];
+        this.setState({
+           country: event.target.value,
+           errorMessage: event.target.value === "" ? "You must select your country" : ""
+        });
+
+        axios({
+            method: 'POST',
+            responseType: 'json',
+            url: `http://18.218.124.225:3000/api/provinces/province`,
+            data: {
+                "country_id" : event.target.value
+            }            
+        })
+        .then(response => {
+            if(response.data.success == 1){
+                initialProvinces = response.data.data.map((province) => {
+                    return {value: province.ProvinceId, display: province.name} 
+                })
+                this.setState({
+                    provinces: [{value: '', display: 'Please select your province'}].concat(initialProvinces)
+                })
+            }else{
+                this.setState({
+                    provinces: []
+                })
+            }
+        })        
+        .catch(error => {
+            console.log("Error:"+ error.response)
+            this.setState({
+                provinces: []
+            })
+           this.setState({errorMessage: error.response});
+        })
+    }
+
+    //Cancel Button functionality
+    cancelCourse = () => {     
+        window.location.href ='/getSuppliers';   
+    }
+
+    //Get form values on chnage handler
+    ChangeHandler = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+        
+    };
+
+    //Submit supplier form after clicking on save button || Call Update supplier api
+    submitHandler = e => {
+        const supplierid = new URLSearchParams(this.props.location.search).get('supplierId');
+        e.preventDefault();
+            axios({
+                method: 'PUT',
+                responseType: 'json',
+                url: `http://18.218.124.225:3000/api/supplier/editsupplier`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+token
+                },
+                data: {
+                    "SupplierId"  : supplierid,
+                    "SupplierName" : this.state.supplierName,
+                    "SupplierEmail" : this.state.supplierEmailAddress,
+                    "SupplierPhone": this.state.supplierPhone,
+                    "DiscountRate": this.state.supplierDiscount,
+                    "CountryId": this.state.country,
+                    "ProvinceId": this.state.province,
+                    "Address1": this.state.supplierAddress1,
+                    "Address2": this.state.supplierAddress2,
+                    "City": this.state.supplierCity,
+                    "PostalCode": this.state.supplierPostalCode,
+                    "CompanyId": user.CompanyId
+                }
+                
+            })
+            .then(response => {
+                if(response.data.success === 0){
+                    this.setState({errorMessage: response.data.message});
+                }else{
+                    this.setState({successMsg: response.data.message})
+                    window.location.href ='/getSuppliers';
+                }                
+            })
+            .catch(error => {
+                //console.log("Error"+error);
+                this.setState({errorMessage: error.response.data.message});
+            });
+    };
+
+    //Call render function
     render() {       
         return ( 
             <div class="container-fluid">
                 <div class="row">
-                  <DashboardSidebar/>
-                  <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
-                  </div>
-                </div>
-            </div>
-                     
+                    <DashboardSidebar/>
+                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            { this.state.errorMessage &&
+                                <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                            } 
+                            { this.state.successMsg &&
+                                <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                            } 
+                        
+                            <h3 class="text-primary">Create Supplier</h3>                        
+                            <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">
+                                <div  class="top_button">         
+                                    <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
+                                    &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
+                                </div>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" required name="supplierName" value={this.state.supplierName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Supplier Name*"/>
+                                        </div>
+                                                                            
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" maxlength="10" required name="supplierPhone" value={this.state.supplierPhone} onChange={e => this.ChangeHandler(e)} class="form-control" placeholder=" Phone Number*" />
+                                        </div>                                      
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" required name="supplierEmailAddress" value={this.state.supplierEmailAddress} onChange={e => this.ChangeHandler(e)} placeholder="Email Address*"  />
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" name="supplierDiscount" value={this.state.supplierDiscount} onChange={e => this.ChangeHandler(e)} placeholder="Discount Rate"/>
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text">%</div>
+                                            </div>
+                                        </div>                                                   
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select name="country" class="form-control" required
+                                                value={this.state.country}
+                                                onChange={this.handleChange}                                                
+                                                >
+                                                {this.state.countries.map(country => (
+                                                    <option
+                                                    key={country.value}
+                                                    value={country.value}
+                                                    >
+                                                    {country.display}
+                                                    </option>
+                                                ))}
+                                            </select>             
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select name="province" class="form-control" required
+                                                value={this.state.province}
+                                                onChange={e =>
+                                                    this.setState({
+                                                    province: e.target.value,
+                                                    errorMessage:
+                                                        e.target.value === ""
+                                                        ? "You must select your province"
+                                                        : ""
+                                                    })
+                                                }
+                                                >
+                                                {this.state.provinces.map(province => (
+                                                    <option
+                                                    key={province.value}
+                                                    value={province.value}
+                                                    selected={this.state.province == province.value}
+                                                    >
+                                                    {province.display}
+                                                    </option>
+                                                ))}
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" name="supplierCity" class="form-control" required value={this.state.supplierCity} onChange={e => this.ChangeHandler(e)} placeholder="City*"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="supplierAddress1" rows="3" required value={this.state.supplierAddress1} onChange={e => this.ChangeHandler(e)} >Address 1*</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="supplierAddress2" rows="3" value={this.state.supplierAddress2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
+                                        </div>
+                                    </div>    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" name="supplierPostalCode" class="form-control" value={this.state.supplierPostalCode} onChange={e => this.ChangeHandler(e)}  pattern="[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]" required placeholder="Postal Code*"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> 
+            </div>    
         );
     }
 }
