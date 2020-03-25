@@ -84,6 +84,7 @@
     border-right: 1px dashed #007bff;
 }
 
+
 /* Category Page CSS*/
 .btn_cate{
     margin-top: 3%;
@@ -102,3 +103,12 @@
     margin-top: -37px;
 }
 
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+    

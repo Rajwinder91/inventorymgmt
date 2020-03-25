@@ -11,7 +11,9 @@ class editCategory extends Component {
     state = {
         catename: '',
         Tags: '',
-        cateSKU: ''
+        cateSKU: '',
+        CompanyId: ''
+
     }
     
     ChangeHandler = e => {
@@ -26,7 +28,7 @@ class editCategory extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: 'http://18.218.124.225:3000/api/category/editcategory',
+            url: 'http://localhost:3000/api/category/editcategory',
             headers : {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -75,7 +77,7 @@ class editCategory extends Component {
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg } </p>
                         } 
-                    <h3 class="text-primary h3cate">Create Category</h3>
+                    <h3 class="text-primary h3cate">Edit Category</h3>
                         <div className="col-md-12">
                             <form method="post" name="register" onSubmit={this.submitHandler}>
                                 <div  class="top_button">         
@@ -86,7 +88,14 @@ class editCategory extends Component {
                                     <div class="col-md-9">                    
                                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                             <div class="create_cate">  
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                             <input type="text" required name="companyid" value={this.state.CompanyId} onChange={e => this.ChangeHandler(e)} class="form-control input-lg" placeholder="category_id"/>
+                                                         </div>
+                                                    </div>
                                 
+
                                                 <div class="row register-form">
                                                      <div class="col-md-6">
                                                         <div class="form-group">

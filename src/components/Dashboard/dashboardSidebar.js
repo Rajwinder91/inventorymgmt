@@ -8,13 +8,10 @@ class dashboardSidebar extends Component {
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <span data-feather="home"></span>
-                        Dashboard <span class="sr-only">(current)</span>
-                    </a>
+                        <NavLink to="/dashboard" className="nav-link">Dashboard</NavLink>
                     </li>
                     <li class="nav-item">
-                        <NavLink to="/createSupplier" className="nav-link">Supplier</NavLink>
+                        <NavLink to="/getSuppliers" className="nav-link">Supplier</NavLink>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">
