@@ -196,11 +196,11 @@ class updatrSupplier extends Component {
                                 <p className="alert alert alert-success"> { this.state.successMsg } </p>
                             } 
                         
-                            <h3 class="text-primary">Create Supplier</h3>                        
+                            <h3 class="text-primary">Update Supplier</h3>                        
                             <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">
                                 <div  class="top_button">         
                                     <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
-                                    &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
+                                    &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                                 </div>
                                 <div class="row register-form">
                                     <div class="col-md-6">
