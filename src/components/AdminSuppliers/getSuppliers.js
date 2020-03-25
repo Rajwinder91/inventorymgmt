@@ -10,6 +10,8 @@ const user = getUser();
 const token = getToken();
  
 class getSuppliers extends Component { 
+    
+    //Set state values
     state = {
         suppliersList: []
     }

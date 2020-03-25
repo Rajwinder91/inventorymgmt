@@ -11,6 +11,7 @@ const token = getToken();
 
 class createSupplier extends Component {
     
+    //Set State values
     state = {
         supplierName: '',
         supplierPhone: '',
@@ -49,7 +50,6 @@ class createSupplier extends Component {
             this.setState({errorMessage: error.response});
         })        
     }
-
 
     //Get Provinces list on chnage of country
     handleChange(event) {
@@ -112,7 +112,7 @@ class createSupplier extends Component {
         });
     }
 
-    //Get form values on chnage handler
+    //Get form values on change handler
     ChangeHandler = e => {
         this.setState({
             [e.target.name]: e.target.value
