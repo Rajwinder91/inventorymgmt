@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
 
 /* Start Load Components */
+import NotFoundPage from "./components/PageNotFound/pageNotFound";
+import PrivateRoute from './components/Utils/privateRoute';
+import PublicRoute from './components/Utils/publicRoute';
+
+//Public pages
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
 import Home from './components/BodyPart/content';
 import Login from './components/Login/login';
-import SignUp from "./components/Signup/signup"
-import ForgotPass from "./components/ForgotPassword/sendEmailNotification"
-import Dashboard from "./components/Dashboard/dashboard"
-import NotFoundPage from "./components/PageNotFound/pageNotFound"
-import PrivateRoute from './components/Utils/privateRoute';
-import PublicRoute from './components/Utils/publicRoute';
+import SignUp from "./components/Signup/signup";
+import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
+
+//Dashboard Components
+import Dashboard from "./components/Dashboard/dashboard";
+
+//Supplier Components
+import GetSupplier from './components/AdminSuppliers/getSuppliers';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
 import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
-import GetSupplier from './components/AdminSuppliers/getSuppliers';
+
+//Product Components
+import GetProducts from './components/AdminProducts/getProducts';
+import CreateProduct from './components/AdminProducts/createProduct';
+import UpdateProduct from './components/AdminProducts/updateProduct';
 
 /* End Load Components */
 
@@ -22,7 +33,7 @@ import './css/bootstrap.min.css';
 import './css/dashboard.css';
 import './css/sticky-footer-navbar.css';
 import './css/style.css';
-/* Start Load CSS */
+/* End Load CSS */
 
 import {
   BrowserRouter ,
@@ -57,9 +68,12 @@ class App extends Component {
                       <PublicRoute  exact path="/signup" component={SignUp}/>
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
+                      <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
                       <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>
-                      <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
+                      <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
+                      <PrivateRoute  exact path="/createProduct" component={CreateProduct}/>
+                      <PrivateRoute  exact path="/updateProduct" component={UpdateProduct}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

@@ -26,10 +26,7 @@ class dashboardSidebar extends Component {
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="bar-chart-2"></span>
-                        Products
-                    </a>
+                        <NavLink to="/getProducts" className="nav-link">Products</NavLink>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">
