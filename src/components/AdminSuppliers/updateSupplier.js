@@ -57,7 +57,7 @@ class updatrSupplier extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsupplierbyId?SupplierId=${supplierid}&CompanyId=${user.CompanyId}`,
+            url: `http://18.218.124.225:3000/api/supplier/getsupplierbyId?pplierIdSu=${supplierid}&CompanyId=${user.CompanyId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -65,7 +65,7 @@ class updatrSupplier extends Component {
         })
         .then(response => {
             
-            if(response.data.success == 1){console.log(response.data.data[0].SupplierName);
+            if(response.data.success === 1){console.log(response.data.data[0].SupplierName);
                 this.setState({ 
                     supplierName: response.data.data[0].SupplierName,
                     supplierPhone: response.data.data[0].SupplierPhone,
@@ -104,7 +104,7 @@ class updatrSupplier extends Component {
             }            
         })
         .then(response => {
-            if(response.data.success == 1){
+            if(response.data.success === 1){
                 initialProvinces = response.data.data.map((province) => {
                     return {value: province.ProvinceId, display: province.name} 
                 })
@@ -258,7 +258,7 @@ class updatrSupplier extends Component {
                                                     <option
                                                     key={province.value}
                                                     value={province.value}
-                                                    selected={this.state.province == province.value}
+                                                    selected={this.state.province === province.value}
                                                     >
                                                     {province.display}
                                                     </option>

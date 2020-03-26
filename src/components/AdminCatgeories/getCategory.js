@@ -9,21 +9,21 @@ import axios from 'axios';
 const user = getUser();
 const token = getToken();
  
-class getSuppliers extends Component { 
+class getCategory extends Component { 
     
     //Set state values
     state = {
-        suppliersList: []
+        CategoryList: []
     }
   
     //Get all Supplier API
     componentDidMount() {
-        let initialSuppliers = [];
+        let initialCategory = [];
         axios({
 
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: `http://18.218.124.225:3000/api/category/getcategories`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -35,16 +35,16 @@ class getSuppliers extends Component {
         .then(response => {
             console.log(response.data.success);
             if(response.data.success === 1){
-                initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
-                    return {id: supplier.SupplierId, suppliername: supplier.SupplierName, supplieremail: supplier.SupplierEmail, suppliercity: supplier.City} 
+                initialCategory = response.data.data.map((category) => { console.log(category.categoryId);
+                    return {id: category.categoryId, categoryname: category.catename, tags: category.tags, Sku:category.cateSKU} 
                 })
                 this.setState({
-                    suppliersList: initialSuppliers
+                    CategoryList: initialCategory
                 })
                 
             }else{
                 this.setState({
-                    suppliersList: []
+                    CategoryList: []
                 })
             }
             
@@ -67,10 +67,10 @@ class getSuppliers extends Component {
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                 
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <h3 class="text-primary">Suppliers</h3>
+                            <h3 class="text-primary">Category</h3>
                             <div class="top_button">
                                 <div class="form-group">
-                                    <NavLink to="/createSupplier" className="btn btn-primary">Create Supplier</NavLink>
+                                    <NavLink to="/createCategory" className="btn btn-primary">Create Category</NavLink>
                                 </div>
                             </div>
                         </div>                    
@@ -79,20 +79,20 @@ class getSuppliers extends Component {
                                 <thead>
                                     <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Supplier Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">SKU</th>
+                                    <th scope="col">Tags</th>
+                                  
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.suppliersList.map(supplier => (
+                                    {this.state.CategoryList.map(category => (
                                         <tr>
-                                        <th scope="row">{supplier.id}</th>
-                                        <td>{supplier.suppliername}</td>
-                                        <td>{supplier.supplieremail}</td>
-                                        <td>{supplier.suppliercity}</td>
-                                        <td><NavLink to={`/updateSupplier?supplierId=${supplier.id}`} className="btn btn-primary">Update Supplier</NavLink></td>
+                                        <th scope="row">{category.id}</th>
+                                        <td>{category.categoryname}</td>
+                                        <td>{category.tags}</td>
+                                        <td>{category.Sku}</td>
+                                        <td><NavLink to={`/editCategory?categoryId=${category.id}`} className="btn btn-primary">Edit Category</NavLink></td>
                                         </tr>
                                     ))
                                     }                               
@@ -108,4 +108,4 @@ class getSuppliers extends Component {
     //End render Function
 }
              
-export default getSuppliers;
+export default getCategory;

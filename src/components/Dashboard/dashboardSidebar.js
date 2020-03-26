@@ -20,7 +20,7 @@ class dashboardSidebar extends Component {
                     </a>
                     </li>
                     <li class="nav-item">
-                        <NavLink to="/createCategory" className="nav-link">Category</NavLink>
+                        <NavLink to="/getCategory" className="nav-link">Category</NavLink>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">

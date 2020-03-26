@@ -1,4 +1,4 @@
-import React, { Component, useReducer } from 'react';
+import React, { Component } from 'react';
 import DashboardSidebar from '../../components/Dashboard/dashboardSidebar';
 import axios from 'axios';
 import { getToken } from '../Utils/common';
@@ -49,7 +49,7 @@ class createCategory extends Component {
                 this.setState({errorMessage: response.data.message});
             }else{
                 this.setState({successMsg: response.data.message})
-                window.location.href ='';
+                window.location.href ='/getCategory';
             }                
         })
 
@@ -60,6 +60,15 @@ class createCategory extends Component {
             });
 
     };
+
+    cancel = () => { 
+        this.setState({
+            catename: '',
+            Tags: '',
+            cateSKU: ''
+            
+        });
+    }
 
 
     render() {
@@ -79,7 +88,7 @@ class createCategory extends Component {
                         <div className="col-md-12">
                             <form method="post" name="register" onSubmit={this.submitHandler}>
                                 <div  class="top_button">         
-                                    <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
+                                    <input type="submit" class="btn btn-primary mb-2"  onClick={this.cancel} value="Cancel"/>
                                     &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                                 </div>
                        

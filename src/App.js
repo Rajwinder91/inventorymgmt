@@ -13,10 +13,11 @@ import PrivateRoute from './components/Utils/privateRoute';
 import PublicRoute from './components/Utils/publicRoute';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
 import CreateCategory from './components/AdminCatgeories/createCategory';
-import EditCategory from './components/AdminCatgeories/editCategory';
+import EditCategory from './components/AdminCatgeories/editCategory.js';
 import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
 //>>>>>>> 26b58fa4b1da9fde65bb9453ed565d92574c0278
 import GetSupplier from './components/AdminSuppliers/getSuppliers';
+import GetCategory from './components/AdminCatgeories/getCategory';
 
 /* End Load Components */
 
@@ -69,6 +70,7 @@ class App extends Component {
                       <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>
 
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
+                      <PrivateRoute  exact path="/getCategory" component={GetCategory}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
