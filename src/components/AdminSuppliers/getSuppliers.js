@@ -20,7 +20,6 @@ class getSuppliers extends Component {
     componentDidMount() {
         let initialSuppliers = [];
         axios({
-
             method: 'POST',
             responseType: 'json',
             url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
@@ -78,7 +77,7 @@ class getSuppliers extends Component {
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">Supplier Id</th>
                                     <th scope="col">Supplier Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">City</th>
@@ -95,8 +94,7 @@ class getSuppliers extends Component {
                                         <td><NavLink to={`/updateSupplier?supplierId=${supplier.id}`} className="btn btn-primary">Update Supplier</NavLink></td>
                                         </tr>
                                     ))
-                                    }                               
-                                
+                                    }                           
                                 </tbody>
                             </table>
                         </div>

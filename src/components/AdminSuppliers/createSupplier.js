@@ -253,10 +253,10 @@ class createSupplier extends Component {
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="supplierAddress1" rows="3" required value={this.state.supplierAddress1} onChange={e => this.ChangeHandler(e)} >Address 1*</textarea>
+                                        <textarea class="form-control" name="supplierAddress1" rows="3" placeholder= "Address 1*" required value={this.state.supplierAddress1} onChange={e => this.ChangeHandler(e)} >Address 1*</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="supplierAddress2" rows="3" value={this.state.supplierAddress2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
+                                        <textarea class="form-control" name="supplierAddress2" rows="3" placeholder= "Address 2" value={this.state.supplierAddress2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
                                     </div>
                                 </div>    
                                 <div class="col-md-6">

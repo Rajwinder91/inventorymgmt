@@ -8,7 +8,7 @@ import { getToken } from '../Utils/common';
 const user = getUser();
 const token = getToken();
 
-class updatrSupplier extends Component {
+class updateSupplier extends Component {
 
     //Set the update supplier state values
     state = {
@@ -131,7 +131,7 @@ class updatrSupplier extends Component {
         window.location.href ='/getSuppliers';   
     }
 
-    //Get form values on chnage handler
+    //Get form values on change handler
     ChangeHandler = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -293,4 +293,4 @@ class updatrSupplier extends Component {
         );
     }
 }
-export default updatrSupplier;
+export default updateSupplier;
