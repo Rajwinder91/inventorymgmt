@@ -21,6 +21,11 @@ import GetSupplier from './components/AdminSuppliers/getSuppliers';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
 import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
 
+//Catgory Components
+import GetCategory from './components/AdminCatgeories/getCategory';
+import CreateCategory from './components/AdminCatgeories/createCategory';
+import EditCategory from './components/AdminCatgeories/editCategory.js';
+
 //Product Components
 import GetProducts from './components/AdminProducts/getProducts';
 import CreateProduct from './components/AdminProducts/createProduct';
@@ -69,11 +74,14 @@ class App extends Component {
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
-                      <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
-                      <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>
+                      <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>                      
+                      <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>                      
                       <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
                       <PrivateRoute  exact path="/createProduct" component={CreateProduct}/>
                       <PrivateRoute  exact path="/updateProduct" component={UpdateProduct}/>
+                      <PrivateRoute  exact path="/getCategories" component={GetCategory}/>
+                      <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
+                      <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

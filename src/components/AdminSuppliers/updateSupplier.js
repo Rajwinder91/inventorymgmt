@@ -57,15 +57,14 @@ class updateSupplier extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsupplierbyId?SupplierId=${supplierid}&CompanyId=${user.CompanyId}`,
+            url: `http://18.218.124.225:3000/api/supplier/getsupplierbyId?pplierIdSu=${supplierid}&CompanyId=${user.CompanyId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
             }         
         })
-        .then(response => {
-            
-            if(response.data.success == 1){
+        .then(response => {         
+            if(response.data.success === 1){
                 this.setState({ 
                     supplierName: response.data.data[0].SupplierName,
                     supplierPhone: response.data.data[0].SupplierPhone,
@@ -104,7 +103,7 @@ class updateSupplier extends Component {
             }            
         })
         .then(response => {
-            if(response.data.success == 1){
+            if(response.data.success === 1){
                 initialProvinces = response.data.data.map((province) => {
                     return {value: province.ProvinceId, display: province.name} 
                 })
@@ -257,12 +256,12 @@ class updateSupplier extends Component {
                                                 <option
                                                 key={province.value}
                                                 value={province.value}
-                                                selected={this.state.province == province.value}
+                                                selected={this.state.province === province.value}
                                                 >
                                                 {province.display}
                                                 </option>
                                             ))}
-                                        </select>  
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

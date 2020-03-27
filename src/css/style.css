@@ -84,6 +84,25 @@
     border-right: 1px dashed #007bff;
 }
 
+
+/* Category Page CSS*/
+.btn_cate{
+    margin-top: 3%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 20%;
+    cursor: pointer;
+}
+
+.top_button{
+    padding-left: 82%;
+    margin-top: -37px;
+}
+
 .my-custom-scrollbar {
     position: relative;
     overflow: auto;
@@ -91,11 +110,13 @@
 .table-wrapper-scroll-y {
     display: block;
 }
-
 .companyLogo{
     height: 35px;
 }
 .headings{
     margin-bottom: 6%;
 }
-    
+.companyLogo{
+    width: 70px;
+    height: 70px;
+}

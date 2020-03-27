@@ -79,26 +79,26 @@ class getProducts extends Component {
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                    <th scope="col">Product Id</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">SKU</th>
-                                    <th scope="col">Inventory</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Actions</th>
+                                        <th scope="col">Product Id</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Inventory</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {this.state.productsList.map(product => (
                                         <tr>
-                                        <th scope="row">{product.id}</th>
-                                        <td>{product.productName}</td>
-                                        <td>{product.productSku}</td>
-                                        <td>{product.productInventory}</td>
-                                        <td>{product.productCat}</td>
-                                        <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | <NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></NavLink></td>
+                                            <td>{product.id}</td>
+                                            <td>{product.productName}</td>
+                                            <td>{product.productSku}</td>
+                                            <td>{product.productInventory}</td>
+                                            <td>{product.productCat}</td>
+                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | <NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></NavLink></td>
                                         </tr>
                                     ))
-                                    }                               
+                                    }                         
                                 
                                 </tbody>
                             </table>

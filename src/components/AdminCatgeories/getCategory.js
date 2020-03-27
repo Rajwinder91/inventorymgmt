@@ -9,20 +9,21 @@ import axios from 'axios';
 const user = getUser();
 const token = getToken();
  
-class getSuppliers extends Component { 
+class getCategory extends Component { 
     
     //Set state values
     state = {
-        suppliersList: []
+        CategoryList: []
     }
   
     //Get all Supplier API
     componentDidMount() {
-        let initialSuppliers = [];
+        let initialCategory = [];
         axios({
+
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: `http://18.218.124.225:3000/api/category/getcategories`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -32,18 +33,18 @@ class getSuppliers extends Component {
             }          
         })
         .then(response => {
-            console.log(response.data.success);
+            //console.log(response.data.success);
             if(response.data.success === 1){
-                initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
-                    return {id: supplier.SupplierId, suppliername: supplier.SupplierName, supplieremail: supplier.SupplierEmail, suppliercity: supplier.City} 
+                initialCategory = response.data.data.map((category) => { console.log(category.categoryId);
+                    return {id: category.categoryId, categoryname: category.catename, tags: category.tags, Sku:category.cateSKU} 
                 })
                 this.setState({
-                    suppliersList: initialSuppliers
+                    CategoryList: initialCategory
                 })
                 
             }else{
                 this.setState({
-                    suppliersList: []
+                    CategoryList: []
                 })
             }
             
@@ -56,41 +57,38 @@ class getSuppliers extends Component {
 
     //Start render Function
     render() {
-        /*function refreshPage() {
-            window.location.reload(false);
-        }
-        */
         return (
             <div class="container-fluid">
                 <div class="row">
                     <DashboardSidebar/>
-                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                                        
+                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
                         <div class="headings">
-                            <div class="float-left"><h3 class="text-primary">Suppliers</h3></div>
-                            <div class="float-right"><NavLink to="/createSupplier" className="btn btn-primary">Create Supplier</NavLink></div>
-                        </div>                    
+                            <div class="float-left"><h3 class="text-primary">Categories</h3></div>
+                            <div class="float-right"><NavLink to="/createCategory" className="btn btn-primary">Create Category</NavLink></div>
+                        </div>                   
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Supplier Id</th>
-                                        <th scope="col">Supplier Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">City</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Categogy Id</th>
+                                        <th scope="col">Category Name</th>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Tags</th>   
+                                        <th scope="col">Actions</th>                                 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.suppliersList.map(supplier => (
+                                    {this.state.CategoryList.map(category => (
                                         <tr>
-                                            <td>{supplier.id}</td>
-                                            <td>{supplier.suppliername}</td>
-                                            <td>{supplier.supplieremail}</td>
-                                            <td>{supplier.suppliercity}</td>
-                                            <td><NavLink to={`/updateSupplier?supplierId=${supplier.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Supplier"/></NavLink></td>
+                                            <td>{category.id}</td>
+                                            <td>{category.categoryname}</td>                                            
+                                            <td>{category.Sku}</td>
+                                            <td>{category.tags}</td>
+                                            <td><NavLink to={`/editCategory?categoryId=${category.id}`} className="btn btn-primary"><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Category"/></NavLink></td>
                                         </tr>
                                     ))
-                                    }                           
+                                    }                               
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -102,4 +100,4 @@ class getSuppliers extends Component {
     //End render Function
 }
              
-export default getSuppliers;
+export default getCategory;

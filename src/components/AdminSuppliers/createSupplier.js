@@ -70,7 +70,7 @@ class createSupplier extends Component {
         })
         .then(response => {
             //console.log(response.data.success);
-            if(response.data.success == 1){
+            if(response.data.success === 1){
                 initialProvinces = response.data.data.map((province) => {
                     return {value: province.ProvinceId, display: province.name} 
                 })
