@@ -20,7 +20,7 @@ class createProduct extends Component {
         productRetailPrice: '',
         productCat: '',
         productCountry: '',
-        productImg:'logo.jpeg',
+        productImg:'',
         productSupplier: '',
         productQuantity:'50',
         productBarcode: '',
@@ -30,7 +30,10 @@ class createProduct extends Component {
         categoriesList: [],
         suppliersList:[]
     }
-        
+    
+    selectImages = (event) => {
+        this.setState({ productImg: event.target.files[0]})
+    }
     //Fetch Country, Supplier and Category List
     componentDidMount() { 
 
@@ -65,7 +68,7 @@ class createProduct extends Component {
                 'Authorization': 'Bearer '+token
             },
             data: {
-                "CompanyId" : 1
+                "CompanyId" : user.CompanyId
             }          
         })
         .then(response => {
@@ -100,7 +103,7 @@ class createProduct extends Component {
                 'Authorization': 'Bearer '+token
             },
             data: {
-                "CompanyId" : 1
+                "CompanyId" : user.CompanyId
             }          
         })
         .then(response => {
@@ -158,43 +161,43 @@ class createProduct extends Component {
     //Create product api
     submitHandler = e => {
         e.preventDefault();
-            axios({
-                method: 'POST',
-                responseType: 'json',
-                url: `http://18.218.124.225:3000/api/product/createproduct`,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+token
-                },
-                data: {
-                    "Product_name" : this.state.productName,
-                    "Description" : this.state.productDesc,
-                    "SKU": this.state.productSKU,
-                    "PurchasePrice": this.state.productPurchasePrice,
-                    "RetailPrice": this.state.productRetailPrice,
-                    "CategoryId": this.state.productCat,
-                    "Country_Origin_id": this.state.productCountry,
-                    "Image": this.state.productImg,
-                    "SupplierId": this.state.productSupplier,
-                    "Barcode": this.state.productBarcode,
-                    "Qty_minimum_required": this.state.productQuantity,
-                    "CompanyId": user.CompanyId
-                }
-                
-            })
-            .then(response => {
-                console.log("Response"+response.data);
-                if(response.data.success === 0){
-                    this.setState({errorMessage: response.data.message});
-                }else{
-                    this.setState({successMsg: response.data.message})
-                    window.location.href ='/getProducts';
-                }                
-            })
-            .catch(error => {
-                console.log("Error"+error);
-                this.setState({errorMessage: error.response.data.message});
-            });
+        const data = new FormData() 
+        data.append('Product_name', this.state.productName)
+        data.append('Description', this.state.productDesc)
+        data.append('SKU', this.state.productSKU)        
+        data.append('PurchasePrice', this.state.productPurchasePrice)
+        data.append('RetailPrice', this.state.productRetailPrice)        
+        data.append('CategoryId', this.state.productCat)
+        data.append('Country_Origin_id', this.state.productCountry)        
+        data.append('Image', this.state.productImg)
+        data.append('SupplierId', this.state.productSupplier)
+        data.append('Barcode', this.state.productBarcode)        
+        data.append('Qty_minimum_required', this.state.productQuantity)
+        data.append('CompanyId', user.CompanyId)
+        axios({
+            method: 'POST',
+            responseType: 'json',
+            url: `http://18.218.124.225:3000/api/product/createproduct`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            data: data
+            
+        })
+        .then(response => {
+            console.log("Response"+response.data);
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+                //window.location.href ='/getProducts';
+            }                
+        })
+        .catch(error => {
+            console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });
     };
    
     //Start Render Function
@@ -203,142 +206,146 @@ class createProduct extends Component {
         <div class="container-fluid">
             <div class="row">
                 <DashboardSidebar/>
-                <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        { this.state.errorMessage &&
-                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
-                        } 
-                        { this.state.successMsg &&
-                            <p className="alert alert alert-success"> { this.state.successMsg } </p>
-                        } 
-                       
-                        <h3 class="text-primary">Create Product</h3>                        
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
-                            <div  class="top_button_product">         
-                                <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
-                                &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
-                            </div>
-                            <div class="row register-form">                                
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" required name="productName" value={this.state.productName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Product Name*"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" required name="productSKU" value={this.state.productSKU} onChange={e => this.ChangeHandler(e)} placeholder="SKU*" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="productDesc" rows="3" placeholder="Product Description*" value={this.state.productDesc} onChange={e => this.ChangeHandler(e)} required >Product Description</textarea>
-                                    </div>
-                                </div>                                 
-                                <div class="col-md-6">                                   
-                                    <div class="input-group mb-2">
-                                        <input type="text" class="form-control" required name="productPurchasePrice" value={this.state.productPurchasePrice} onChange={e => this.ChangeHandler(e)} placeholder="Purchase price*"/> 
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">CAD</div>
-                                        </div>
-                                    </div>                                                   
-                                </div>
-                                <div class="col-md-6">                                   
-                                    <div class="input-group mb-2">
-                                        <input type="text" class="form-control" name="productRetailPrice" required value={this.state.productRetailPrice} onChange={e => this.ChangeHandler(e)} placeholder="Retail price*"/> 
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">CAD</div>
-                                        </div>
-                                    </div>                                                   
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <select name="productCat" class="form-control" required
-                                            value={this.state.productCat}
-                                            onChange={e =>
-                                                this.setState({
-                                                productCat: e.target.value,
-                                                errorMessage:
-                                                    e.target.value === ""
-                                                    ? "You must select category"
-                                                    : ""
-                                                })
-                                            }                                            
-                                            >
-                                            {this.state.categoriesList.map(category => (
-                                                <option
-                                                key={category.id}
-                                                value={category.id}
-                                                >
-                                                {category.categoryname}
-                                                </option>
-                                            ))}
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <select name="productCountry" class="form-control" required
-                                            value={this.state.productCountry}
-                                            onChange={e =>
-                                                this.setState({
-                                                productCountry: e.target.value,
-                                                errorMessage:
-                                                    e.target.value === ""
-                                                    ? "You must select country"
-                                                    : ""
-                                                })
-                                            }                                            
-                                            >
-                                            {this.state.countries.map(country => (
-                                                <option
-                                                key={country.value}
-                                                value={country.value}
-                                                >
-                                                {country.display}
-                                                </option>
-                                            ))}
-                                        </select>  
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="avatar">Product Image</label>
-                                        <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <select name="productSupplier" class="form-control" required
-                                            value={this.state.productSupplier}
-                                            onChange={e =>
-                                                this.setState({
-                                                productSupplier: e.target.value,
-                                                errorMessage:
-                                                    e.target.value === ""
-                                                    ? "You must select supplier"
-                                                    : ""
-                                                })
-                                            }                                            
-                                            >
-                                            {this.state.suppliersList.map(supplier => (
-                                                <option
-                                                key={supplier.id}
-                                                value={supplier.id}
-                                                >
-                                                {supplier.suppliername}
-                                                </option>
-                                            ))}
-                                        </select> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" name="productBarcode" value={this.state.productBarcode} onChange={e => this.ChangeHandler(e)} class="form-control"  required placeholder="Bar Code"/>
-                                    </div>
+                <div class="col-md-9 ml-sm-auto col-lg-10 px-4">             
+                    { this.state.errorMessage &&
+                        <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                    } 
+                    { this.state.successMsg &&
+                        <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                    } 
+                    <div class="float-left"><h3 class="text-primary">Create Product</h3></div>                       
+                    <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <div class="float-right">          
+                            <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
+                            &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
+                        </div>
+                        <br></br> <br></br> <br></br>
+                        <div class="row register-form">                                
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" required name="productName" value={this.state.productName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Product Name*"/>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" required name="productSKU" value={this.state.productSKU} onChange={e => this.ChangeHandler(e)} placeholder="SKU*" />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="productDesc" rows="3" placeholder="Product Description*" value={this.state.productDesc} onChange={e => this.ChangeHandler(e)} required >Product Description</textarea>
+                                </div>
+                            </div>                                 
+                            <div class="col-md-6">                                   
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" required name="productPurchasePrice" value={this.state.productPurchasePrice} onChange={e => this.ChangeHandler(e)} placeholder="Purchase price*"/> 
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">CAD</div>
+                                    </div>
+                                </div>                                                   
+                            </div>
+                            <div class="col-md-6">                                   
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" name="productRetailPrice" required value={this.state.productRetailPrice} onChange={e => this.ChangeHandler(e)} placeholder="Retail price*"/> 
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">CAD</div>
+                                    </div>
+                                </div>                                                   
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select name="productCat" class="form-control" required
+                                        value={this.state.productCat}
+                                        onChange={e =>
+                                            this.setState({
+                                            productCat: e.target.value,
+                                            errorMessage:
+                                                e.target.value === ""
+                                                ? "You must select category"
+                                                : ""
+                                            })
+                                        }                                            
+                                        >
+                                        {this.state.categoriesList.map(category => (
+                                            <option
+                                            key={category.id}
+                                            value={category.id}
+                                            >
+                                            {category.categoryname}
+                                            </option>
+                                        ))}
+                                    </select>  
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select name="productCountry" class="form-control" required
+                                        value={this.state.productCountry}
+                                        onChange={e =>
+                                            this.setState({
+                                            productCountry: e.target.value,
+                                            errorMessage:
+                                                e.target.value === ""
+                                                ? "You must select country"
+                                                : ""
+                                            })
+                                        }                                            
+                                        >
+                                        {this.state.countries.map(country => (
+                                            <option
+                                            key={country.value}
+                                            value={country.value}
+                                            >
+                                            {country.display}
+                                            </option>
+                                        ))}
+                                    </select>  
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text companyLogo" id="inputGroupFileAddon01">Product Image*</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" required  onChange={this.selectImages}/>
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select name="productSupplier" class="form-control" required
+                                        value={this.state.productSupplier}
+                                        onChange={e =>
+                                            this.setState({
+                                            productSupplier: e.target.value,
+                                            errorMessage:
+                                                e.target.value === ""
+                                                ? "You must select supplier"
+                                                : ""
+                                            })
+                                        }                                            
+                                        >
+                                        {this.state.suppliersList.map(supplier => (
+                                            <option
+                                            key={supplier.id}
+                                            value={supplier.id}
+                                            >
+                                            {supplier.suppliername}
+                                            </option>
+                                        ))}
+                                    </select> 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="productBarcode" value={this.state.productBarcode} onChange={e => this.ChangeHandler(e)} class="form-control"  required placeholder="Bar Code"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div> 
         </div>          

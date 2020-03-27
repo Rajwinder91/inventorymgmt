@@ -70,15 +70,11 @@ class getProducts extends Component {
             <div class="container-fluid">
                 <div class="row">
                     <DashboardSidebar/>
-                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                 
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <h3 class="text-primary">Products</h3>
-                            <div class="top_button">
-                                <div class="form-group">
-                                    <NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink>
-                                </div>
-                            </div>
-                        </div>                    
+                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">   
+                        <div class="headings">
+                            <div class="float-left"><h3 class="text-primary">Products</h3></div>
+                            <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink></div>
+                        </div>                   
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
@@ -99,7 +95,7 @@ class getProducts extends Component {
                                         <td>{product.productSku}</td>
                                         <td>{product.productInventory}</td>
                                         <td>{product.productCat}</td>
-                                        <td><NavLink to={`/updateProduct?productId=${product.id}`} className="btn btn-primary">Update Product</NavLink> | <button onClick={this.delete(product.id)} className="btn btn-danger">Delete Product</button></td>
+                                        <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | <NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></NavLink></td>
                                         </tr>
                                     ))
                                     }                               
