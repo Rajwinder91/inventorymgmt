@@ -9,20 +9,22 @@ import axios from 'axios';
 const user = getUser();
 const token = getToken();
  
-class getSuppliers extends Component { 
-    
+class getProducts extends Component { 
+   
     //Set state values
     state = {
-        suppliersList: []
+        productsList: []         
     }
   
     //Get all Supplier API
     componentDidMount() {
-        let initialSuppliers = [];
+
+        let initialProducts = [];
         axios({
+
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: `http://18.218.124.225:3000/api/product/getproducts`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -33,17 +35,17 @@ class getSuppliers extends Component {
         })
         .then(response => {
             console.log(response.data.success);
-            if(response.data.success === 1){
-                initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
-                    return {id: supplier.SupplierId, suppliername: supplier.SupplierName, supplieremail: supplier.SupplierEmail, suppliercity: supplier.City} 
+            if(response.data.success == 1){
+                initialProducts = response.data.data.map((product) => { console.log(product.SupplierId);
+                    return {id: product.ProductId, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} 
                 })
                 this.setState({
-                    suppliersList: initialSuppliers
+                    productsList: initialProducts
                 })
                 
             }else{
                 this.setState({
-                    suppliersList: []
+                    productsList: []
                 })
             }
             
@@ -52,6 +54,10 @@ class getSuppliers extends Component {
             console.log("Error:"+ error)
             this.setState({errorMessage: error.response});
         })
+    }
+   
+    delete(productId) {
+       console.log(productId);
     }
 
     //Start render Function
@@ -66,10 +72,10 @@ class getSuppliers extends Component {
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                 
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <h3 class="text-primary">Suppliers</h3>
+                            <h3 class="text-primary">Products</h3>
                             <div class="top_button">
                                 <div class="form-group">
-                                    <NavLink to="/createSupplier" className="btn btn-primary">Create Supplier</NavLink>
+                                    <NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink>
                                 </div>
                             </div>
                         </div>                    
@@ -77,24 +83,27 @@ class getSuppliers extends Component {
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                    <th scope="col">Supplier Id</th>
-                                    <th scope="col">Supplier Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Product Id</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">SKU</th>
+                                    <th scope="col">Inventory</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.suppliersList.map(supplier => (
+                                    {this.state.productsList.map(product => (
                                         <tr>
-                                        <th scope="row">{supplier.id}</th>
-                                        <td>{supplier.suppliername}</td>
-                                        <td>{supplier.supplieremail}</td>
-                                        <td>{supplier.suppliercity}</td>
-                                        <td><NavLink to={`/updateSupplier?supplierId=${supplier.id}`} className="btn btn-primary">Update Supplier</NavLink></td>
+                                        <th scope="row">{product.id}</th>
+                                        <td>{product.productName}</td>
+                                        <td>{product.productSku}</td>
+                                        <td>{product.productInventory}</td>
+                                        <td>{product.productCat}</td>
+                                        <td><NavLink to={`/updateProduct?productId=${product.id}`} className="btn btn-primary">Update Product</NavLink> | <button onClick={this.delete(product.id)} className="btn btn-danger">Delete Product</button></td>
                                         </tr>
                                     ))
-                                    }                           
+                                    }                               
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -106,4 +115,4 @@ class getSuppliers extends Component {
     //End render Function
 }
              
-export default getSuppliers;
+export default getProducts;
