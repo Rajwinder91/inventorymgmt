@@ -19,6 +19,8 @@ import Dashboard from "./components/Dashboard/dashboard";
 //Supplier Components
 import GetSupplier from './components/AdminSuppliers/getSuppliers';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
+import CreateCategory from './components/AdminCatgeories/createCategory';
+import EditCategory from './components/AdminCatgeories/editCategory.js';
 import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
 
 //Product Components
@@ -70,6 +72,8 @@ class App extends Component {
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
+                      <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
+                      <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
                       <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>
                       <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
                       <PrivateRoute  exact path="/createProduct" component={CreateProduct}/>
