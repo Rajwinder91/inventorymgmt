@@ -109,10 +109,6 @@ class getProducts extends Component {
 
     //Start render Function
     render() {
-        /*function refreshPage() {
-            window.location.reload(false);
-        }
-        */
         return (
             <div class="container-fluid">
                 <div class="row">

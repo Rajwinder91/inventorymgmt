@@ -197,12 +197,11 @@ class updateProduct extends Component {
             axios({
                 method: 'PUT',
                 responseType: 'json',
-                url: `http://18.218.124.225:3000/api/product/editproduct`,
+                url: `http://18.218.124.225:3000/api/product/editproduct`,data,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token
-                },
-                data: {data }
+                }
                 
             })
             .then(response => {
@@ -324,7 +323,7 @@ class updateProduct extends Component {
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text companyLogo" id="inputGroupFileAddon01">Product Image*</span>
+                                            <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Product Image*</span>
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" required onChange={this.selectImages}/>

@@ -10,13 +10,12 @@ const token = getToken();
 
 class editCategory extends Component {
 
-    //Set the update supplier state values
+    //Set the update category state values
     state = {
         catename: '',
         Tags: '',
         cateSKU: ''
     }
-    handleChange = this.handleChange.bind(this);  
     
     componentDidMount() {            
         const categoryid = new URLSearchParams(this.props.location.search).get('categoryId');
@@ -31,12 +30,18 @@ class editCategory extends Component {
             }         
         })
         .then(response => {            
-            if(response.data.success == 1){
+            if(response.data.success == 1){ 
                 this.setState({ 
+<<<<<<< HEAD
                     categoryname: response.data.data[0].categoryname,
                     tags: response.data.data[0].tags,
                     SKU: response.data.data[0].SKU,
                     categoryId: response.data.data[0].categoryId
+=======
+                    catename: response.data.data[0].categoryname,
+                    Tags: response.data.data[0].tags,
+                    cateSKU: response.data.data[0].SKU
+>>>>>>> 7335ab5c7f8362ca1de43285d24bb2938568dc26
               })
             }            
         })        
@@ -49,10 +54,10 @@ class editCategory extends Component {
 
     //Cancel Button functionality
     cancelCourse = () => {     
-        window.location.href ='/getCategory';   
+        window.location.href ='/getCategories';   
     }
 
-    //Get form values on chnage handler
+    //Get form values on change handler
     ChangeHandler = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -60,7 +65,7 @@ class editCategory extends Component {
         
     };
 
-    //Submit supplier form after clicking on save button || Call Update supplier api
+    //Submit category form after clicking on save button || Call Update category api
     submitHandler = e => {
         const categoryid = new URLSearchParams(this.props.location.search).get('categoryId');
         e.preventDefault();
@@ -76,17 +81,15 @@ class editCategory extends Component {
                     "categoryId"  : categoryid,
                     "categoryname" : this.state.catename,
                     "tags" : this.state.Tags,
-                    "SKU": this.state.cateSKU,
-                    
+                    "SKU": this.state.cateSKU
                 }
-                
             })
             .then(response => {
                 if(response.data.success === 0){
                     this.setState({errorMessage: response.data.message});
                 }else{
                     this.setState({successMsg: response.data.message})
-                    window.location.href ='/getCategory';
+                    window.location.href ='/getCategories';
                 }                
             })
             .catch(error => {
@@ -112,7 +115,7 @@ class editCategory extends Component {
                         <form method="post" name="register" onSubmit={this.submitHandler}>
                             <div class="float-right">           
                                 <input type="submit" class="btn btn-primary mb-2" onClick={this.cancelCourse} value="Cancel"/>
-                                &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
+                                &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                             </div>
                             <br></br> <br></br> <br></br>
                             <div class="row register-form">
