@@ -13,17 +13,24 @@ class getCategory extends Component {
     
     //Set state values
     state = {
-        CategoryList: []
+        CategoryList: [],
+        cateName : ''
     }
   
     //Get all Supplier API
     componentDidMount() {
+
+        let url = '';
+        if(this.state.cateName){
+            url =`http://18.218.124.225:3000/api/category/getcategories?CategoryName=`+this.state.cateName;
+        }else{
+            url =`http://18.218.124.225:3000/api/category/getcategories?`;
+        }
         let initialCategory = [];
         axios({
-
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/category/getcategories`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -55,8 +62,31 @@ class getCategory extends Component {
         })
     }
 
+    ChangeHandler = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    submitHandler = e => {
+        console.log(user.CompanyId);
+        e.preventDefault(); 
+        this.componentDidMount();
+    }
+    cancel = () => { 
+        this.setState({
+            cateName : ''
+        });
+    }
     //Start render Function
     render() {
+        function myFunction() {
+            var x = document.getElementById("categoryFilter");
+            if (x.style.display === "none") {
+                x.style.display = "flex";
+            } else {
+                x.style.display = "none";
+            }
+        }
         return (
             <div class="container-fluid">
                 <div class="row">
@@ -65,7 +95,25 @@ class getCategory extends Component {
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Categories</h3></div>
                             <div class="float-right"><NavLink to="/createCategory" className="btn btn-primary">Create Category</NavLink></div>
-                        </div>                   
+                        </div> 
+                        <br/>
+                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                            <div class="float-right">
+                                <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
+                                <button  class="btn btn-primary" onClick={this.cancel}>Reset</button>
+                            </div> 
+                            <br/><br/><br/><br/>
+                            <div id="categoryFilter" class="row register-form">                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" name="cateName" value={this.state.cateName} onChange={e => this.ChangeHandler(e)} placeholder="Category Name"/>
+                                    </div>
+                                </div>                                
+                                <div class="col-md-6">
+                                    <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
+                                </div>
+                            </div>  
+                        </form>             
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
