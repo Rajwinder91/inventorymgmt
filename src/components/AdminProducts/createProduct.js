@@ -107,7 +107,7 @@ class createProduct extends Component {
             }          
         })
         .then(response => {
-            console.log(response.data.success);
+            //console.log(response.data.success);
             if(response.data.success == 1){
                 initialCategories = response.data.data.map((category) => { 
                     return {id: category.CategoryId, categoryname: category.categoryname} 
@@ -191,7 +191,7 @@ class createProduct extends Component {
                 this.setState({errorMessage: response.data.message});
             }else{
                 this.setState({successMsg: response.data.message})
-                //window.location.href ='/getProducts';
+                window.location.href ='/getProducts';
             }                
         })
         .catch(error => {
@@ -305,7 +305,7 @@ class createProduct extends Component {
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text companyLogo" id="inputGroupFileAddon01">Product Image*</span>
+                                        <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Product Image*</span>
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" required  onChange={this.selectImages}/>

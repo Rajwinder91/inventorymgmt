@@ -21,7 +21,7 @@ class createCategory extends Component {
     };
     
     submitHandler = e => {
-        //console.log(this.state);
+        console.log(user.CompanyId);
         e.preventDefault();       
         axios({
             method: 'POST',
@@ -46,7 +46,7 @@ class createCategory extends Component {
                 this.setState({errorMessage: response.data.message});
             }else{
                 this.setState({successMsg: response.data.message})
-                window.location.href ='/getCategory';
+                window.location.href ='/getCategories';
             }                
         })
         .catch(error => {
@@ -65,8 +65,6 @@ class createCategory extends Component {
             
         });
     }
-
-
     render() {
       return (
         <div class="container-fluid">

@@ -217,7 +217,7 @@ class signup extends Component {
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text companyLogo" id="inputGroupFileAddon01">Comapny Logo*</span>
+                                            <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Comapny Logo*</span>
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" required onChange={this.selectImages}/>

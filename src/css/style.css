@@ -110,7 +110,7 @@
 .table-wrapper-scroll-y {
     display: block;
 }
-.companyLogo{
+.logoStyle{
     height: 35px;
 }
 .headings{
@@ -119,4 +119,7 @@
 .companyLogo{
     width: 70px;
     height: 70px;
+}
+.table td, .table th{
+    vertical-align: baseline !important;
 }

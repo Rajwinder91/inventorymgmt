@@ -34,9 +34,9 @@ class getCategory extends Component {
         })
         .then(response => {
             //console.log(response.data.success);
-            if(response.data.success === 1){
-                initialCategory = response.data.data.map((category) => { console.log(category.categoryId);
-                    return {id: category.categoryId, categoryname: category.catename, tags: category.tags, Sku:category.cateSKU} 
+            if(response.data.success == 1){
+                initialCategory = response.data.data.map((category) => {
+                    return {id: category.CategoryId, categoryname: category.categoryname, tags: category.tags, Sku:category.SKU} 
                 })
                 this.setState({
                     CategoryList: initialCategory
@@ -84,7 +84,7 @@ class getCategory extends Component {
                                             <td>{category.categoryname}</td>                                            
                                             <td>{category.Sku}</td>
                                             <td>{category.tags}</td>
-                                            <td><NavLink to={`/editCategory?categoryId=${category.id}`} className="btn btn-primary"><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Category"/></NavLink></td>
+                                            <td><NavLink to={`/editCategory?categoryId=${category.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Category"/></NavLink></td>
                                         </tr>
                                     ))
                                     }                               
