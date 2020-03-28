@@ -19,7 +19,7 @@ class updateProduct extends Component {
         productRetailPrice: '',
         productCat: '',
         productCountry: '',
-        productImg: 'logo.jpeg',
+        productImg: '',
         productSupplier: '',
         productQuantity:'50',
         productBarcode: '',
@@ -29,7 +29,9 @@ class updateProduct extends Component {
         categoriesList: [],
         suppliersList:[]
     }
-    
+    selectImages = (event) => {
+        this.setState({ productImg: event.target.files[0]})
+    }
     //Fetch Country, supplier and category List and get product by id api
     componentDidMount() { 
 
@@ -101,7 +103,7 @@ class updateProduct extends Component {
                 'Authorization': 'Bearer '+token
             },
             data: {
-                "CompanyId" : 1
+                "CompanyId" : user.CompanyId
             }          
         })
         .then(response => {
@@ -177,6 +179,20 @@ class updateProduct extends Component {
     //Update product api
     submitHandler = e => {
         const productId = new URLSearchParams(this.props.location.search).get('productId');
+        const data = new FormData() 
+        data.append('ProductId', productId)
+        data.append('ProductName', this.state.productName)
+        data.append('Description', this.state.productDesc)
+        data.append('SKU', this.state.productSKU)        
+        data.append('PurchasePrice', this.state.productPurchasePrice)
+        data.append('RetailPrice', this.state.productRetailPrice)        
+        data.append('CategoryId', this.state.productCat)
+        data.append('Country_Origin_id', this.state.productCountry)        
+        data.append('Image', this.state.productImg)
+        data.append('SupplierId', this.state.productSupplier)
+        data.append('Barcode', this.state.productBarcode)        
+        data.append('QtyMinRequired', this.state.productQuantity)
+        data.append('CompanyId', user.CompanyId)
         e.preventDefault();
             axios({
                 method: 'PUT',
@@ -186,19 +202,7 @@ class updateProduct extends Component {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token
                 },
-                data: {
-                    "ProductId"  : productId,
-                    "ProductName" : this.state.productName,
-                    "Description" : this.state.productDesc,
-                    "PurchasePrice": this.state.productPurchasePrice,
-                    "RetailPrice": this.state.productRetailPrice,
-                    "CategoryId": this.state.productCat,
-                    "Country_Origin_id": this.state.productCountry,
-                    "Image": this.state.productImg,
-                    "SupplierId": this.state.productSupplier,
-                    "QtyMinRequired": this.state.productQuantity,
-                    "CompanyId": user.CompanyId
-                }
+                data: {data }
                 
             })
             .then(response => {
@@ -222,20 +226,19 @@ class updateProduct extends Component {
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            { this.state.errorMessage &&
-                                <p className="alert alert-danger"> { this.state.errorMessage } </p>
-                            } 
-                            { this.state.successMsg &&
-                                <p className="alert alert alert-success"> { this.state.successMsg } </p>
-                            } 
-                        
-                            <h3 class="text-primary">Update Product</h3>                        
-                            <form method="post" name="register" onSubmit={this.submitHandler}>
-                            <div  class="top_button_product">         
+                        { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                        } 
+                        { this.state.successMsg &&
+                            <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                        } 
+                        <div class="float-left"><h3 class="text-primary">Update Product</h3></div>                       
+                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                            <div class="float-right">        
                                 <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
                                 &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                             </div>
+                            <br></br> <br></br> <br></br>
                             <div class="row register-form">                                
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -319,10 +322,16 @@ class updateProduct extends Component {
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="avatar">Product Image</label>
-                                        <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg"/>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text companyLogo" id="inputGroupFileAddon01">Product Image*</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" required onChange={this.selectImages}/>
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                        </div>
                                     </div>
+                                    <br/>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -356,7 +365,6 @@ class updateProduct extends Component {
                                 </div>
                             </div>
                         </form>
-                        </div>
                     </div>
                 </div> 
             </div>    

@@ -63,9 +63,8 @@ class updateSupplier extends Component {
                 'Authorization': 'Bearer '+token
             }         
         })
-        .then(response => {
-            
-            if(response.data.success === 1){console.log(response.data.data[0].SupplierName);
+        .then(response => {         
+            if(response.data.success === 1){
                 this.setState({ 
                     supplierName: response.data.data[0].SupplierName,
                     supplierPhone: response.data.data[0].SupplierPhone,
@@ -188,105 +187,103 @@ class updateSupplier extends Component {
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            { this.state.errorMessage &&
-                                <p className="alert alert-danger"> { this.state.errorMessage } </p>
-                            } 
-                            { this.state.successMsg &&
-                                <p className="alert alert alert-success"> { this.state.successMsg } </p>
-                            } 
-                        
-                            <h3 class="text-primary">Update Supplier</h3>                        
-                            <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">
-                                <div  class="top_button">         
-                                    <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
-                                    &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
+                        { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                        } 
+                        { this.state.successMsg &&
+                            <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                        } 
+                        <div class="float-left"><h3 class="text-primary">Update Supplier</h3></div>                      
+                        <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">
+                            <div class="float-right">         
+                                <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
+                                &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
+                            </div>
+                            <br></br> <br></br> <br></br>
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" required name="supplierName" value={this.state.supplierName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Supplier Name*"/>
+                                    </div>
+                                                                        
+                                    <div class="form-group">
+                                        <input type="text" minlength="10" maxlength="10" required name="supplierPhone" value={this.state.supplierPhone} onChange={e => this.ChangeHandler(e)} class="form-control" placeholder=" Phone Number*" />
+                                    </div>                                      
                                 </div>
-                                <div class="row register-form">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" required name="supplierName" value={this.state.supplierName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Supplier Name*"/>
-                                        </div>
-                                                                            
-                                        <div class="form-group">
-                                            <input type="text" minlength="10" maxlength="10" required name="supplierPhone" value={this.state.supplierPhone} onChange={e => this.ChangeHandler(e)} class="form-control" placeholder=" Phone Number*" />
-                                        </div>                                      
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" required name="supplierEmailAddress" value={this.state.supplierEmailAddress} onChange={e => this.ChangeHandler(e)} placeholder="Email Address*"  />
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" required name="supplierEmailAddress" value={this.state.supplierEmailAddress} onChange={e => this.ChangeHandler(e)} placeholder="Email Address*"  />
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" name="supplierDiscount" value={this.state.supplierDiscount} onChange={e => this.ChangeHandler(e)} placeholder="Discount Rate"/>
+                                        <div class="input-group-prepend">
+                                        <div class="input-group-text">%</div>
                                         </div>
-                                        <div class="input-group mb-2">
-                                            <input type="text" class="form-control" name="supplierDiscount" value={this.state.supplierDiscount} onChange={e => this.ChangeHandler(e)} placeholder="Discount Rate"/>
-                                            <div class="input-group-prepend">
-                                            <div class="input-group-text">%</div>
-                                            </div>
-                                        </div>                                                   
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <select name="country" class="form-control" required
-                                                value={this.state.country}
-                                                onChange={this.handleChange}                                                
+                                    </div>                                                   
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select name="country" class="form-control" required
+                                            value={this.state.country}
+                                            onChange={this.handleChange}                                                
+                                            >
+                                            {this.state.countries.map(country => (
+                                                <option
+                                                key={country.value}
+                                                value={country.value}
                                                 >
-                                                {this.state.countries.map(country => (
-                                                    <option
-                                                    key={country.value}
-                                                    value={country.value}
-                                                    >
-                                                    {country.display}
-                                                    </option>
-                                                ))}
-                                            </select>             
-                                        </div> 
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <select name="province" class="form-control" required
-                                                value={this.state.province}
-                                                onChange={e =>
-                                                    this.setState({
-                                                    province: e.target.value,
-                                                    errorMessage:
-                                                        e.target.value === ""
-                                                        ? "You must select your province"
-                                                        : ""
-                                                    })
-                                                }
+                                                {country.display}
+                                                </option>
+                                            ))}
+                                        </select>             
+                                    </div> 
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select name="province" class="form-control" required
+                                            value={this.state.province}
+                                            onChange={e =>
+                                                this.setState({
+                                                province: e.target.value,
+                                                errorMessage:
+                                                    e.target.value === ""
+                                                    ? "You must select your province"
+                                                    : ""
+                                                })
+                                            }
+                                            >
+                                            {this.state.provinces.map(province => (
+                                                <option
+                                                key={province.value}
+                                                value={province.value}
+                                                selected={this.state.province === province.value}
                                                 >
-                                                {this.state.provinces.map(province => (
-                                                    <option
-                                                    key={province.value}
-                                                    value={province.value}
-                                                    selected={this.state.province === province.value}
-                                                    >
-                                                    {province.display}
-                                                    </option>
-                                                ))}
-                                            </select>  
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <input type="text" name="supplierCity" class="form-control" required value={this.state.supplierCity} onChange={e => this.ChangeHandler(e)} placeholder="City*"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="supplierAddress1" rows="3" required value={this.state.supplierAddress1} onChange={e => this.ChangeHandler(e)} >Address 1*</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="supplierAddress2" rows="3" value={this.state.supplierAddress2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
-                                        </div>
-                                    </div>    
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="supplierPostalCode" class="form-control" value={this.state.supplierPostalCode} onChange={e => this.ChangeHandler(e)}  pattern="[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]" required placeholder="Postal Code*"/>
-                                        </div>
+                                                {province.display}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="supplierCity" class="form-control" required value={this.state.supplierCity} onChange={e => this.ChangeHandler(e)} placeholder="City*"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="supplierAddress1" rows="3" required value={this.state.supplierAddress1} onChange={e => this.ChangeHandler(e)} >Address 1*</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="supplierAddress2" rows="3" value={this.state.supplierAddress2} onChange={e => this.ChangeHandler(e)}>Address 2</textarea>
+                                    </div>
+                                </div>    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="supplierPostalCode" class="form-control" value={this.state.supplierPostalCode} onChange={e => this.ChangeHandler(e)}  pattern="[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]" required placeholder="Postal Code*"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div> 
             </div>    

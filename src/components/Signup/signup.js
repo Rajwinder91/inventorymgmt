@@ -4,6 +4,7 @@ import inventoryimg1 from '../../images/inventory.jpg';
 import inventoryimg2 from '../../images/inventory1.jpg';
 import inventoryimg3 from '../../images/inventory2.jpg';
 import axios from 'axios';
+const BASE_URL = 'http://localhost:3000/';
 
 class signup extends Component {   
    
@@ -16,7 +17,7 @@ class signup extends Component {
         country: '',
         companyName: '',
         companyUrl: '',
-        logo:'logo.jpg',
+        companyLogo: null,
         address1: '',
         address2: '',
         city: '',
@@ -28,9 +29,13 @@ class signup extends Component {
         provinces: []
     }
     
-    handleChange = this.handleChange.bind(this);  
+    handleChange = this.handleChange.bind(this);    
     
-    componentDidMount() {  
+    selectImages = (event) => {
+        this.setState({ companyLogo: event.target.files[0]})
+    }
+
+    componentDidMount() {
         let initialCountries = [];
         fetch(`http://18.218.124.225:3000/api/countries/country`)
         .then(response => {
@@ -97,41 +102,40 @@ class signup extends Component {
 
     submitHandler = e => {
         e.preventDefault();
-            axios({
-                method: 'POST',
-                responseType: 'json',
-                url: `http://18.218.124.225:3000/api/companyuser/createCompany`,
-                data: {
-                    "Fname" : this.state.fname,
-                    "Lname" : this.state.lname,
-                    "Email": this.state.emailAddress,
-                    "PhoneNumber": this.state.phone,
-                    "Password": this.state.password,
-                    "CountryId": this.state.country,
-                    "CompanyName": this.state.companyName,
-                    "Website": this.state.companyUrl,
-                    "Logo": this.state.logo,
-                    "Address1": this.state.address1,
-                    "Address2": this.state.address2,
-                    "City": this.state.city,
-                    "ProvinceId": this.state.province,
-                    "PostalCode": this.state.postalCode
-                }
-                
-            })
-            .then(response => {
-                //console.log("Response"+response.data.success);
-                if(response.data.success === 0){
-                    this.setState({errorMessage: response.data.message});
-                }else{
-                    this.setState({successMsg: response.data.message})
-                    window.location.href ='/login';
-                }                
-            })
-            .catch(error => {
-                //console.log("Error"+error);
-                this.setState({errorMessage: error.response.data.message});
-            });
+        const data = new FormData() 
+        data.append('Fname', this.state.fname)
+        data.append('Lname', this.state.lname)
+        data.append('Email', this.state.emailAddress)        
+        data.append('Password', this.state.password)
+        data.append('PhoneNumber', this.state.phone)        
+        data.append('CompanyName', this.state.companyName)
+        data.append('Website', this.state.companyUrl)        
+        data.append('Logo', this.state.companyLogo)
+        data.append('Address1', this.state.address1)
+        data.append('Address2', this.state.address2)        
+        data.append('City', this.state.city)
+        data.append('CountryId', this.state.country)
+        data.append('ProvinceId', this.state.province)
+        data.append('PostalCode', this.state.postalCode)       
+        axios({
+            method: 'POST',
+            responseType: 'json',
+            url: `http://18.218.124.225:3000/api/companyuser/createCompany`, data
+        })
+        
+        .then(response => {
+            //console.log("Response"+response.data.success);
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+               // window.location.href ='/login';
+            }                
+        })
+        .catch(error => {
+            //console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });
     };
     render() {
         return (
@@ -184,8 +188,7 @@ class signup extends Component {
                                     <div class="form-group">   
                                         <select name="country" class="form-control" required
                                             value={this.state.country}
-                                            onChange={this.handleChange}
-                                            
+                                            onChange={this.handleChange}                                            
                                             >
                                             {this.state.countries.map(country => (
                                                 <option
@@ -211,6 +214,19 @@ class signup extends Component {
                                         <input type="text" name="companyUrl" class="form-control" placeholder="Company Url" value={this.state.companyUrl} onChange={e => this.ChangeHandler(e)}/>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text companyLogo" id="inputGroupFileAddon01">Comapny Logo*</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" required onChange={this.selectImages}/>
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose logo</label>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <br/>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                     <textarea class="form-control" placeholder="Address 1*" name="address1" rows="3" required value={this.state.address1} onChange={e => this.ChangeHandler(e)}>Address 1*</textarea>

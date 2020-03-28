@@ -33,7 +33,7 @@ class getCategory extends Component {
             }          
         })
         .then(response => {
-            console.log(response.data.success);
+            //console.log(response.data.success);
             if(response.data.success === 1){
                 initialCategory = response.data.data.map((category) => { console.log(category.categoryId);
                     return {id: category.categoryId, categoryname: category.catename, tags: category.tags, Sku:category.cateSKU} 
@@ -57,42 +57,34 @@ class getCategory extends Component {
 
     //Start render Function
     render() {
-        /*function refreshPage() {
-            window.location.reload(false);
-        }
-        */
         return (
             <div class="container-fluid">
                 <div class="row">
                     <DashboardSidebar/>
-                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                 
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <h3 class="text-primary">Category</h3>
-                            <div class="top_button">
-                                <div class="form-group">
-                                    <NavLink to="/createCategory" className="btn btn-primary">Create Category</NavLink>
-                                </div>
-                            </div>
-                        </div>                    
+                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
+                        <div class="headings">
+                            <div class="float-left"><h3 class="text-primary">Categories</h3></div>
+                            <div class="float-right"><NavLink to="/createCategory" className="btn btn-primary">Create Category</NavLink></div>
+                        </div>                   
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Category Name</th>
-                                    <th scope="col">SKU</th>
-                                    <th scope="col">Tags</th>
-                                  
+                                        <th scope="col">Categogy Id</th>
+                                        <th scope="col">Category Name</th>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Tags</th>   
+                                        <th scope="col">Actions</th>                                 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {this.state.CategoryList.map(category => (
                                         <tr>
-                                        <th scope="row">{category.id}</th>
-                                        <td>{category.categoryname}</td>
-                                        <td>{category.tags}</td>
-                                        <td>{category.Sku}</td>
-                                        <td><NavLink to={`/editCategory?categoryId=${category.id}`} className="btn btn-primary">Edit Category</NavLink></td>
+                                            <td>{category.id}</td>
+                                            <td>{category.categoryname}</td>                                            
+                                            <td>{category.Sku}</td>
+                                            <td>{category.tags}</td>
+                                            <td><NavLink to={`/editCategory?categoryId=${category.id}`} className="btn btn-primary"><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Category"/></NavLink></td>
                                         </tr>
                                     ))
                                     }                               

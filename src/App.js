@@ -19,19 +19,24 @@ import Dashboard from "./components/Dashboard/dashboard";
 //Supplier Components
 import GetSupplier from './components/AdminSuppliers/getSuppliers';
 import CreateSupplier from './components/AdminSuppliers/createSupplier';
+import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
+
+//Catgory Components
+import GetCategory from './components/AdminCatgeories/getCategory';
 import CreateCategory from './components/AdminCatgeories/createCategory';
 import EditCategory from './components/AdminCatgeories/editCategory.js';
-import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
+
+//import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
 
 //>>>>>>> 26b58fa4b1da9fde65bb9453ed565d92574c0278
 //import GetSupplier from './components/AdminSuppliers/getSuppliers';
-import GetCategory from './components/AdminCatgeories/getCategory';
+//import GetCategory from './components/AdminCatgeories/getCategory';
+
 
 //Product Components
 import GetProducts from './components/AdminProducts/getProducts';
 import CreateProduct from './components/AdminProducts/createProduct';
 import UpdateProduct from './components/AdminProducts/updateProduct';
-//>>>>>>> 8887999d4c3b7d878205f89b9c4789dd84e6dd27
 
 /* End Load Components */
 
@@ -76,6 +81,7 @@ class App extends Component {
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
+
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
 
 
@@ -90,6 +96,16 @@ class App extends Component {
                       <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
                       <PrivateRoute  exact path="/createProduct" component={CreateProduct}/>
                       <PrivateRoute  exact path="/updateProduct" component={UpdateProduct}/>
+
+                      <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>                      
+                      <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>                      
+                      <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
+                      <PrivateRoute  exact path="/createProduct" component={CreateProduct}/>
+                      <PrivateRoute  exact path="/updateProduct" component={UpdateProduct}/>
+                      <PrivateRoute  exact path="/getCategories" component={GetCategory}/>
+                      <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
+                      <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
+>>>>>>> abdbfdf3df80e87b147c40fe5d473eb4f9dcb4ee
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
