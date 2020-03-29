@@ -61,8 +61,7 @@ class createCategory extends Component {
         this.setState({
             catename: '',
             Tags: '',
-            cateSKU: ''
-            
+            cateSKU: ''            
         });
     }
     render() {
