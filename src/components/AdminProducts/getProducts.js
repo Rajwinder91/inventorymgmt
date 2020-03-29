@@ -51,11 +51,24 @@ class getProducts extends Component {
             
         })        
         .catch(error => {
-            console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
-        })
+            console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });
 
-        // get the delete product API's
+
+        
+    }
+   /*
+    delete(productId) {
+       console.log(productId);
+      // window.location.href ='/getProduct'; 
+    }*/
+    cancelCourse = () => {     
+        window.location.href ='/getSuppliers';   
+    }
+
+    
+    delete =(ProductId) => { 
         axios({
 
             method: 'PUT',
@@ -66,59 +79,31 @@ class getProducts extends Component {
                 'Authorization': 'Bearer '+token
             },
             data: {
-                "CompanyId" : 1,
-                "productId" : 1
+                
+                "ProductId" : ProductId
                 //"CompanyId" : user.CompanyId
             }          
         })
         
-
         .then(response => {
-            console.log(response.data.success);
-            if(response.data.success == 1){
-                initialProducts = response.data.data.map((product) => { console.log(product.productId);
-                    //return response.json();
-                    return {id: product.ProductId}/*{, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} */
-                })
-
-                this.setState({
-                    productsList: initialProducts
-                })
-                
+            console.log("Response"+response.data);
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
             }else{
-                this.setState({
-                    productsList: []
-                })
-            }
-            //this.handleDelete = this.handleDelete.bind(this);
-        })        
+                this.setState({successMsg: response.data.message})
+               // window.location.href ='/getProducts';
+            }                
+        })      
+        
         .catch(error => {
-            console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
-        })
-        
-
-        
-    }
+            console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });
     
-   /*
-    delete(productId) {
-       console.log(productId);
-      // window.location.href ='/getProduct'; 
-    }*/
-
-    delete(productId){
-           // console.log("remove"+ productId);
-           //const product= this.state.product.filter(product =>{
-             //  return product !== productId;
-           this.setState(state =>({
-               data: state.data.filter((productsList,product) =>product !== productId)
-           }));
+           
+          console.log(ProductId);
             }
 
-           //this.setState({
-           //    productsList: [...product]
-           //})
         
     //Start render Function
     render() {
@@ -131,10 +116,17 @@ class getProducts extends Component {
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">   
+
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Products</h3></div>
                             <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink></div>
-                        </div>                   
+                        </div>
+                        { this.state.errorMessage &&
+                        <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                    } 
+                    { this.state.successMsg &&
+                        <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                    } 
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
@@ -156,10 +148,13 @@ class getProducts extends Component {
                                             <td>{product.productInventory}</td>
                                             <td>{product.productCat}</td>
                                             <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | 
-                                            <NavLink to={`/getProducts?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product" 
-                                            onclick={()=> this.delete(product)}
-                                            /></NavLink></td>
+                                
+                                            <td>  <button onClick={this.delete(product.id)} ><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/> </button>
+                                                </td>
+                                        
+                                        </td>
                                         </tr>
+                                       
                                     ))
                                     }                         
                                 
