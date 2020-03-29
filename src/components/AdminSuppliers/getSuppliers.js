@@ -13,16 +13,45 @@ class getSuppliers extends Component {
     
     //Set state values
     state = {
-        suppliersList: []
+        suppliersList: [],
+        countries: [],
+        supplierName: '',
+        supplierId: '',
+        country: '',
+        supplierCity:''
     }
   
     //Get all Supplier API
     componentDidMount() {
+
+        let initialCountries = [];
         let initialSuppliers = [];
+        let url = '';
+        if(this.state.supplierName || this.state.supplierId || this.state.country || this.state.supplierCity){
+            url =`http://18.218.124.225:3000/api/supplier/getsuppliers?SupplierName=`+this.state.supplierName+'&&SupplierId='+this.state.supplierId+'&&City='+this.state.supplierCity+'&&CountryName='+this.state.country;
+        }else{
+            url =`http://18.218.124.225:3000/api/supplier/getsuppliers`;
+        }
+        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        .then(response => {
+            return response.json();
+            }).then(data => {           
+                initialCountries = data.data.map((country) => {
+                return {value: country.CountryId, display: country.name}
+                
+            });
+            this.setState({
+                countries: [{value: '', display: 'Please select your country'}].concat(initialCountries)
+            })            
+        })
+        .catch(error => {
+            this.setState({errorMessage: error.response});
+        })   
+
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -34,7 +63,7 @@ class getSuppliers extends Component {
         .then(response => {
             console.log(response.data.success);
             if(response.data.success == 1){
-                initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
+                initialSuppliers = response.data.data.map((supplier) => { 
                     return {id: supplier.SupplierId, suppliername: supplier.SupplierName, supplieremail: supplier.SupplierEmail, suppliercity: supplier.City} 
                 })
                 this.setState({
@@ -53,13 +82,33 @@ class getSuppliers extends Component {
             this.setState({errorMessage: error.response});
         })
     }
-
+    ChangeHandler = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    submitHandler = e => {
+        e.preventDefault(); 
+        this.componentDidMount();
+    }
+    reset = () => { 
+        this.setState({            
+            supplierName: '',
+            supplierId: '',
+            country: '',
+            supplierCity:''
+        });
+    }
     //Start render Function
     render() {
-        /*function refreshPage() {
-            window.location.reload(false);
+        function myFunction() {
+            var x = document.getElementById("supplierFilter");
+            if (x.style.display === "none") {
+                x.style.display = "flex";
+            } else {
+                x.style.display = "none";
+            }
         }
-        */
         return (
             <div class="container-fluid">
                 <div class="row">
@@ -68,7 +117,59 @@ class getSuppliers extends Component {
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Suppliers</h3></div>
                             <div class="float-right"><NavLink to="/createSupplier" className="btn btn-primary">Create Supplier</NavLink></div>
-                        </div>                    
+                        </div>      
+                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                            <div class="float-right">
+                                <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
+                                <button  class="btn btn-primary" onClick={this.reset}>Reset</button>
+                            </div> 
+                            <br/><br/><br/><br/>
+                            <div id="supplierFilter" class="row register-form">                                
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" name="supplierName" value={this.state.supplierName} onChange={e => this.ChangeHandler(e)} placeholder="Supplier Name"/>
+                                    </div>
+                                </div> 
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" name="supplierId" value={this.state.supplierId} onChange={e => this.ChangeHandler(e)} placeholder="Supplier Id"/>
+                                    </div>
+                                </div>  
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select name="productCountry" class="form-control" required
+                                            value={this.state.country}
+                                            onChange={e =>
+                                                this.setState({
+                                                country: e.target.value,
+                                                errorMessage:
+                                                    e.target.value === ""
+                                                    ? "You must select country"
+                                                    : ""
+                                                })
+                                            }                                            
+                                            >
+                                            {this.state.countries.map(country => (
+                                                <option
+                                                key={country.value}
+                                                value={country.display}
+                                                >
+                                                {country.display}
+                                                </option>
+                                            ))}
+                                        </select>  
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-lg" name="supplierCity" value={this.state.supplierCity} onChange={e => this.ChangeHandler(e)} placeholder="City"/>
+                                    </div>
+                                </div>                              
+                                <div class="col-md-3">
+                                    <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
+                                </div>
+                            </div>  
+                        </form>                
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
