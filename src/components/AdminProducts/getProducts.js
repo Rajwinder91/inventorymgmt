@@ -56,8 +56,6 @@ class getProducts extends Component {
         })
 
         // get the delete product API's
-        
-
         axios({
 
             method: 'PUT',
@@ -79,8 +77,8 @@ class getProducts extends Component {
             console.log(response.data.success);
             if(response.data.success == 1){
                 initialProducts = response.data.data.map((product) => { console.log(product.productId);
-                    return response.json();
-                    //return {id: product.ProductId}/*{, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} */
+                    //return response.json();
+                    return {id: product.ProductId}/*{, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} */
                 })
 
                 this.setState({
@@ -99,16 +97,35 @@ class getProducts extends Component {
             this.setState({errorMessage: error.response});
         })
         
+
+        
     }
     
-   
+   /*
     delete(productId) {
        console.log(productId);
       // window.location.href ='/getProduct'; 
-    }
+    }*/
 
+    delete(productId){
+           // console.log("remove"+ productId);
+           //const product= this.state.product.filter(product =>{
+             //  return product !== productId;
+           this.setState(state =>({
+               data: state.data.filter((productsList,product) =>product !== productId)
+           }));
+            }
+
+           //this.setState({
+           //    productsList: [...product]
+           //})
+        
     //Start render Function
     render() {
+        /*function refreshPage() {
+            window.location.reload(false);
+        }
+        */
         return (
             <div class="container-fluid">
                 <div class="row">
@@ -138,7 +155,10 @@ class getProducts extends Component {
                                             <td>{product.productSku}</td>
                                             <td>{product.productInventory}</td>
                                             <td>{product.productCat}</td>
-                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | <NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></NavLink></td>
+                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | 
+                                            <NavLink to={`/getProducts?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product" 
+                                            onclick={()=> this.delete(product)}
+                                            /></NavLink></td>
                                         </tr>
                                     ))
                                     }                         

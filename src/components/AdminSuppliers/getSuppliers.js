@@ -33,7 +33,7 @@ class getSuppliers extends Component {
         })
         .then(response => {
             console.log(response.data.success);
-            if(response.data.success == 1){
+            if(response.data.success === 1){
                 initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
                     return {id: supplier.SupplierId, suppliername: supplier.SupplierName, supplieremail: supplier.SupplierEmail, suppliercity: supplier.City} 
                 })
