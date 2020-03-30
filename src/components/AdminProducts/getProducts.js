@@ -19,9 +19,10 @@ class getProducts extends Component {
         productName: '',
         productSku: '',
         productCat: '',
-        productSupplier : ''
+        productSupplier : '',
+        errorMessage: '',
+        successMsg: ''
     }
-  
     //Get all Supplier API
     componentDidMount() {
         
@@ -49,7 +50,7 @@ class getProducts extends Component {
             }          
         })
         .then(response => {
-            console.log(response.data.success);
+            //console.log(response.data.success);
             if(response.data.success == 1){
                 initialProducts = response.data.data.map((product) => { //console.log(product.SupplierId);
                     return {id: product.ProductId, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} 
@@ -67,7 +68,7 @@ class getProducts extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
 
 
@@ -160,6 +161,36 @@ class getProducts extends Component {
             productSupplier : ''
         });
     }
+
+    //Delete API
+    delete(ProductId) { 
+        
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://18.218.124.225:3000/api/product/deleteproduct`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            data: {
+                "ProductId" : ProductId
+            }          
+        })
+        .then(response => {
+            console.log("Response"+response.data);
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+                window.location.href ='/getProducts';
+            }                
+        })
+        .catch(error => {
+            console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });  
+    }
     //Start render Function
     render() {
         function myFunction() {
@@ -174,7 +205,7 @@ class getProducts extends Component {
             <div class="container-fluid">
                 <div class="row">
                     <DashboardSidebar/>
-                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">   
+                    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Products</h3></div>
                             <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink></div>
@@ -250,7 +281,13 @@ class getProducts extends Component {
                                     <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
                                 </div>
                             </div>  
-                        </form>                   
+                        </form>   
+                        { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage }</p>
+                        } 
+                        { this.state.successMsg &&
+                            <p className="alert alert alert-success"> { this.state.successMsg }</p>
+                        }                
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
@@ -271,7 +308,7 @@ class getProducts extends Component {
                                             <td>{product.productSku}</td>
                                             <td>{product.productInventory}</td>
                                             <td>{product.productCat}</td>
-                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> | <NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></NavLink></td>
+                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> |  <a href="#" onClick={this.delete.bind(this, product.id)}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></a></td>
                                         </tr>
                                     ))
                                     }                         

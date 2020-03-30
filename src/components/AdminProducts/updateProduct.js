@@ -25,6 +25,7 @@ class updateProduct extends Component {
         productBarcode: '',
         errorMessage: '',
         successMsg:'',
+        showProductImage: '',
         countries: [],
         categoriesList: [],
         suppliersList:[]
@@ -149,7 +150,7 @@ class updateProduct extends Component {
                     productRetailPrice: response.data.data[0].RetailPrice,
                     productCat: response.data.data[0].CategoryId,
                     productCountry: response.data.data[0].Country_Origin_id,
-                    productImg: 'logo.jpeg',
+                    showProductImage: response.data.data[0].Image,
                     productSupplier: response.data.data[0].SupplierId,
                     productQuantity:response.data.data[0].Qty_minimum_required,
                     productBarcode: response.data.data[0].Barcode
@@ -214,7 +215,7 @@ class updateProduct extends Component {
             })
             .catch(error => {
                 //console.log("Error"+error);
-                this.setState({errorMessage: error.response.data.message});
+                this.setState({errorMessage: error.response.data});
             });
     };
 
@@ -323,12 +324,15 @@ class updateProduct extends Component {
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Product Image*</span>
+                                            <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Product Image</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" required onChange={this.selectImages}/>
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                            <input type="file" class="custom-file-input" onChange={this.selectImages}/>
+                                            <label class="custom-file-label" for="inputGroupFile01">{this.state.productImg.name}</label>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img class="productImage" src={this.state.showProductImage} alt="Product Image"/>
                                     </div>
                                     <br/>
                                 </div>

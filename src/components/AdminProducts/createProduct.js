@@ -309,7 +309,7 @@ class createProduct extends Component {
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" required  onChange={this.selectImages}/>
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                        <label class="custom-file-label" for="inputGroupFile01">{this.state.productImg.name}</label>
                                     </div>
                                 </div>
                                 <br/>

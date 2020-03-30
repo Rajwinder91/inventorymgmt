@@ -17,7 +17,7 @@ class signup extends Component {
         country: '',
         companyName: '',
         companyUrl: '',
-        companyLogo: null,
+        companyLogo: '',
         address1: '',
         address2: '',
         city: '',
@@ -221,7 +221,7 @@ class signup extends Component {
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" required onChange={this.selectImages}/>
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose logo</label>
+                                            <label class="custom-file-label" for="inputGroupFile01">{this.state.companyLogo.name}</label>
                                         </div>
                                     </div>
                                     <br/>
