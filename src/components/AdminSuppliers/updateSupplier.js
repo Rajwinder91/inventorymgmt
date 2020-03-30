@@ -37,7 +37,7 @@ class updateSupplier extends Component {
         const supplierid = new URLSearchParams(this.props.location.search).get('supplierId');
 
         //Get all countries api
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
             }).then(data => {           
@@ -57,7 +57,7 @@ class updateSupplier extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsupplierbyId?pplierIdSu=${supplierid}&CompanyId=${user.CompanyId}`,
+            url: `http://18.216.15.198:3000/api/supplier/getsupplierbyId?pplierIdSu=${supplierid}&CompanyId=${user.CompanyId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -97,7 +97,7 @@ class updateSupplier extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/provinces/province`,
+            url: `http://18.216.15.198:3000/api/provinces/province`,
             data: {
                 "country_id" : event.target.value
             }            
@@ -145,7 +145,7 @@ class updateSupplier extends Component {
             axios({
                 method: 'PUT',
                 responseType: 'json',
-                url: `http://18.218.124.225:3000/api/supplier/editsupplier`,
+                url: `http://18.216.15.198:3000/api/supplier/editsupplier`,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token

@@ -26,7 +26,7 @@ class createCategory extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: 'http://18.218.124.225:3000/api/category/createCategory',
+            url: 'http://18.216.15.198:3000/api/category/createCategory',
             headers : {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token

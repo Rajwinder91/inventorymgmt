@@ -22,9 +22,9 @@ class getCategory extends Component {
 
         let url = '';
         if(this.state.cateName){
-            url =`http://18.218.124.225:3000/api/category/getcategories?CategoryName=`+this.state.cateName;
+            url =`http://18.216.15.198:3000/api/category/getcategories?CategoryName=`+this.state.cateName;
         }else{
-            url =`http://18.218.124.225:3000/api/category/getcategories?`;
+            url =`http://18.216.15.198:3000/api/category/getcategories`;
         }
         let initialCategory = [];
         axios({
@@ -72,7 +72,7 @@ class getCategory extends Component {
         e.preventDefault(); 
         this.componentDidMount();
     }
-    cancel = () => { 
+    reset = () => { 
         this.setState({
             cateName : ''
         });
@@ -100,7 +100,7 @@ class getCategory extends Component {
                         <form method="post" name="register" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
-                                <button  class="btn btn-primary" onClick={this.cancel}>Reset</button>
+                                <button  class="btn btn-primary" onClick={this.reset}>Reset</button>
                             </div> 
                             <br/><br/><br/><br/>
                             <div id="categoryFilter" class="row register-form">                                

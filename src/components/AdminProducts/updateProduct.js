@@ -25,6 +25,7 @@ class updateProduct extends Component {
         productBarcode: '',
         errorMessage: '',
         successMsg:'',
+        showProductImage: '',
         countries: [],
         categoriesList: [],
         suppliersList:[]
@@ -42,7 +43,7 @@ class updateProduct extends Component {
         const productId = new URLSearchParams(this.props.location.search).get('productId');
 
         //Country API
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
             }).then(data => {           
@@ -62,7 +63,7 @@ class updateProduct extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -97,7 +98,7 @@ class updateProduct extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/category/getcategories`,
+            url: `http://18.216.15.198:3000/api/category/getcategories`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -132,7 +133,7 @@ class updateProduct extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/product/getproductbyId?ProductId=${productId}&CompanyId=${user.CompanyId}`,
+            url: `http://18.216.15.198:3000/api/product/getproductbyId?ProductId=${productId}&CompanyId=${user.CompanyId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -149,7 +150,7 @@ class updateProduct extends Component {
                     productRetailPrice: response.data.data[0].RetailPrice,
                     productCat: response.data.data[0].CategoryId,
                     productCountry: response.data.data[0].Country_Origin_id,
-                    productImg: 'logo.jpeg',
+                    showProductImage: response.data.data[0].Image,
                     productSupplier: response.data.data[0].SupplierId,
                     productQuantity:response.data.data[0].Qty_minimum_required,
                     productBarcode: response.data.data[0].Barcode
@@ -197,7 +198,7 @@ class updateProduct extends Component {
             axios({
                 method: 'PUT',
                 responseType: 'json',
-                url: `http://18.218.124.225:3000/api/product/editproduct`,data,
+                url: `http://18.216.15.198:3000/api/product/editproduct`,data,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token
@@ -214,7 +215,7 @@ class updateProduct extends Component {
             })
             .catch(error => {
                 //console.log("Error"+error);
-                this.setState({errorMessage: error.response.data.message});
+                this.setState({errorMessage: error.response.data});
             });
     };
 
@@ -323,12 +324,15 @@ class updateProduct extends Component {
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Product Image*</span>
+                                            <span class="input-group-text logoStyle" id="inputGroupFileAddon01">Product Image</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" required onChange={this.selectImages}/>
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                            <input type="file" class="custom-file-input" onChange={this.selectImages}/>
+                                            <label class="custom-file-label" for="inputGroupFile01">{this.state.productImg.name}</label>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img class="productImage" src={this.state.showProductImage} alt="Product Image"/>
                                     </div>
                                     <br/>
                                 </div>

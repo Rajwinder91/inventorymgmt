@@ -4,7 +4,6 @@ import inventoryimg1 from '../../images/inventory.jpg';
 import inventoryimg2 from '../../images/inventory1.jpg';
 import inventoryimg3 from '../../images/inventory2.jpg';
 import axios from 'axios';
-const BASE_URL = 'http://localhost:3000/';
 
 class signup extends Component {   
    
@@ -17,7 +16,7 @@ class signup extends Component {
         country: '',
         companyName: '',
         companyUrl: '',
-        companyLogo: null,
+        companyLogo: '',
         address1: '',
         address2: '',
         city: '',
@@ -37,7 +36,7 @@ class signup extends Component {
 
     componentDidMount() {
         let initialCountries = [];
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
             }).then(data => {           
@@ -65,7 +64,7 @@ class signup extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/provinces/province`,
+            url: `http://18.216.15.198:3000/api/provinces/province`,
             data: {
                 "country_id" : event.target.value
             }            
@@ -120,7 +119,7 @@ class signup extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/companyuser/createCompany`, data
+            url: `http://18.216.15.198:3000/api/companyuser/createCompany`, data
         })
         
         .then(response => {
@@ -221,7 +220,7 @@ class signup extends Component {
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" required onChange={this.selectImages}/>
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose logo</label>
+                                            <label class="custom-file-label" for="inputGroupFile01">{this.state.companyLogo.name}</label>
                                         </div>
                                     </div>
                                     <br/>

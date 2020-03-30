@@ -27,7 +27,7 @@ class login extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: 'http://18.218.124.225:3000/api/companyuser/authcompanyuser',
+            url: 'http://18.216.15.198:3000/api/companyuser/authcompanyuser',
             data: {
                 "email" : this.state.email,
                 "password" : this.state.password
