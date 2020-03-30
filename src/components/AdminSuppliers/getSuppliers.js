@@ -61,15 +61,15 @@ class getSuppliers extends Component {
             }          
         })
         .then(response => {
-<<<<<<< HEAD
-            console.log(response.data.success);
-            if(response.data.success === 1){
-                initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
-=======
+
+            //console.log(response.data.success);
+            //if(response.data.success === 1){
+              //  initialSuppliers = response.data.data.map((supplier) => { console.log(supplier.SupplierId);
+
             //console.log(response.data.success);
             if(response.data.success == 1){
                 initialSuppliers = response.data.data.map((supplier) => { 
->>>>>>> c11cebb9a92f0a5dec98877a8a121f6a51288ad5
+
                     return {id: supplier.SupplierId, suppliername: supplier.SupplierName, supplieremail: supplier.SupplierEmail, suppliercity: supplier.City} 
                 })
                 this.setState({
