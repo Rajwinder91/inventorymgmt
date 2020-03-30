@@ -9,7 +9,7 @@ import PublicRoute from './components/Utils/publicRoute';
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
 import Home from './components/BodyPart/content';
-import Login from './components/Login/login';
+import Login from './components/Login/Login';
 import SignUp from "./components/Signup/signup";
 import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
 
@@ -30,6 +30,9 @@ import EditCategory from './components/AdminCatgeories/editCategory.js';
 import GetProducts from './components/AdminProducts/getProducts';
 import CreateProduct from './components/AdminProducts/createProduct';
 import UpdateProduct from './components/AdminProducts/updateProduct';
+
+//Purchase Order Components
+import CreatePurchaseOrder from './components/PurchaseOrder/createPurhaseOrder';
 
 /* End Load Components */
 
@@ -82,6 +85,8 @@ class App extends Component {
                       <PrivateRoute  exact path="/getCategories" component={GetCategory}/>
                       <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
                       <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
+                      
+                      <PrivateRoute exact path ="/createPurchaseOrder" component={CreatePurchaseOrder}/>
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
