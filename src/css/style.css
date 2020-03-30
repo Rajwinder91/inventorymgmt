@@ -130,3 +130,10 @@
     height: 176px;
     margin-top: 10px;
 }
+.react-datepicker__input-container input{
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}

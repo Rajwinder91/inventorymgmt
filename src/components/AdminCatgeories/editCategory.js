@@ -23,7 +23,7 @@ class editCategory extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/category/getcategorybyId?CategoryId=${categoryid}&CompanyId=${user.CompanyId}`,
+            url: `http://18.216.15.198:3000/api/category/getcategorybyId?CategoryId=${categoryid}&CompanyId=${user.CompanyId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -65,7 +65,7 @@ class editCategory extends Component {
             axios({
                 method: 'PUT',
                 responseType: 'json',
-                url: `http://18.218.124.225:3000/api/category/editcategory`,
+                url: `http://18.216.15.198:3000/api/category/editcategory`,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token

@@ -11,7 +11,7 @@ export class provinceList extends Component {
         }  
     }  
     componentWillMount() {  
-        axios.get('http://18.218.124.225:3000/api/Provincelist')
+        axios.get('http://18.216.15.198:3000/api/Provincelist')
         .then(response => {  
             console.log(response);  
             this.setState({  

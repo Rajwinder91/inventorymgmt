@@ -12,7 +12,7 @@ export class countryList extends Component {
     }  
     componentDidMount() {  
         let initialPlanets = [];
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
         }).then(data => {

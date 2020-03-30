@@ -32,9 +32,9 @@ class getProducts extends Component {
 
         let url = '';
         if(this.state.productName || this.state.productSku || this.state.productCat || this.state.productSupplier){
-            url =`http://18.218.124.225:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
         }else{
-            url =`http://18.218.124.225:3000/api/product/getproducts`;
+            url =`http://18.216.15.198:3000/api/product/getproducts`;
         }
         axios({
 
@@ -76,7 +76,7 @@ class getProducts extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -111,7 +111,7 @@ class getProducts extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/category/getcategories`,
+            url: `http://18.216.15.198:3000/api/category/getcategories`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -168,7 +168,7 @@ class getProducts extends Component {
         axios({
             method: 'PUT',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/product/deleteproduct`,
+            url: `http://18.216.15.198:3000/api/product/deleteproduct`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
