@@ -213,7 +213,7 @@ class getPurchaseOrders extends Component {
                                 <tbody>
                                     {this.state.purchaseOrderList.map(order => (
                                         <tr>
-                                            <td>{order.id}</td>
+                                            <td><NavLink to={`/changeStatus?purchaseOrderId=${order.id}`}>{order.id}</NavLink></td>
                                             <td>{order.supplierName}</td>
                                             <td>{order.purchasedDate}</td>
                                             <td>{order.totalUnits}</td>

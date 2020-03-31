@@ -3,6 +3,7 @@ import DashboardSidebar from '../../components/Dashboard/dashboardSidebar';
 import { getUser } from '../Utils/common';
 import { getToken } from '../Utils/common';
 import DatePicker from "react-datepicker";
+import moment from "moment";
 import axios from 'axios';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -24,11 +25,11 @@ class salesOrder extends Component {
 
     //Get all salesOrder API
     componentDidMount() {
-        
+                
         let initialSalesOrders = [];
         let url = '';
         if(this.state.filterOrderId || this.state.filterDate){
-            url =`http://18.216.15.198:3000/api/sales/getsales?CustomerOrderId=`+this.state.filterOrderId+'&&Date='+this.state.filterDate;
+            url =`http://18.216.15.198:3000/api/sales/getsales?CustomerOrderId=`+this.state.filterOrderId+'&&Date='+moment(this.state.filterDate).format("YYYY-MM-DD");
         }else{
             url =`http://18.216.15.198:3000/api/sales/getsales`;
         }
@@ -48,7 +49,7 @@ class salesOrder extends Component {
         .then(response => {
             //console.log(response.data.success);
             if(response.data.success == 1){
-                initialSalesOrders = response.data.data.map((order) => { console.log(order);
+                initialSalesOrders = response.data.data.map((order) => {
                     return {id: order.CustomerOrderId, customerName: order.Fname, purchasedDate: order.Date, totalUnits: order.sum ,totalPrice: order.Total} 
                 })
                 this.setState({
@@ -63,7 +64,7 @@ class salesOrder extends Component {
             
         })        
         .catch(error => {
-            console.log("Error:"+ error)
+            //console.log("Error:"+ error)
             this.setState({errorMessage: error.response.data.message});
         })
     }

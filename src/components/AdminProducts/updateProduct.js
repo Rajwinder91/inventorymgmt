@@ -195,28 +195,28 @@ class updateProduct extends Component {
         data.append('QtyMinRequired', this.state.productQuantity)
         data.append('CompanyId', user.CompanyId)
         e.preventDefault();
-            axios({
-                method: 'PUT',
-                responseType: 'json',
-                url: `http://18.216.15.198:3000/api/product/editproduct`,data,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+token
-                }
-                
-            })
-            .then(response => {
-                if(response.data.success === 0){
-                    this.setState({errorMessage: response.data.message});
-                }else{
-                    this.setState({successMsg: response.data.message})
-                    window.location.href ='/getProducts';
-                }                
-            })
-            .catch(error => {
-                //console.log("Error"+error);
-                this.setState({errorMessage: error.response.data});
-            });
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://18.216.15.198:3000/api/product/editproduct`,data,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            }
+            
+        })
+        .then(response => {
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+                window.location.href ='/getProducts';
+            }                
+        })
+        .catch(error => {
+            //console.log("Error"+error);
+            this.setState({errorMessage: error.response.data});
+        });
     };
 
     //Call render function

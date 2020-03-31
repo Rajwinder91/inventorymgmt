@@ -36,9 +36,11 @@ import SalesOrders from './components/AdminSalesOrders/salesOrder';
 
 //Devileries Components
 import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
-import ViewDelivery from './components/AdminDeliveries/viewDeliver';
-import ChangePurchaseStatus from './components/AdminDeliveries/changePurchaseOrderStatus';
+
+//Purchase orders Components
+import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchaseOrderStatus';
 import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
+import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
 /* End Load Components */
 
 /* Start Load CSS */

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DashboardSidebar from '../../components/Dashboard/dashboardSidebar';
+import DashboardSidebar from '../Dashboard/dashboardSidebar';
 import { getUser } from '../Utils/common';
 import { getToken } from '../Utils/common';
 import { NavLink } from "react-router-dom";

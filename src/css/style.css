@@ -137,7 +137,9 @@
     border: 1px solid #ced4da;
     border-radius: .25rem;
 }
-.form-group label{
-    font-size: 1.2rem;
-    color: #495057;
+.deliverButtons{
+    margin-bottom: 1.6rem;
+}
+.viewPurchase .form-control{
+    border : none !important;
 }
