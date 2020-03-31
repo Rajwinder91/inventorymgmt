@@ -36,6 +36,9 @@ import SalesOrders from './components/AdminSalesOrders/salesOrder';
 
 //Devileries Components
 import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
+import ViewDelivery from './components/AdminDeliveries/viewDeliver';
+import ChangePurchaseStatus from './components/AdminDeliveries/changePurchaseOrderStatus';
+import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
 /* End Load Components */
 
 /* Start Load CSS */
@@ -89,6 +92,9 @@ class App extends Component {
                       <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
                       <PrivateRoute  exact path="/salesOrders" component={SalesOrders}/>
                       <PrivateRoute  exact path="/deliveries" component={Deliveries}/>
+                      <PrivateRoute  exact path="/viewdelivery" component={ViewDelivery}/>
+                      <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
+                      <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>                      
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

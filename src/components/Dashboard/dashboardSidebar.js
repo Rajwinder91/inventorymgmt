@@ -35,10 +35,7 @@ class dashboardSidebar extends Component {
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Purchase Order
-                    </a>
+                        <NavLink to="/getPurchaseOrders" className="nav-link">Purchase Orders</NavLink>
                     </li>
                     <li class="nav-item">
                         <NavLink to="/deliveries" className="nav-link">Deliveries</NavLink>
