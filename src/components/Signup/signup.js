@@ -128,7 +128,7 @@ class signup extends Component {
                 this.setState({errorMessage: response.data.message});
             }else{
                 this.setState({successMsg: response.data.message})
-               // window.location.href ='/login';
+                window.location.href ='/login';
             }                
         })
         .catch(error => {

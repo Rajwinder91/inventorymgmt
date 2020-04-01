@@ -12,41 +12,43 @@ const token = getToken();
 class viewDeliver extends Component { 
     //Set state values
     state = {
-        OrderList: [],
+        productList: [],
+        deliveryStatus:'',
+        deliveryDate:'',
+        deliveryId:'',
         errorMessage: '',
         successMsg: ''
     }
 
     componentDidMount() {
-        const purchaseOrderId = new URLSearchParams(this.props.location.search).get('purchaseOrderId');
-        let initialOrder = [];
+        const deliveryId = new URLSearchParams(this.props.location.search).get('DeliveryId');
+        const message = new URLSearchParams(this.props.location.search).get('message');
+
+        let initialProducts = [];
 
         //Supplier API
         axios({
-            method: 'POST',
+            method: 'GET',
             responseType: 'json',
-            url: `http://18.216.15.198:3000/api/purchaseorder/getpurchaseorders?PurchaseOrderId=`+purchaseOrderId,
+            url: `http://18.216.15.198:3000/api/delivery/getdeliverybyid?CompanyId=1&DeliveryId=`+deliveryId,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
-            },
-            data: {
-                "CompanyId" : 1
-            }          
+            }         
         })
-        .then(response => {
-            console.log(response.data.success);
+        .then(response => { console.log(response);
             if(response.data.success == 1){
-                initialOrder = response.data.data.map((order) => { 
-                    return {id: order.SupplierId, orderStatus: order.SupplierName, creationdate: order, products:order.products} 
+                this.setState({ 
+                    deliveryStatus: response.data.data.delivery_details.Status,
+                    deliveryDate: response.data.data.delivery_details.DeliveryDate,   
+                    deliveryId: '#'+response.data.data.delivery_details.DeliveryId,
+                    successMsg: message
                 })
+                initialProducts = response.data.data.products.map((product) => { 
+                    return {productSku: product.SKU, productName: product.Product_name, productDesc: product.Description, productPrice: product.PurchasePrice, productQty: product.Quantity,  productTotal: product.Total} 
+                })                   
                 this.setState({
-                    OrderList: [{id: '', suppliername: 'Select supplier'}].concat(initialOrder)
-                })
-                
-            }else{
-                this.setState({
-                    OrderList: []
+                    productList: initialProducts
                 })
             }
             
@@ -63,28 +65,34 @@ class viewDeliver extends Component {
                 <DashboardSidebar/>
                 <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
                     <div class="headings">
-                        <div class="float-left"><h3 class="text-primary">Deliveries/#PPO9888</h3></div>
+                        <div class="float-left"><h3 class="text-primary">Deliveries/{this.state.deliveryId}</h3></div>
                     </div> 
+                    { this.state.errorMessage &&
+                            <p className="alert alert-danger"> { this.state.errorMessage }</p>
+                    } 
+                    { this.state.successMsg &&
+                        <p className="alert alert alert-success"> { this.state.successMsg }</p>
+                    } 
                     <div class="row register-form">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Delivery Status</label>
-                                <input type="text" class="form-control" disabled value="Delivered"/>
+                                <input type="text" class="form-control" disabled name="deliveryStatus" value={this.state.deliveryStatus}/>
                             </div>
                             <div class="form-group">
                                 <label>Delivery Id</label>
-                                <input type="text" class="form-control" disabled value="#PPO9888"/>
+                                <input type="text" class="form-control" disabled value={this.state.deliveryId}/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Creation date </label>
-                                <input type="text" class="form-control" disabled value="28 March 2020"/>
+                                <input type="text" class="form-control" name="deliveryDate" disabled value={this.state.deliveryDate}/>
                             </div>
                         </div>
                     </div> 
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table table-bordered table-striped mb-0">
+                    <table class="table table-bordered table-striped mb-0">
                             <thead>
                                 <tr>
                                     <th scope="col">SKU</th>
@@ -96,14 +104,14 @@ class viewDeliver extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.OrderList.map(order => (
+                                {this.state.productList.map(order => (
                                     <tr>
-                                        <td>{order.id}</td>
-                                        <td>{order.supplierName}</td>
-                                        <td>{order.date}</td>
-                                        <td>{order.totalUnits}</td>
-                                        <td>${order.totalPrice}</td>
-                                        <td>{order.status}</td>
+                                        <td>{order.productSku}</td>
+                                        <td>{order.productName}</td>
+                                        <td>{order.productDesc}</td>
+                                        <td>${order.productPrice}</td>
+                                        <td>{order.productQty}</td>
+                                        <td>${order.productTotal}</td>
                                     </tr>
                                 ))
                                 }                         
