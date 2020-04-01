@@ -41,6 +41,9 @@ import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
 import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchaseOrderStatus';
 import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
 import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
+
+//Settings Components
+import UpdateCompanySettings from './components/AdminSettings/companySettings';
 /* End Load Components */
 
 /* Start Load CSS */
@@ -96,7 +99,8 @@ class App extends Component {
                       <PrivateRoute  exact path="/deliveries" component={Deliveries}/>
                       <PrivateRoute  exact path="/viewdelivery" component={ViewDelivery}/>
                       <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
-                      <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>                      
+                      <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>
+                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/>                      
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

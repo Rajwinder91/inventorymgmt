@@ -53,10 +53,7 @@ class dashboardSidebar extends Component {
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Company Settings
-                    </a>
+                        <NavLink to="/updateCompanySettings" className="nav-link">Company Settings</NavLink>
                     </li>
                 </ul>
             </div>
