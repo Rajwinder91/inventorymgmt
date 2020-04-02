@@ -189,6 +189,9 @@ class getPurchaseOrders extends Component {
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
                                 </div>
+                                <div class="col-md-3">
+                                    <input type="submit" class="btn btn-primary mb-2"  value="Delete Purchase Order"/>
+                                </div>
                             </div>  
                         </form>   
                         { this.state.errorMessage &&
@@ -213,6 +216,7 @@ class getPurchaseOrders extends Component {
                                 <tbody>
                                     {this.state.purchaseOrderList.map(order => (
                                         <tr>
+                                            <td><input type="checkbox" id="check" name="checkbox" value=""/></td>
                                             <td><NavLink to={`/changeStatus?purchaseOrderId=${order.id}`}>{order.id}</NavLink></td>
                                             <td>{order.supplierName}</td>
                                             <td>{order.purchasedDate}</td>
