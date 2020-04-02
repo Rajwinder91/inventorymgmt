@@ -42,7 +42,7 @@ class createProduct extends Component {
         let initialCategories = [];
 
         //Country API
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
             }).then(data => {           
@@ -62,7 +62,7 @@ class createProduct extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/supplier/getsuppliers`,
+            url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -97,7 +97,7 @@ class createProduct extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/category/getcategories`,
+            url: `http://18.216.15.198:3000/api/category/getcategories`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -177,7 +177,7 @@ class createProduct extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/product/createproduct`,
+            url: `http://18.216.15.198:3000/api/product/createproduct`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -309,7 +309,7 @@ class createProduct extends Component {
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" required  onChange={this.selectImages}/>
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
+                                        <label class="custom-file-label" for="inputGroupFile01">{this.state.productImg.name}</label>
                                     </div>
                                 </div>
                                 <br/>

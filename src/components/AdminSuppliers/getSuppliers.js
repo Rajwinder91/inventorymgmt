@@ -28,11 +28,11 @@ class getSuppliers extends Component {
         let initialSuppliers = [];
         let url = '';
         if(this.state.supplierName || this.state.supplierId || this.state.country || this.state.supplierCity){
-            url =`http://18.218.124.225:3000/api/supplier/getsuppliers?SupplierName=`+this.state.supplierName+'&&SupplierId='+this.state.supplierId+'&&City='+this.state.supplierCity+'&&CountryName='+this.state.country;
+            url =`http://18.216.15.198:3000/api/supplier/getsuppliers?SupplierName=`+this.state.supplierName+'&&SupplierId='+this.state.supplierId+'&&City='+this.state.supplierCity+'&&CountryName='+this.state.country;
         }else{
-            url =`http://18.218.124.225:3000/api/supplier/getsuppliers`;
+            url =`http://18.216.15.198:3000/api/supplier/getsuppliers`;
         }
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
             }).then(data => {           

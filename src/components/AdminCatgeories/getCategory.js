@@ -22,9 +22,9 @@ class getCategory extends Component {
 
         let url = '';
         if(this.state.cateName){
-            url =`http://18.218.124.225:3000/api/category/getcategories?CategoryName=`+this.state.cateName;
+            url =`http://18.216.15.198:3000/api/category/getcategories?CategoryName=`+this.state.cateName;
         }else{
-            url =`http://18.218.124.225:3000/api/category/getcategories`;
+            url =`http://18.216.15.198:3000/api/category/getcategories`;
         }
         let initialCategory = [];
         axios({

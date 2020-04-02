@@ -18,7 +18,7 @@ class sendEmailNotification extends Component {
         e.preventDefault();       
         axios({
             method: 'POST',
-            url: 'http://18.218.124.225:3000/api/companyuser/forgetPasswordCompany',
+            url: 'http://18.216.15.198:3000/api/companyuser/forgetPasswordCompany',
             data: {
                 "email" : this.state.email
             }                

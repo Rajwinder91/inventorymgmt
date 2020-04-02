@@ -34,7 +34,7 @@ class createSupplier extends Component {
     componentDidMount() { 
 
         let initialCountries = [];
-        fetch(`http://18.218.124.225:3000/api/countries/country`)
+        fetch(`http://18.216.15.198:3000/api/countries/country`)
         .then(response => {
             return response.json();
             }).then(data => {           
@@ -63,7 +63,7 @@ class createSupplier extends Component {
         axios({
             method: 'POST',
             responseType: 'json',
-            url: `http://18.218.124.225:3000/api/provinces/province`,
+            url: `http://18.216.15.198:3000/api/provinces/province`,
             data: {
                 "country_id" : event.target.value
             }            
@@ -126,7 +126,7 @@ class createSupplier extends Component {
             axios({
                 method: 'POST',
                 responseType: 'json',
-                url: `http://18.218.124.225:3000/api/supplier/createSupplier`,
+                url: `http://18.216.15.198:3000/api/supplier/createSupplier`,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '+token

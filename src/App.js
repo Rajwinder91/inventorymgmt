@@ -38,6 +38,20 @@ import GetProducts from './components/AdminProducts/getProducts';
 import CreateProduct from './components/AdminProducts/createProduct';
 import UpdateProduct from './components/AdminProducts/updateProduct';
 
+//Sales order Components
+import SalesOrders from './components/AdminSalesOrders/salesOrder';
+
+//Devileries Components
+import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
+
+//Purchase orders Components
+import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchaseOrderStatus';
+import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
+import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
+
+//Settings Components
+import UpdateCompanySettings from './components/AdminSettings/companySettings';
+import UpdateUserSettings from './components/AdminSettings/userSettings';
 /* End Load Components */
 
 /* Start Load CSS */
@@ -105,7 +119,15 @@ class App extends Component {
                       <PrivateRoute  exact path="/getCategories" component={GetCategory}/>
                       <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
                       <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
->>>>>>> abdbfdf3df80e87b147c40fe5d473eb4f9dcb4ee
+
+                      <PrivateRoute  exact path="/salesOrders" component={SalesOrders}/>
+                      <PrivateRoute  exact path="/deliveries" component={Deliveries}/>
+                      <PrivateRoute  exact path="/viewdelivery" component={ViewDelivery}/>
+                      <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
+                      <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>
+                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/>
+                      <PrivateRoute  exact path="/userSettings" component={UpdateUserSettings}/>                      
+
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

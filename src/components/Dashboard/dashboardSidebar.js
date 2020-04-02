@@ -26,10 +26,7 @@ class dashboardSidebar extends Component {
                         <NavLink to="/getProducts" className="nav-link">Products</NavLink>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Sales Orders
-                    </a>
+                        <NavLink to="/salesOrders" className="nav-link">Sales Orders</NavLink>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">
@@ -38,16 +35,10 @@ class dashboardSidebar extends Component {
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Purchase Order
-                    </a>
+                        <NavLink to="/getPurchaseOrders" className="nav-link">Purchase Orders</NavLink>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Deliveries
-                    </a>
+                        <NavLink to="/deliveries" className="nav-link">Deliveries</NavLink>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">
@@ -56,16 +47,10 @@ class dashboardSidebar extends Component {
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        User Settings
-                    </a>
+                        <NavLink to="/userSettings" className="nav-link">User Settings</NavLink>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <span data-feather="layers"></span>
-                        Company Settings
-                    </a>
+                        <NavLink to="/updateCompanySettings" className="nav-link">Company Settings</NavLink>
                     </li>
                 </ul>
             </div>
