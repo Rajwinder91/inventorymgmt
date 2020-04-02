@@ -15,9 +15,9 @@ if(userToken){
 class header extends Component {
     render() {
       return (        
-        <header>
+        <div>
            {navigation}        
-        </header>
+        </div>
       );
     }
   }

@@ -72,6 +72,16 @@ import {
 
 /* Start App Class*/
 class App extends Component {
+  componentDidMount() {
+    const scriptAjax = document.createElement("script");
+    const scriptBootstrap = document.createElement("script");
+    scriptAjax.async = true;
+    scriptAjax.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
+    scriptBootstrap.async = true;
+    scriptBootstrap.src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js";
+    document.head.appendChild(scriptAjax);
+    document.head.appendChild(scriptBootstrap);
+  }
     render() {
       return ( 
       <html lang="en">

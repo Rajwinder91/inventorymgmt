@@ -225,7 +225,7 @@ class purchaseOrdersDelivery extends Component {
                                 <tbody>
                                     {this.state.deliveriesList.map(delivery => (
                                         <tr>
-                                            <td>{delivery.id}</td>
+                                            <td><NavLink to={`/viewdelivery?DeliveryId=${delivery.id}`}>{delivery.id}</NavLink></td>
                                             <td>{delivery.supplierName}</td>
                                             <td>{delivery.date}</td>
                                             <td>{delivery.totalUnits}</td>

@@ -18,16 +18,6 @@ class afterLoginNav extends Component {
                 <span className="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div className="collapse navbar-collapse" id="navbarCollapse">
-                <ul className="nav navbar-nav ml-auto">
-                    <li className="nav-item active">
-                        <span className="nav-link">Welcome {user.Fname}</span>
-                    </li>
-                    <li className="nav-item">
-                        <a href="javascript:void(0)" className="nav-link" onClick={handleLogout}>Logout</a>
-                    </li>
-                </ul>  
-            </div> 
         </nav>
       );
     }
