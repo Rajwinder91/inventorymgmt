@@ -40,10 +40,12 @@ import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
 //Purchase orders Components
 import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchaseOrderStatus';
 import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
+import UpdatePurchaseOrders from './components/AdminPurchaseOrders/updatePurchaseOrder';
 import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
 
 //Settings Components
 import UpdateCompanySettings from './components/AdminSettings/companySettings';
+import UpdateUserSettings from './components/AdminSettings/userSettings';
 /* End Load Components */
 
 /* Start Load CSS */
@@ -100,7 +102,9 @@ class App extends Component {
                       <PrivateRoute  exact path="/viewdelivery" component={ViewDelivery}/>
                       <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
                       <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>
-                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/>                      
+                      <PrivateRoute  exact path="/updatePurchaseOrder" component={UpdatePurchaseOrders}/>
+                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/> 
+                      <PrivateRoute  exact path="/userSettings" component={UpdateUserSettings}/>                    
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 
