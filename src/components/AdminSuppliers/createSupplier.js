@@ -174,14 +174,14 @@ class createSupplier extends Component {
                     { this.state.successMsg &&
                         <p className="alert alert alert-success"> { this.state.successMsg } </p>
                     }       
-                    <div class="float-left"><h3 class="text-primary">Create Supplier</h3></div>                 
+                    <div class="float-left"><h3 class="text-primary">Supplier/Create Supplier</h3></div>                 
                     <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">                           
                         <div class="float-right">        
                             <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>
-                        <div class="row register-form">
+                        <div class="row register-form createForm">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control" required name="supplierName" value={this.state.supplierName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Supplier Name*"/>

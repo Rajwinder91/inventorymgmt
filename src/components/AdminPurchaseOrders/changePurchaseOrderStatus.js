@@ -144,7 +144,7 @@ class changePurchaseOrderStatus extends Component {
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg }</p>
                         }
-                        <div class="row register-form viewPurchase">
+                        <div class="row register-form viewPurchase createForm">
                             <div class="col-md-6">
                                 <div class="form-group deliverButtons">
                                     <input type="text" class="form-control" disabled name="orderStatus" value={this.state.orderStatus}/>

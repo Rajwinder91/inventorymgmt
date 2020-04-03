@@ -117,6 +117,7 @@
 }
 .table-wrapper-scroll-y {
     display: block;
+    height: 310px;
 }
 .logoStyle{
     height: 35px;
@@ -235,4 +236,15 @@
   }
   .margin-dashboard{
       margin-left: 7em;
+  }
+  .borderStyle{
+      border: 1px dotted #000;
+  }
+  .formClass{
+    border-top: 1px solid #000;
+    padding-top: 30px;
+  }
+  .createForm{
+    border-top: 1px solid #000;
+    padding-top: 30px;
   }

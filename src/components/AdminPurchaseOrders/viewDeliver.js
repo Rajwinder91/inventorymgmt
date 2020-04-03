@@ -73,7 +73,7 @@ class viewDeliver extends Component {
                     { this.state.successMsg &&
                         <p className="alert alert alert-success"> { this.state.successMsg }</p>
                     } 
-                    <div class="row register-form">
+                    <div class="row register-form createForm">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Delivery Status</label>

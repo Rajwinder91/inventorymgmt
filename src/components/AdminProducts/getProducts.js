@@ -210,7 +210,7 @@ class getProducts extends Component {
                             <div class="float-left"><h3 class="text-primary">Products</h3></div>
                             <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink></div>
                         </div> 
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>

@@ -111,7 +111,7 @@ class salesOrder extends Component {
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Sales Orders</h3></div>
                         </div> 
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>

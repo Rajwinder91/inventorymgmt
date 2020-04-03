@@ -148,7 +148,7 @@ class getPurchaseOrders extends Component {
                             <div class="float-left"><h3 class="text-primary">Purchase Orders</h3></div>
                             <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Purchase Order</NavLink></div>
                         </div> 
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>
@@ -212,7 +212,7 @@ class getPurchaseOrders extends Component {
                                 <tbody>
                                     {this.state.purchaseOrderList.map(order => (
                                         <tr>
-                                            <td><NavLink to={`/changeStatus?purchaseOrderId=${order.id}`}>{order.id}</NavLink></td>
+                                            <td><NavLink to={`/changeStatus?purchaseOrderId=${order.id}`}>#{order.id}</NavLink></td>
                                             <td>{order.supplierName}</td>
                                             <td>{order.purchasedDate}</td>
                                             <td>{order.totalUnits}</td>
