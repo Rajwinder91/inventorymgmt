@@ -66,7 +66,6 @@ class getPurchaseOrders extends Component {
             
         })        
         .catch(error => {
-            console.log("Error:"+ error)
             this.setState({errorMessage: error.response.data.message});
         })
 
@@ -102,7 +101,7 @@ class getPurchaseOrders extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -141,7 +140,7 @@ class getPurchaseOrders extends Component {
             }
         }
         return (
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    

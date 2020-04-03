@@ -56,7 +56,7 @@ class updateProduct extends Component {
             })            
         })
         .catch(error => {
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })  
         
         //Supplier API
@@ -91,7 +91,7 @@ class updateProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
 
         //Catgeory API
@@ -126,7 +126,7 @@ class updateProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
         
         //Get Product by id API
@@ -160,7 +160,7 @@ class updateProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -215,14 +215,14 @@ class updateProduct extends Component {
         })
         .catch(error => {
             //console.log("Error"+error);
-            this.setState({errorMessage: error.response.data});
+            this.setState({errorMessage: error.response.data.message});
         });
     };
 
     //Call render function
     render() {       
         return ( 
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    

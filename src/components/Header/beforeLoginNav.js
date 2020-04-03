@@ -4,7 +4,7 @@ import logo from '../../images/logo.png';
 class beforeLoginNav extends Component {
     render() {
       return (  
-        <nav className="navbar navbar-expand-md navbar-dark bg-info zindex">
+        <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-3">
             <div className="navbar-header">    
                 <NavLink to="/" className=""><strong><img className="logoImg" src={logo} alt="Inventory Management"/></strong></NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

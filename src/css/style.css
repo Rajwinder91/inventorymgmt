@@ -218,3 +218,13 @@
   .dividen{
     border-top: 1px solid #000;
   }
+  .fixed-link{
+      position: fixed;
+      bottom: 14%
+  }
+  .bottom-position{
+    bottom: 9% !important;
+  }
+  .margin-dashboard{
+      margin-left: 7em;
+  }

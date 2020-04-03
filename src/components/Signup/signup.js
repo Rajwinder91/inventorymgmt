@@ -49,7 +49,7 @@ class signup extends Component {
             })            
         })
         .catch(error => {
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })        
     }
 
@@ -89,7 +89,7 @@ class signup extends Component {
             this.setState({
                 provinces: []
             })
-           this.setState({errorMessage: error.response});
+           this.setState({errorMessage: error.response.data.message});
         })
     }
     ChangeHandler = e => {
