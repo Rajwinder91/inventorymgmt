@@ -47,37 +47,39 @@ class login extends Component {
     };
     render() {
         return (
-            <div class="row loginbody">      
-                <div class="col-md-3"></div>  
-                <div class="col-md-6">            
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <h3 class="text-primary">Sign in to Account</h3> 
-                        { this.state.errorMessage &&
-                            <p className="alert alert-danger"> { this.state.errorMessage } </p>
-                        } 
-                        { this.state.successMsg &&
-                            <p className="alert alert alert-success"> { this.state.successMsg } </p>
-                        }             
-                        <form onSubmit={this.submitHandler}>
-                            <div class="form-group">
+            <div class="container-fluid  pt-5 mt-3">
+                <div class="row loginbody">      
+                    <div class="col-md-3"></div>  
+                    <div class="col-md-6">            
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <h3 class="text-primary">Sign in to Account</h3> 
+                            { this.state.errorMessage &&
+                                <p className="alert alert-danger"> { this.state.errorMessage } </p>
+                            } 
+                            { this.state.successMsg &&
+                                <p className="alert alert alert-success"> { this.state.successMsg } </p>
+                            }             
+                            <form onSubmit={this.submitHandler}>
                                 <div class="form-group">
-                                    <input class="form-control"  name="email" value={this.state.email} onChange={e => this.ChangeHandler(e)} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="User Email*" type="text"/>
+                                    <div class="form-group">
+                                        <input class="form-control"  name="email" value={this.state.email} onChange={e => this.ChangeHandler(e)} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="User Email*" type="text"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="form-group">
-                                    <input class="form-control" name="password" value ={this.state.password}  onChange={e => this.ChangeHandler(e)}  placeholder="Password*" minlength="8" required pattern="^(?=.*\d).{8,15}$" title="Password must be between 8 and 15 digits long and include at least one numeric digit."  type="password"/>
+                                    <div class="form-group">
+                                        <input class="form-control" name="password" value ={this.state.password}  onChange={e => this.ChangeHandler(e)}  placeholder="Password*" minlength="8" required pattern="^(?=.*\d).{8,15}$" title="Password must be between 8 and 15 digits long and include at least one numeric digit."  type="password"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btnRegister">Sign In</button>
-                            </div>
-                            <div class="form-group">
-                                <p className="forgot-password text-left">   
-                                 <NavLink to="/forgotpassword"> Forgot password?</NavLink> 
-                                </p>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <button type="submit" class="btnRegister">Sign In</button>
+                                </div>
+                                <div class="form-group">
+                                    <p className="forgot-password text-left">   
+                                    <NavLink to="/forgotpassword"> Forgot password?</NavLink> 
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
