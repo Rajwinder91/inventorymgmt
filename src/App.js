@@ -9,8 +9,8 @@ import PublicRoute from './components/Utils/publicRoute';
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
 import Home from './components/BodyPart/content';
-import Login from './components/Login/login';
 import SignUp from "./components/Signup/signup";
+import Login from './components/Login/login';
 import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
 
 //Dashboard Components
