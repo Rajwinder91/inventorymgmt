@@ -1,7 +1,15 @@
 /*Home Page CSS*/
 .custom-video{margin-left: 145px;}
-.logoImg{width: 30%;}
-
+.logoImg{width: 10%; background: linear-gradient(#5626C4);}
+.headerBk{
+    background : #E67E22;
+}
+.logoTxt{
+    text-align: left!important;
+    color: #5626C4;
+    font-weight: 500;
+    font-style: italic;
+}
 /* Signup Page CSS*/
 .register{    
     margin-top: 3%;
