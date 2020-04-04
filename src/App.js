@@ -34,8 +34,7 @@ import UpdateProduct from './components/AdminProducts/updateProduct';
 //Purchase Order Components
 import CreatePurchaseOrder from './components/PurchaseOrder/createPurhaseOrder';
 
-//Sales order Components
-import SalesOrders from './components/AdminSalesOrders/salesOrder';
+
 
 //Devileries Components
 import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
@@ -93,7 +92,6 @@ class App extends Component {
                       
                       <PrivateRoute exact path ="/createPurchaseOrder" component={CreatePurchaseOrder}/>
 
-                      <PrivateRoute  exact path="/salesOrders" component={SalesOrders}/>
                       <PrivateRoute  exact path="/deliveries" component={Deliveries}/>
 
                       <Route  exact path="/404" component={NotFoundPage}/>

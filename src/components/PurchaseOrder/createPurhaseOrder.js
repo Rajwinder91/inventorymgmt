@@ -12,15 +12,214 @@ const token = getToken();
 
 
 class createPurchaseOrder extends Component {
+
+   
+    /*********************** */
+    //Set State values
+    state = {
+        suppliersList:[] ,
+        productSupplier:'',
+        currency:'',
+        discountrate:'',
+        supplierId:'',
+        productName:'',
+        id:'',
+        productsList:[],
+        proprice:'',
+        total:''
+        //do ethe khali//this .state.
+    }
+/********************************* */
+handleChange = this.handleChange.bind(this); 
+handleChangeproduct = this.handleChangeproduct.bind(this); 
+showqty = this.showqty.bind(this); 
+//showprice =this.showprice.bind(this);
+ //Fetch Country, Supplier and Category List
+ componentDidMount() { 
+
+    let initialProducts = [];
+
+    console.log(token);
+   
+    let initialSuppliers = [];
+  
+    //Supplier API
+    axios({
+        method: 'POST',
+        responseType: 'json',
+        url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+        },
+        data: {
+            "CompanyId" : user.CompanyId
+        }          
+    })
+    .then(response => {
+        console.log(response.data.success);
+        if(response.data.success == 1){
+            initialSuppliers = response.data.data.map((supplier) => { 
+                return {id: supplier.SupplierId, suppliername: supplier.SupplierName} //do hor//get supplier di api oda oh get 
+            })
+            this.setState({
+                suppliersList: [{id: '', suppliername: 'Please select supplier'}].concat(initialSuppliers)
+            })
+            
+        }else{
+            this.setState({
+                suppliersList: []
+            })
+        }
+        
+    })        
+    .catch(error => {
+        console.log("Error:"+ error)
+        this.setState({errorMessage: error.response});
+    })
+
+    /**********************************pro */
+
+          //pro API
+          axios({
+            method: 'POST',
+            responseType: 'json',
+            url: `http://18.216.15.198:3000/api/product/getproducts`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            data: {
+                "CompanyId" : 1
+            }          
+        })
+        .then(response => {
+            //console.log(response.data.data);
+            //console.log(response.data.success);
+            if(response.data.success == 1){
+                initialProducts = response.data.data.map((product) => { console.log(product);
+                    return {id: product.ProductId, productName: product.ProductName} 
+                })
+                this.setState({
+                    productsList: initialProducts
+                })
+                
+            }else{
+                this.setState({
+                    productsList: []
+                })
+            }
+            
+        })        
+        .catch(error => {
+            console.log("Error:"+ error)
+            this.setState({errorMessage: error.response.data.message});
+        })
     
+}
+/////proby id fun
+
+handleChangeproduct(event){
+
+    console.log("Helloproductid");
+    console.log(event.target.value);
+ this.setState({
+     productId: event.target.value,
+     errorMessage: event.target.value === "" ? "You must select your product" : ""
+ });
+
+ axios({
+     method: 'GET',
+     responseType: 'json',
+     url:`http://18.216.15.198:3000/api/product/getproductbyId?ProductId=${event.target.value}&CompanyId=${user.CompanyId}`,
+     headers: {
+         'Content-Type': 'application/json',
+         'Authorization': 'Bearer '+token
+     }          
+ })
+ .then(response => {
+  
+     if(response.data.success == 1){ 
+         this.setState({  
+             id: response.data.data[0].ProductId,
+             productName: response.data.data[0].ProductName,
+             proprice:response.data.data[0].PurchasePrice
+         })
+        
+     }else{
+         this.setState({
+             product: []
+         })
+     }
+})        
+ .catch(error => {
+     console.log("Error:"+ error.response)       
+    this.setState({errorMessage: error.response});
+ })
+
+}
+/*************get supplier by id *********************** */
+handleChange(event) {                 
+    console.log("Hello");
+       console.log(event.target.value);
+    this.setState({
+        supplierId: event.target.value,
+        errorMessage: event.target.value === "" ? "You must select your Supplier" : ""
+    });
+
+    axios({
+        method: 'GET',
+        responseType: 'json',
+        url:`http://18.216.15.198:3000/api/supplier/getsupplierbyId?SupplierId=${event.target.value}&CompanyId=${user.CompanyId}`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+        }          
+    })
+    .then(response => {
+     
+        if(response.data.success == 1){ 
+            this.setState({  
+                discountrate: response.data.data[0].DiscountRate,
+                currency: response.data.data[0].Currency_Code
+            })
+           
+        }else{
+            this.setState({
+                supplier: []
+            })
+        }
+   })        
+    .catch(error => {
+        console.log("Error:"+ error.response)       
+       this.setState({errorMessage: error.response});
+    })
+}
+//***********get total price */
+showqty(event,target){
+    
+    const  qty  = this.state.qty
+    console.log("qty.." + event.target.value);
+    const  price  = this.state.proprice
+    console.log("price.." + this.state.proprice);
+   // const total =  this.state.qty * this.state.proprice ;
+   const total1 = event.target.value * this.state.proprice
+    console.log("total is .."+ total1 );
+    //console.log("total is.."+ this.setState({total}))
+    this.setState({
+        total:total1 
+    })
+}
+
+/********************************/
+
     // Start Render Function
     render() {       
       return ( 
         <div class="container-fluid">
             <div class="row">
                 <DashboardSidebar/>
-                <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
-                       
+                <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
                     <div class="float-left"><h3 class="text-primary">Create Purchase Order</h3></div>                 
                     <form method="post" name="register"  id="SupplierForm">                           
                         <div class="float-right">        
@@ -31,113 +230,135 @@ class createPurchaseOrder extends Component {
                         <div class="row register-form">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Search For A Supplier</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select>
-                                </div> 
+                                    <select name="supplierId" class="form-control" required
+                                        value={this.state.supplierId}
+                                        onChange={this.handleChange}                              
+                                        >
+                                        {this.state.suppliersList.map(supplier => (
+                                            <option
+                                            key={supplier.id}
+                                            value={supplier.id}
+                                            >
+                                            {supplier.suppliername}
+                                            </option>
+                                        ))}
+                                    </select> 
+                                </div>
                             </div> 
                         </div> 
-                        <div class="form-group row">  
+                        <div class="row">  
                            <div class="col-md-6">  
-                                                      
                                 <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <input type="text" class="form-control" name="currency"  placeholder="Currency"/>
-                                    <div class="input-group-text">CAD</div>
+                                    
+                                        <input type="text" class="form-control" name="currency" value={this.state.currency} placeholder="Currency"/>
+                                        
                                         </div>
-                                    </div>
-                                </div>                                         
-                          
+                                      
+                                </div>                                    
+    
                            <div class="col-md-6"> 
                                 <div class="form-group">
                                     <div class="input-group-prepend">
-                                    <input type="text" class="form-control" name="supplierDiscount"  placeholder="Discount Rate"/> 
-                                    <div class="input-group-text">%</div>
-                                    </div>
+                                        <input type="text" class="form-control" name="discountrate" 
+                                        value={this.state.discountrate}
+                                        placeholder="Discount Rate"/> 
+                                        <div class="input-group-text">%</div>
+                                    </div> 
                                 </div>
-                                </div>
-                                                                        
                             </div>
+                        </div>
                            
-                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Product Product</th>
+                                    <th scope="col">Add Another Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> 
+                                        <select name="supplierId" class="form-control" required
+                                        value={this.state.productId}
+                                       onChange={this.handleChangeproduct}                            
+                                        >
+                                        {this.state.productsList.map(product => (
+                                            <option
+                                            key={product.id}
+                                            value={product.id}
+                                            >
+                                            {product.productName}
+                                            </option>
+                                        ))}
+                                    </select> 
+                                         
+                                         
+                                        </td>
+                                       
+                                        <td><input type="text" name="proprice"   value={this.state.proprice} placeholder="Price"/></td>  
+                                        <td><input type="text" name="qty" onChange={this.showqty} placeholder="Quantity"/></td>
+                                        <td><input type="text"   value={this.state.total} placeholder="Total"/></td>
+                                        <td><button type="button" class="btn btn-primary">Delete</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td> 
+                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                <option>Select Product</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" placeholder="Price"/></td>  
+                                        <td><input type="text" placeholder="Quantity"/></td>
+                                        <td><input type="text" placeholder="Total"/></td>
+                                        <td><button type="button" class="btn btn-primary">Delete</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td> 
+                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                <option>Select Product</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" placeholder="Price"/></td>  
+                                        <td><input type="text" placeholder="Quantity"/></td>
+                                        <td><input type="text" placeholder="Total"/></td>
+                                        <td><button type="button" class="btn btn-primary">Delete</button></td>
+                                    </tr>
+                                    <tr>
+                                         <td> 
+                                             <select class="form-control" id="exampleFormControlSelect1">
+                                                <option>Select Product</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" placeholder="Price"/></td>  
+                                        <td><input type="text" placeholder="Quantity"/></td>
+                                        <td><input type="text" placeholder="Total"/></td>
+                                        <td><button type="button" class="btn btn-primary">Delete</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                    <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                        <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Select Product</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select></td>
-                                    <td><input type="text" placeholder="Price"/></td>  
-                                    <td><input type="text" placeholder="Quantity"/></td>
-                                    <td><input type="text" placeholder="Total"/></td>
-                                    <td><button type="button" class="btn btn-primary">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td> <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Select Product</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select></td>
-                                    <td><input type="text" placeholder="Price"/></td>  
-                                    <td><input type="text" placeholder="Quantity"/></td>
-                                    <td><input type="text" placeholder="Total"/></td>
-                                    <td><button type="button" class="btn btn-primary">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td> <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Select Product</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select></td>
-                                    <td><input type="text" placeholder="Price"/></td>  
-                                    <td><input type="text" placeholder="Quantity"/></td>
-                                    <td><input type="text" placeholder="Total"/></td>
-                                    <td><button type="button" class="btn btn-primary">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td> <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Select Product</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select></td>
-                                    <td><input type="text" placeholder="Price"/></td>  
-                                    <td><input type="text" placeholder="Quantity"/></td>
-                                    <td><input type="text" placeholder="Total"/></td>
-                                    <td><button type="button" class="btn btn-primary">Delete</button></td>
-                        </tr>
-                    </tbody>
-                    </table>
-
-                    </div>   
+                        </div>   
                             
-                    
                     </form>
                 </div>
             </div> 
-        </div>          
+        </div>      
              
       );
     }

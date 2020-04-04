@@ -34,9 +34,11 @@ class createProduct extends Component {
     selectImages = (event) => {
         this.setState({ productImg: event.target.files[0]})
     }
+    
     //Fetch Country, Supplier and Category List
     componentDidMount() { 
 
+        console.log(token);
         let initialCountries = [];
         let initialSuppliers = [];
         let initialCategories = [];
