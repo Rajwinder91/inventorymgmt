@@ -57,7 +57,7 @@ class changePurchaseOrderStatus extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -120,7 +120,7 @@ class changePurchaseOrderStatus extends Component {
         })
         .catch(error => {
             //console.log("Error"+error);
-            this.setState({errorMessage: error.response.data});
+            this.setState({errorMessage: error.response.data.message});
         });
     }
 
@@ -131,7 +131,7 @@ class changePurchaseOrderStatus extends Component {
             buttons =<div><div class="form-group deliverButtons"><button class="btn btn-primary btn-block" onClick={this.updateDeliverStatus}>Receive Purchase</button></div><div class="form-group deliverButtons"><button class="btn btn-danger btn-block" onClick={this.cancelStatus}>Cancel Purchase</button></div></div>
         }
         return (            
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
@@ -144,7 +144,7 @@ class changePurchaseOrderStatus extends Component {
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg }</p>
                         }
-                        <div class="row register-form viewPurchase">
+                        <div class="row register-form viewPurchase createForm">
                             <div class="col-md-6">
                                 <div class="form-group deliverButtons">
                                     <input type="text" class="form-control" disabled name="orderStatus" value={this.state.orderStatus}/>

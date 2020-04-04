@@ -58,7 +58,7 @@ class getCategory extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -88,7 +88,7 @@ class getCategory extends Component {
             }
         }
         return (
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
@@ -97,7 +97,7 @@ class getCategory extends Component {
                             <div class="float-right"><NavLink to="/createCategory" className="btn btn-primary">Create Category</NavLink></div>
                         </div> 
                         <br/>
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>
@@ -135,8 +135,7 @@ class getCategory extends Component {
                                             <td><NavLink to={`/editCategory?categoryId=${category.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Category"/></NavLink></td>
                                         </tr>
                                     ))
-                                    }                               
-                                
+                                    }                         
                                 </tbody>
                             </table>
                         </div>

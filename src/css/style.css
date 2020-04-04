@@ -1,7 +1,15 @@
 /*Home Page CSS*/
 .custom-video{margin-left: 145px;}
-.logoImg{width: 30%;}
-
+.logoImg{width: 10%; background: linear-gradient(#5626C4);}
+.headerBk{
+    background : #E67E22;
+}
+.logoTxt{
+    text-align: left!important;
+    color: #5626C4;
+    font-weight: 500;
+    font-style: italic;
+}
 /* Signup Page CSS*/
 .register{    
     margin-top: 3%;
@@ -109,6 +117,7 @@
 }
 .table-wrapper-scroll-y {
     display: block;
+    height: 310px;
 }
 .logoStyle{
     height: 35px;
@@ -217,4 +226,25 @@
   }
   .dividen{
     border-top: 1px solid #000;
+  }
+  .fixed-link{
+      position: fixed;
+      bottom: 14%
+  }
+  .bottom-position{
+    bottom: 9% !important;
+  }
+  .margin-dashboard{
+      margin-left: 7em;
+  }
+  .borderStyle{
+      border: 1px dotted #000;
+  }
+  .formClass{
+    border-top: 1px solid #000;
+    padding-top: 30px;
+  }
+  .createForm{
+    border-top: 1px solid #000;
+    padding-top: 30px;
   }

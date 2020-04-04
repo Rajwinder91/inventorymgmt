@@ -55,7 +55,7 @@ class createProduct extends Component {
             })            
         })
         .catch(error => {
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })  
         
         //Supplier API
@@ -90,7 +90,7 @@ class createProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
 
         //Catgeory API
@@ -125,7 +125,7 @@ class createProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -203,7 +203,7 @@ class createProduct extends Component {
     //Start Render Function
     render() {       
       return ( 
-        <div class="container-fluid">
+        <div class="container-fluid  pt-5 mt-3">
             <div class="row">
                 <DashboardSidebar/>
                 <div class="col-md-9 ml-sm-auto col-lg-10 px-4">             
@@ -213,14 +213,14 @@ class createProduct extends Component {
                     { this.state.successMsg &&
                         <p className="alert alert alert-success"> { this.state.successMsg } </p>
                     } 
-                    <div class="float-left"><h3 class="text-primary">Create Product</h3></div>                       
+                    <div class="float-left"><h3 class="text-primary">Product/Create Product</h3></div>                       
                     <form method="post" name="register" onSubmit={this.submitHandler}>
                         <div class="float-right">          
                             <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>
-                        <div class="row register-form">                                
+                        <div class="row register-form createForm">                                
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control" required name="productName" value={this.state.productName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Product Name*"/>

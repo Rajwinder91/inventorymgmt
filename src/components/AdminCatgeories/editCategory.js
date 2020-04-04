@@ -45,7 +45,7 @@ class editCategory extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -99,7 +99,7 @@ class editCategory extends Component {
     //Call render function
     render() {
         return (
-          <div class="container-fluid">
+          <div class="container-fluid  pt-5 mt-3">
               <div class="row">
                   <DashboardSidebar/>
                   <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
@@ -109,14 +109,14 @@ class editCategory extends Component {
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg } </p>
                         } 
-                        <div class="float-left"><h3 class="text-primary">Update Category</h3></div> 
+                        <div class="float-left"><h3 class="text-primary">Category/Update Category/#{this.state.catename}</h3></div> 
                         <form method="post" name="register" onSubmit={this.submitHandler}>
                             <div class="float-right">           
                                 <input type="submit" class="btn btn-primary mb-2" onClick={this.cancelCourse} value="Cancel"/>
                                 &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                             </div>
                             <br></br> <br></br> <br></br>
-                            <div class="row register-form">
+                            <div class="row register-form createForm">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" class="form-control input-lg" required name="catename" value={this.state.catename} onChange={e => this.ChangeHandler(e)} placeholder="Category Name*"/>

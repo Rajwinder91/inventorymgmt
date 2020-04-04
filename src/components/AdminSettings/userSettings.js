@@ -10,8 +10,8 @@ const token = getToken();
 
 class userSettings extends Component {
     state ={
-        fstname:'',
-        lstname:'',
+        fname:'',
+        lname:'',
         emailAddress: '',
         phone: '',
         currentpassword: '',
@@ -23,10 +23,11 @@ class userSettings extends Component {
 
     componentDidMount() { 
         //Get user profile by id API
+        //const uderid = new URLSearchParams(this.props.location.search).get('userid');
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.216.15.198:3000/api/customeruser/getuserdetailsbyid?userid=1`,
+            url: `http://18.216.15.198:3000/api/customeruser/getuserdetailsbyid?userid`,
             
             headers: {
                 'Content-Type': 'application/json',
@@ -53,8 +54,8 @@ class userSettings extends Component {
     //Reset Button functionality
     cancelCourse = () => { 
         this.setState({
-            fstname: '',
-            lstname :'',
+            fname: '',
+            lname :'',
             emailAddress: '',
             phone: '',
             currentpassword: '',
@@ -73,15 +74,15 @@ class userSettings extends Component {
     //Update user api
     submitHandler = e =>{
         const data = new FormData() 
-        data.append('fname', user.fstname)
-        data.append('lname', this.state.lstname)
+        data.append('fname', user.fname)
+        data.append('lname', this.state.lname)
         data.append("email" , this.state.emailAddress)
         data.append("phonenumber", this.state.phone)        
         data.append("password", this.state.currentpassword)
           
         e.preventDefault();
         axios({
-            method: 'PUT',
+            method: 'POST',
             responseType: 'json',
             url: `http://18.216.15.198:3000/api/companyuser/edituser`,data,
             headers: {
@@ -113,10 +114,7 @@ class userSettings extends Component {
                 }
             }
 
-            changePassword() {
-        
-            }
-
+            
 
     //Call render function
     render() {       

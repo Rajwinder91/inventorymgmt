@@ -102,7 +102,7 @@ class purchaseOrdersDelivery extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -135,14 +135,14 @@ class purchaseOrdersDelivery extends Component {
             }
         }
         return (
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Deliveries</h3></div>
                         </div> 
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>
@@ -225,7 +225,7 @@ class purchaseOrdersDelivery extends Component {
                                 <tbody>
                                     {this.state.deliveriesList.map(delivery => (
                                         <tr>
-                                            <td><NavLink to={`/viewdelivery?DeliveryId=${delivery.id}`}>{delivery.id}</NavLink></td>
+                                            <td><NavLink to={`/viewdelivery?DeliveryId=${delivery.id}`}>#{delivery.id}</NavLink></td>
                                             <td>{delivery.supplierName}</td>
                                             <td>{delivery.date}</td>
                                             <td>{delivery.totalUnits}</td>
