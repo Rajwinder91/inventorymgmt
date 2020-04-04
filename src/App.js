@@ -9,8 +9,8 @@ import PublicRoute from './components/Utils/publicRoute';
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
 import Home from './components/BodyPart/content';
-import Login from './components/Login/Login';
 import SignUp from "./components/Signup/signup";
+import Login from './components/Login/login';
 import ForgotPass from "./components/ForgotPassword/sendEmailNotification";
 
 //Dashboard Components
@@ -31,13 +31,18 @@ import GetProducts from './components/AdminProducts/getProducts';
 import CreateProduct from './components/AdminProducts/createProduct';
 import UpdateProduct from './components/AdminProducts/updateProduct';
 
-//Purchase Order Components
-import CreatePurchaseOrder from './components/PurchaseOrder/createPurhaseOrder';
-
-
-
 //Devileries Components
 import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
+
+//Purchase orders Components
+import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchaseOrderStatus';
+import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
+import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
+import CreatePurchaseOrder from './components/AdminPurchaseOrders/createPurhaseOrder';
+
+//Settings Components
+import UpdateCompanySettings from './components/AdminSettings/companySettings';
+/* End Load Components */
 
 
 /* Start Load CSS */
@@ -57,6 +62,16 @@ import {
 
 /* Start App Class*/
 class App extends Component {
+  componentDidMount() {
+    const scriptAjax = document.createElement("script");
+    const scriptBootstrap = document.createElement("script");
+    scriptAjax.async = true;
+    scriptAjax.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
+    scriptBootstrap.async = true;
+    scriptBootstrap.src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js";
+    document.head.appendChild(scriptAjax);
+    document.head.appendChild(scriptBootstrap);
+  }
     render() {
       return ( 
       <html lang="en">
@@ -90,9 +105,15 @@ class App extends Component {
                       <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
                       <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
                       
-                      <PrivateRoute exact path ="/createPurchaseOrder" component={CreatePurchaseOrder}/>
+                     
 
                       <PrivateRoute  exact path="/deliveries" component={Deliveries}/>
+
+                      <PrivateRoute  exact path="/viewdelivery" component={ViewDelivery}/>
+                      <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
+                      <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>
+                      <PrivateRoute exact path ="/createPurchaseOrder" component={CreatePurchaseOrder}/>
+                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/>                      
 
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />

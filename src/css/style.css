@@ -1,7 +1,15 @@
 /*Home Page CSS*/
 .custom-video{margin-left: 145px;}
-.logoImg{width: 30%;}
-
+.logoImg{width: 10%; background: linear-gradient(#5626C4);}
+.headerBk{
+    background : #E67E22;
+}
+.logoTxt{
+    text-align: left!important;
+    color: #5626C4;
+    font-weight: 500;
+    font-style: italic;
+}
 /* Signup Page CSS*/
 .register{    
     margin-top: 3%;
@@ -109,6 +117,7 @@
 }
 .table-wrapper-scroll-y {
     display: block;
+    height: 310px;
 }
 .logoStyle{
     height: 35px;
@@ -148,3 +157,105 @@
     border-radius: .25rem;
 }
 
+.deliverButtons{
+    margin-bottom: 1.6rem;
+}
+.viewPurchase .form-control{
+    border : none !important;
+}
+
+@media screen and (max-width: 992px) {
+
+    .row-offcanvas {
+      position: relative;
+      -webkit-transition: all 0.25s ease-out;
+      -moz-transition: all 0.25s ease-out;
+      transition: all 0.25s ease-out;
+    }
+  
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+      left: -33%;
+    }
+  
+    .row-offcanvas-left.active {
+      left: 33%;
+      margin-left: -6px;
+    }
+  
+    .sidebar-offcanvas {
+      position: absolute;
+      top: 0;
+      width: 33%;
+      height: 100%;
+    }
+  }
+  
+  /*
+   * Off Canvas wider at sm breakpoint
+   * --------------------------------------------------
+   */
+  @media screen and (max-width: 34em) {
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+      left: -45%;
+    }
+  
+    .row-offcanvas-left.active {
+      left: 45%;
+      margin-left: -6px;
+    }
+    
+    .sidebar-offcanvas {
+      width: 45%;
+    }
+  }
+  
+  .card {
+      overflow:hidden;
+  }
+  
+  .card-body .rotate {
+      z-index: 8;
+      float: right;
+      height: 100%;
+  }
+  
+  .card-body .rotate i {
+      color: rgba(20, 20, 20, 0.15);
+      position: absolute;
+      left: 0;
+      left: auto;
+      right: -10px;
+      bottom: 0;
+      display: block;
+      -webkit-transform: rotate(-44deg);
+      -moz-transform: rotate(-44deg);
+      -o-transform: rotate(-44deg);
+      -ms-transform: rotate(-44deg);
+      transform: rotate(-44deg);
+  }
+  .dividen{
+    border-top: 1px solid #000;
+  }
+  .fixed-link{
+      position: fixed;
+      bottom: 14%
+  }
+  .bottom-position{
+    bottom: 9% !important;
+  }
+  .margin-dashboard{
+      margin-left: 7em;
+  }
+  .borderStyle{
+      border: 1px dotted #000;
+  }
+  .formClass{
+    border-top: 1px solid #000;
+    padding-top: 30px;
+  }
+  .createForm{
+    border-top: 1px solid #000;
+    padding-top: 30px;
+  }

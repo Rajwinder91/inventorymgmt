@@ -66,7 +66,7 @@ class createCategory extends Component {
     }
     render() {
       return (
-        <div class="container-fluid">
+        <div class="container-fluid  pt-5 mt-3">
             <div class="row">
                 <DashboardSidebar/>
                 <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
@@ -76,14 +76,14 @@ class createCategory extends Component {
                     { this.state.successMsg &&
                         <p className="alert alert alert-success"> { this.state.successMsg } </p>
                     } 
-                    <div class="float-left"><h3 class="text-primary">Create Category</h3></div>
+                    <div class="float-left"><h3 class="text-primary">Category/Create Category</h3></div>
                     <form method="post" name="register" onSubmit={this.submitHandler}>
                         <div class="float-right">          
                             <input type="submit" class="btn btn-primary mb-2"  onClick={this.cancel} value="Cancel"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>                                
-                        <div class="row register-form">
+                        <div class="row register-form createForm">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" required name="catename" value={this.state.catename} onChange={e => this.ChangeHandler(e)} placeholder="Category Name*"/>

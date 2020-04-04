@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DashboardSidebar from '../../components/Dashboard/dashboardSidebar';
+import DashboardSidebar from '../Dashboard/dashboardSidebar';
 
 import axios from 'axios';
 import { getUser } from '../Utils/common';

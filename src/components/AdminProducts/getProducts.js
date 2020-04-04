@@ -104,7 +104,7 @@ class getProducts extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
 
         //Catgeory API
@@ -139,7 +139,7 @@ class getProducts extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -202,7 +202,7 @@ class getProducts extends Component {
             }
         }
         return (
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
@@ -210,7 +210,7 @@ class getProducts extends Component {
                             <div class="float-left"><h3 class="text-primary">Products</h3></div>
                             <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Product</NavLink></div>
                         </div> 
-                        <form method="post" name="register" onSubmit={this.submitHandler}>
+                        <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
                                 <button  class="btn btn-primary" onClick={myFunction}>Display/Hide Filter</button>&nbsp;&nbsp;
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>

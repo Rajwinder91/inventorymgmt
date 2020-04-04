@@ -15,7 +15,7 @@ if(userToken){
 class header extends Component {
     render() {
       return (        
-        <header>
+        <header class="fixed-top">
            {navigation}        
         </header>
       );

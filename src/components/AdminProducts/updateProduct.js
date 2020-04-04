@@ -56,7 +56,7 @@ class updateProduct extends Component {
             })            
         })
         .catch(error => {
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })  
         
         //Supplier API
@@ -91,7 +91,7 @@ class updateProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
 
         //Catgeory API
@@ -126,7 +126,7 @@ class updateProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
         
         //Get Product by id API
@@ -160,7 +160,7 @@ class updateProduct extends Component {
         })        
         .catch(error => {
             console.log("Error:"+ error)
-            this.setState({errorMessage: error.response});
+            this.setState({errorMessage: error.response.data.message});
         })
     }
 
@@ -195,34 +195,34 @@ class updateProduct extends Component {
         data.append('QtyMinRequired', this.state.productQuantity)
         data.append('CompanyId', user.CompanyId)
         e.preventDefault();
-            axios({
-                method: 'PUT',
-                responseType: 'json',
-                url: `http://18.216.15.198:3000/api/product/editproduct`,data,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+token
-                }
-                
-            })
-            .then(response => {
-                if(response.data.success === 0){
-                    this.setState({errorMessage: response.data.message});
-                }else{
-                    this.setState({successMsg: response.data.message})
-                    window.location.href ='/getProducts';
-                }                
-            })
-            .catch(error => {
-                //console.log("Error"+error);
-                this.setState({errorMessage: error.response.data});
-            });
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://18.216.15.198:3000/api/product/editproduct`,data,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            }
+            
+        })
+        .then(response => {
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+                window.location.href ='/getProducts';
+            }                
+        })
+        .catch(error => {
+            //console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });
     };
 
     //Call render function
     render() {       
         return ( 
-            <div class="container-fluid">
+            <div class="container-fluid  pt-5 mt-3">
                 <div class="row">
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
@@ -232,14 +232,14 @@ class updateProduct extends Component {
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg } </p>
                         } 
-                        <div class="float-left"><h3 class="text-primary">Update Product</h3></div>                       
+                        <div class="float-left"><h3 class="text-primary">Product/Update Product/#{this.state.productName}</h3></div>                       
                         <form method="post" name="register" onSubmit={this.submitHandler}>
                             <div class="float-right">        
                                 <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
                                 &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                             </div>
                             <br></br> <br></br> <br></br>
-                            <div class="row register-form">                                
+                            <div class="row register-form createForm">                                
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" class="form-control" required name="productName" value={this.state.productName} onChange={e => this.ChangeHandler(e)} pattern="[a-zA-Z][a-zA-Z ]{2,}" placeholder="Product Name*"/>

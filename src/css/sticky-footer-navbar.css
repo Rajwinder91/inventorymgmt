@@ -13,6 +13,7 @@ body {
   position: fixed;
   bottom: 0; /* Set the fixed height of the footer here */
   z-index: 111;
+  background: #1d252d;
 }
   
 /* Custom page CSS

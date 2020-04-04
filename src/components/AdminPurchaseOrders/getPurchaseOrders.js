@@ -1,38 +1,39 @@
 import React, { Component } from 'react';
-import DashboardSidebar from '../../components/Dashboard/dashboardSidebar';
+import DashboardSidebar from '../Dashboard/dashboardSidebar';
 import { getUser } from '../Utils/common';
 import { getToken } from '../Utils/common';
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
+import "react-datepicker/dist/react-datepicker.css";
+
 
 /* Get User and Token From Session */
 const user = getUser();
 const token = getToken();
 
-class purchaseOrdersDelivery extends Component { 
+class getPurchaseOrders extends Component { 
    
     //Set state values
     state = {
-        deliveriesList: [],
+        purchaseOrderList: [],
         suppliersList:[],
-        deliveryStatus: '',
-        deliveryId: '',
-        supplier: '',
-        errorMessage: '',
+        filterSupplierId:'',
+        filterOrderId: '',
+        errorMessage : '',
         successMsg: ''
     }
 
-    //Get all Supplier API and deliveries
+    //Get all salesOrder API
     componentDidMount() {
         
-        let initialDeliveries = [];
+        let initialPurchaseOrders = [];
         let initialSuppliers = [];
 
         let url = '';
-        if(this.state.deliveryStatus || this.state.deliveryId || this.state.supplier){
-            url =`http://18.216.15.198:3000/api/delivery/getdeliveries?Status=`+this.state.deliveryStatus+'&&SupplierName='+this.state.supplier+'&&DeliveryId='+this.state.deliveryId;
+        if(this.state.filterSupplierId || this.state.filterOrderId){
+            url =`http://18.216.15.198:3000/api/purchaseorder/getpurchaseorders?SupplierId=`+this.state.filterSupplierId+'&&PurchaseOrderId='+this.state.filterOrderId;
         }else{
-            url =`http://18.216.15.198:3000/api/delivery/getdeliveries`;
+            url =`http://18.216.15.198:3000/api/purchaseorder/getpurchaseorders`;
         }
         axios({
 
@@ -50,28 +51,26 @@ class purchaseOrdersDelivery extends Component {
         .then(response => {
             //console.log(response.data.success);
             if(response.data.success == 1){
-                initialDeliveries = response.data.data.map((delivery) => { //console.log(product.SupplierId);
-                    return {id: delivery.DeliveryId, supplierName: delivery.SupplierName, date: delivery.DeliveryDate, totalUnits: delivery.TotalUnit ,totalPrice: delivery.Total ,status: delivery.Status} 
+                initialPurchaseOrders = response.data.data.map((order) => { 
+                    return {id: order.Purchase_OrderId, supplierName: order.SupplierName, purchasedDate: order.Date, totalUnits: order.Quantity ,totalPrice: order.Total, pStatus: order.Status} 
                 })
                 this.setState({
-                    deliveriesList: initialDeliveries
+                    purchaseOrderList: initialPurchaseOrders
                 })
                 
             }else{
                 this.setState({
-                    deliveriesList: []
+                    purchaseOrderList: []
                 })
             }
             
         })        
         .catch(error => {
-            console.log("Error:"+ error)
             this.setState({errorMessage: error.response.data.message});
         })
 
-
-        //Supplier API
-        axios({
+         //Supplier API
+         axios({
             method: 'POST',
             responseType: 'json',
             url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
@@ -84,13 +83,13 @@ class purchaseOrdersDelivery extends Component {
             }          
         })
         .then(response => {
-            console.log(response.data.success);
+            //console.log(response.data.success);
             if(response.data.success == 1){
                 initialSuppliers = response.data.data.map((supplier) => { 
                     return {id: supplier.SupplierId, suppliername: supplier.SupplierName} 
                 })
                 this.setState({
-                    suppliersList: [{id: '', suppliername: 'Select supplier'}].concat(initialSuppliers)
+                    suppliersList: [{id: '', suppliername: 'Please select supplier'}].concat(initialSuppliers)
                 })
                 
             }else{
@@ -110,7 +109,8 @@ class purchaseOrdersDelivery extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-    };
+    }
+
     submitHandler = e => {
         e.preventDefault(); 
         this.componentDidMount();
@@ -118,16 +118,21 @@ class purchaseOrdersDelivery extends Component {
 
     reset = () => { 
         this.setState({            
-            deliveryStatus: '',
-            deliveryId: '',
-            supplier: ''
+            filterSupplierId:'',
+            filterOrderId: ''
+        });
+    }
+
+    handleChange = date => {
+        this.setState({
+            filterDate: date
         });
     }
 
     //Start render Function
     render() {
         function myFunction() {
-            var x = document.getElementById("deliveryFilter");
+            var x = document.getElementById("purchaseOrdersFilter");
             if (x.style.display === "none") {
                 x.style.display = "flex";
             } else {
@@ -140,7 +145,8 @@ class purchaseOrdersDelivery extends Component {
                     <DashboardSidebar/>
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
                         <div class="headings">
-                            <div class="float-left"><h3 class="text-primary">Deliveries</h3></div>
+                            <div class="float-left"><h3 class="text-primary">Purchase Orders</h3></div>
+                            <div class="float-right"><NavLink to="/createPurchaseOrder" className="btn btn-primary">Create Purchase Order</NavLink></div>
                         </div> 
                         <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">
@@ -148,38 +154,19 @@ class purchaseOrdersDelivery extends Component {
                                 <button  class="btn btn-primary" onClick={this.reset}>Reset</button>
                             </div> 
                             <br/><br/><br/><br/>
-                            <div id="deliveryFilter" class="row register-form">                                
+                            <div id="purchaseOrdersFilter" class="row register-form">                                
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <select class="form-control" name="deliveryStatus" value={this.state.deliveryStatus} 
-                                             onChange={e =>
-                                                this.setState({
-                                                deliveryStatus: e.target.value,
-                                                errorMessage:
-                                                    e.target.value === ""
-                                                    ? "You must select status"
-                                                    : ""
-                                                })
-                                            }
-                                            >
-                                            <option value="Delivery Status">Delivery Status</option>
-                                            <option value="Received">Received</option>
-                                            <option value="Pending">Pending</option>
-                                        </select>
+                                        <input type="text" class="form-control input-lg" name="filterOrderId" value={this.state.filterOrderId} onChange={e => this.ChangeHandler(e)} placeholder="Purchase Order #"/>
                                     </div>
                                 </div> 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control input-lg" name="deliveryId" value={this.state.deliveryId} onChange={e => this.ChangeHandler(e)} placeholder="Delivery #"/>
-                                    </div>
-                                </div>  
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <select name="supplier" class="form-control"
-                                            value={this.state.supplier}
+                                        <select name="filterSupplierId" class="form-control"
+                                            value={this.state.filterSupplierId}
                                             onChange={e =>
                                                 this.setState({
-                                                supplier: e.target.value,
+                                                filterSupplierId: e.target.value,
                                                 errorMessage:
                                                     e.target.value === ""
                                                     ? "You must select supplier"
@@ -190,14 +177,14 @@ class purchaseOrdersDelivery extends Component {
                                             {this.state.suppliersList.map(supplier => (
                                                 <option
                                                 key={supplier.id}
-                                                value={supplier.suppliername}
+                                                value={supplier.id}
                                                 >
                                                 {supplier.suppliername}
                                                 </option>
                                             ))}
-                                        </select>
+                                        </select> 
                                     </div>
-                                </div>                              
+                                </div>                      
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
                                 </div>
@@ -213,29 +200,28 @@ class purchaseOrdersDelivery extends Component {
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Delivery Id</th>
+                                        <th scope="col">Purchase Order Id</th>
                                         <th scope="col">Supplier</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Total Units</th>
-                                        <th scope="col">Total</th>
+                                        <th scope="col">Total Price</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.deliveriesList.map(delivery => (
+                                    {this.state.purchaseOrderList.map(order => (
                                         <tr>
-                                            <td><NavLink to={`/viewdelivery?DeliveryId=${delivery.id}`}>#{delivery.id}</NavLink></td>
-                                            <td>{delivery.supplierName}</td>
-                                            <td>{delivery.date}</td>
-                                            <td>{delivery.totalUnits}</td>
-                                            <td>${delivery.totalPrice}</td>
-                                            <td>{delivery.status}</td>
-                                            <td><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Delivery"/></td>
+                                            <td><NavLink to={`/changeStatus?purchaseOrderId=${order.id}`}>#{order.id}</NavLink></td>
+                                            <td>{order.supplierName}</td>
+                                            <td>{order.purchasedDate}</td>
+                                            <td>{order.totalUnits}</td>
+                                            <td>${order.totalPrice}</td>
+                                            <td>{order.pStatus}</td>
+                                            <td><NavLink to={`/updateProduct?productId=${order.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Purchase Order"/></NavLink></td>
                                         </tr>
                                     ))
-                                    }                         
-                                
+                                    }                     
                                 </tbody>
                             </table>
                         </div>
@@ -244,7 +230,7 @@ class purchaseOrdersDelivery extends Component {
             </div>
         );
     }
-    //End render Function
 }
+//End render Function
              
-export default purchaseOrdersDelivery;
+export default getPurchaseOrders;
