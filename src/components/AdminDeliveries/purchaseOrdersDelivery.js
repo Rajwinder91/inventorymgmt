@@ -227,7 +227,7 @@ class purchaseOrdersDelivery extends Component {
                                         <tr>
                                             <td><NavLink to={`/viewdelivery?DeliveryId=${delivery.id}`}>#{delivery.id}</NavLink></td>
                                             <td>{delivery.supplierName}</td>
-                                            <td>{delivery.date}</td>
+                                            <td>{delivery.date ? delivery.date : 'N/A'}</td>
                                             <td>{delivery.totalUnits}</td>
                                             <td>${delivery.totalPrice}</td>
                                             <td>{delivery.status}</td>

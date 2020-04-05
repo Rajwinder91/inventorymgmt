@@ -199,7 +199,21 @@ class createProduct extends Component {
             this.setState({errorMessage: error.response.data.message});
         });
     };
-   
+    cancel = () => { 
+        this.setState({
+            productName: '',
+            productSKU: '',
+            productDesc: '',
+            productPurchasePrice: '',
+            productRetailPrice: '',
+            productCat: '',
+            productCountry: '',
+            productImg:'',
+            productSupplier: '',
+            productQuantity:'50',
+            productBarcode: '',         
+        });
+    }
     //Start Render Function
     render() {       
       return ( 
@@ -216,7 +230,7 @@ class createProduct extends Component {
                     <div class="float-left"><h3 class="text-primary">Product/Create Product</h3></div>                       
                     <form method="post" name="register" onSubmit={this.submitHandler}>
                         <div class="float-right">          
-                            <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
+                            <input type="reset" class="btn btn-primary mb-2" onClick={this.cancel}  value="Cancel"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>

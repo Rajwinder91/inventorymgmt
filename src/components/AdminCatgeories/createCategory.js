@@ -79,7 +79,7 @@ class createCategory extends Component {
                     <div class="float-left"><h3 class="text-primary">Category/Create Category</h3></div>
                     <form method="post" name="register" onSubmit={this.submitHandler}>
                         <div class="float-right">          
-                            <input type="submit" class="btn btn-primary mb-2"  onClick={this.cancel} value="Cancel"/>
+                            <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancel} value="Cancel"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>                                
