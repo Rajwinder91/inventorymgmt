@@ -7,7 +7,7 @@ import axios from 'axios';
 /* Get User and Token From Session */
 const user = getUser();
 const token = getToken();
- 
+ console.log(token);
 class dashboard extends Component { 
 
   //Set state values
