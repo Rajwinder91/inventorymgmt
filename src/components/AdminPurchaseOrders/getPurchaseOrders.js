@@ -273,7 +273,7 @@ class getPurchaseOrders extends Component {
                                             <td>{order.totalUnits}</td>
                                             <td>${order.totalPrice}</td>
                                             <td>{order.pStatus}</td>
-                                            <td><NavLink to={`/updateProduct?productId=${order.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Purchase Order"/></NavLink></td>
+                                            <td><NavLink to={`/updatePurchaseOrder?purchase_ord_Id=${order.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Purchase Order"/></NavLink></td>
                                         </tr>
                                     ))
                                     }                     

@@ -91,7 +91,8 @@ class createCategory extends Component {
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control input-lg" name="cateSKU" value={this.state.cateSKU} onChange={e => this.ChangeHandler(e)} required placeholder="SKU*"/>
+                                    <input type="text" class="form-control input-lg" name="cateSKU" value={this.state.cateSKU} onChange={e => this.ChangeHandler(e)} required placeholder="abcd-1000-10*"/>
+                                    <span class="text-danger">SKU pattern shoud be like abcd-1000-10</span>
                                 </div> 
                             </div>
                             <div class="col-md-6">
