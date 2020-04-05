@@ -146,12 +146,18 @@ class dashboard extends Component {
       .then(response => {
           //console.log(response.data.success);
           if(response.data.success == 1){
+            if(response.data.data == 0){
+              this.setState({
+                salesPerCategory: []
+              })
+            }else{
               initialSalesCatOrders = response.data.data.map((sale) => {
-                  return {catName: sale.CategoryName, qty: sale.Quantity_Per_Category, total: sale.Total, profitMargin:sale.Profit_Margin} 
+                return {catName: sale.CategoryName, qty: sale.Quantity_Per_Category, total: sale.Total, profitMargin:sale.Profit_Margin} 
               })
               this.setState({
                   salesPerCategory: initialSalesCatOrders
               })
+            }
               
           }else{
               this.setState({

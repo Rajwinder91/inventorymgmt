@@ -138,10 +138,7 @@ class salesOrder extends Component {
                                     <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
                                 </div>
                             </div>  
-                        </form>   
-                        { this.state.errorMessage &&
-                            <p className="alert alert-danger"> { this.state.errorMessage }</p>
-                        } 
+                        </form> 
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg }</p>
                         }                

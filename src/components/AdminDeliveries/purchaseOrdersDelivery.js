@@ -203,9 +203,6 @@ class purchaseOrdersDelivery extends Component {
                                 </div>
                             </div>  
                         </form>   
-                        { this.state.errorMessage &&
-                            <p className="alert alert-danger"> { this.state.errorMessage }</p>
-                        } 
                         { this.state.successMsg &&
                             <p className="alert alert alert-success"> { this.state.successMsg }</p>
                         }                
