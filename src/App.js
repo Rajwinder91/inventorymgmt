@@ -26,6 +26,13 @@ import GetCategory from './components/AdminCatgeories/getCategory';
 import CreateCategory from './components/AdminCatgeories/createCategory';
 import EditCategory from './components/AdminCatgeories/editCategory.js';
 
+//import UpdateSupplier from './components/AdminSuppliers/updateSupplier';
+
+//>>>>>>> 26b58fa4b1da9fde65bb9453ed565d92574c0278
+//import GetSupplier from './components/AdminSuppliers/getSuppliers';
+//import GetCategory from './components/AdminCatgeories/getCategory';
+
+
 //Product Components
 import GetProducts from './components/AdminProducts/getProducts';
 import CreateProduct from './components/AdminProducts/createProduct';
@@ -40,10 +47,12 @@ import Deliveries from './components/AdminDeliveries/purchaseOrdersDelivery';
 //Purchase orders Components
 import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchaseOrderStatus';
 import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
+import UpdatePurchaseOrders from './components/AdminPurchaseOrders/updatePurchaseOrder';
 import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
 
 //Settings Components
 import UpdateCompanySettings from './components/AdminSettings/companySettings';
+import UpdateUserSettings from './components/AdminSettings/userSettings';
 /* End Load Components */
 
 /* Start Load CSS */
@@ -97,6 +106,22 @@ class App extends Component {
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
+
+                      <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>
+
+
+                      <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
+                      <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
+
+                      <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>
+
+
+                      <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
+                      <PrivateRoute  exact path="/getCategory" component={GetCategory}/>
+                      <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
+                      <PrivateRoute  exact path="/createProduct" component={CreateProduct}/>
+                      <PrivateRoute  exact path="/updateProduct" component={UpdateProduct}/>
+
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>                      
                       <PrivateRoute  exact path="/updateSupplier" component={UpdateSupplier}/>                      
                       <PrivateRoute  exact path="/getProducts" component={GetProducts}/>
@@ -105,12 +130,15 @@ class App extends Component {
                       <PrivateRoute  exact path="/getCategories" component={GetCategory}/>
                       <PrivateRoute  exact path="/createCategory" component={CreateCategory}/>
                       <PrivateRoute  exact path="/editCategory" component={EditCategory}/>
+
                       <PrivateRoute  exact path="/salesOrders" component={SalesOrders}/>
                       <PrivateRoute  exact path="/deliveries" component={Deliveries}/>
                       <PrivateRoute  exact path="/viewdelivery" component={ViewDelivery}/>
                       <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
                       <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>
-                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/>                      
+                      <PrivateRoute  exact path="/updatePurchaseOrder" component={UpdatePurchaseOrders}/>
+                      <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/> 
+                      <PrivateRoute  exact path="/userSettings" component={UpdateUserSettings}/>                    
                       <Route  exact path="/404" component={NotFoundPage}/>
                       <Redirect to="/404" />
                   </Switch> 

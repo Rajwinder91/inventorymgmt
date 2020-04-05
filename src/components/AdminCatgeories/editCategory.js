@@ -32,9 +32,14 @@ class editCategory extends Component {
         .then(response => {            
             if(response.data.success == 1){ 
                 this.setState({ 
+                    categoryname: response.data.data[0].categoryname,
+                    tags: response.data.data[0].tags,
+                    SKU: response.data.data[0].SKU,
+                    categoryId: response.data.data[0].categoryId,
                     catename: response.data.data[0].categoryname,
                     Tags: response.data.data[0].tags,
                     cateSKU: response.data.data[0].SKU
+
               })
             }            
         })        

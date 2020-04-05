@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import DashboardSidebar from '../Dashboard/dashboardSidebar';
 import { getUser } from '../Utils/common';
@@ -20,7 +21,9 @@ class getPurchaseOrders extends Component {
         filterSupplierId:'',
         filterOrderId: '',
         errorMessage : '',
-        successMsg: ''
+        successMsg: '',
+        toDel: [],
+        checks: []
     }
 
     //Get all salesOrder API
@@ -129,6 +132,58 @@ class getPurchaseOrders extends Component {
         });
     }
 
+    recId = (idToDel) => {
+        // Grab the checkbox that was clicked.
+        let checker = document.getElementById(idToDel);
+        if (checker.checked) {
+          this.state.toDel.push(idToDel);
+        }
+        else {
+          // Remove the id from delete-list.
+          let index = this.state.toDel.indexOf(idToDel);
+          this.state.toDel.splice(index, 1);
+        }
+      }
+
+    //Delete API
+    delete(purchase_orderid) { 
+        for (var i = 0; i < this.state.toDel.length; i++) {
+            this.state.checks[index] = '';
+          }
+
+        axios({
+            method: 'PUT',
+            responseType: 'json',
+            url: `http://18.216.15.198:3000/api/api/purchaseorder/deletepurchaseorder?purchase_orderid=${purchase_orderid}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+            data: {
+                "purchase_orderid" : purchase_orderid
+            }          
+        })
+        .then(response => {
+            console.log("Response"+response.data);
+            if(response.data.success === 0){
+                this.setState({errorMessage: response.data.message});
+            }else{
+                this.setState({successMsg: response.data.message})
+                window.location.href ='/getPurchaseOrders';
+            }                
+        })
+        .catch(error => {
+            console.log("Error"+error);
+            this.setState({errorMessage: error.response.data.message});
+        });  
+        /*
+        this.setState({
+            toDel: [],
+            checks: this.state.checks
+          });
+        */
+    }
+
     //Start render Function
     render() {
         function myFunction() {
@@ -188,6 +243,10 @@ class getPurchaseOrders extends Component {
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
                                 </div>
+                                <div class="col-md-3">
+                                     {this.state.checks}
+                                    <input type="submit" class="btn btn-primary mb-2"  onClick={this.delete(purchase_orderid)} value="Delete Purchase Order"/>
+                                </div>
                             </div>  
                         </form>   
                         { this.state.errorMessage &&
@@ -212,6 +271,8 @@ class getPurchaseOrders extends Component {
                                 <tbody>
                                     {this.state.purchaseOrderList.map(order => (
                                         <tr>
+                                            <td><input type="checkbox" onClick={this.props.order.bind(null, this.props.order.id)} id={this.props.order.id}/></td>
+                                            
                                             <td><NavLink to={`/changeStatus?purchaseOrderId=${order.id}`}>#{order.id}</NavLink></td>
                                             <td>{order.supplierName}</td>
                                             <td>{order.purchasedDate}</td>
