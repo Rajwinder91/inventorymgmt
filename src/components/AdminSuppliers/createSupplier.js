@@ -173,7 +173,7 @@ class createSupplier extends Component {
                     <div class="float-left"><h3 class="text-primary">Supplier/Create Supplier</h3></div>                 
                     <form method="post" name="register" onSubmit={this.submitHandler} id="SupplierForm">                           
                         <div class="float-right">        
-                            <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Cancel"/>
+                            <input type="reset" class="btn btn-primary mb-2"  onClick={this.cancelCourse} value="Reset Form"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>

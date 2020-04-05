@@ -131,57 +131,31 @@ class getPurchaseOrders extends Component {
         });
     }
 
-    recId = (idToDel) => {
-        // Grab the checkbox that was clicked.
-        let checker = document.getElementById(idToDel);
-        if (checker.checked) {
-          this.state.toDel.push(idToDel);
-        }
-        else {
-          // Remove the id from delete-list.
-          let index = this.state.toDel.indexOf(idToDel);
-          this.state.toDel.splice(index, 1);
-        }
-      }
     //Delete API
-    delete(purchase_orderid) { 
-        for (var i = 0; i < this.state.toDel.length; i++) {
-            //this.state.checks[index] = '';
-          }
-          //<input type="submit" class="btn btn-primary mb-2"  onClick={this.delete(purchase_orderid)} value="Delete Purchase Order"/>
-         // <td><input type="checkbox" onClick={this.props.order.bind(null, this.props.order.id)} id={this.props.order.id}/></td>
-                                                      
+    deleteOrder(purchase_orderid) { 
+                                        
         axios({
-            method: 'PUT',
+            method: 'DELETE',
             responseType: 'json',
-            url: `http://18.216.15.198:3000/api/api/purchaseorder/deletepurchaseorder?purchase_orderid=${purchase_orderid}`,
+            url: `http://18.216.15.198:3000/api/purchaseorder/deletepurchaseorder?purchase_orderid=${purchase_orderid}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
-            },
-            data: {
-                "purchase_orderid" : purchase_orderid
-            }          
+            }        
         })
         .then(response => {
             console.log("Response"+response.data);
             if(response.data.success === 0){
                 this.setState({errorMessage: response.data.message});
-            }else{
-                this.setState({successMsg: response.data.message})
+            }else{                
                 window.location.href ='/getPurchaseOrders';
+                this.setState({successMsg: response.data.message})
             }                
         })
         .catch(error => {
             console.log("Error"+error);
             this.setState({errorMessage: error.response.data.message});
-        });  
-        /*
-        this.setState({
-            toDel: [],
-            checks: this.state.checks
-          });
-        */
+        });
     }
     //Start render Function
     render() {
@@ -242,9 +216,7 @@ class getPurchaseOrders extends Component {
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-primary mb-2"  value="Execute"/>
                                 </div>
-                                <div class="col-md-3">
-                                     {this.state.checks}
-                                </div>
+                                
                             </div>  
                         </form>   
                         
@@ -273,7 +245,7 @@ class getPurchaseOrders extends Component {
                                             <td>{order.totalUnits}</td>
                                             <td>${order.totalPrice}</td>
                                             <td>{order.pStatus}</td>
-                                            <td><NavLink to={`/updatePurchaseOrder?purchase_ord_Id=${order.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Purchase Order"/></NavLink></td>
+                                            <td width="17%"><NavLink to={`/updatePurchaseOrder?purchase_ord_Id=${order.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Purchase Order"/></NavLink> | <a onClick={() => {if(window.confirm('DO you want to delete '+ order.id +' purchase order ?')){let removeToCollection = this.deleteOrder.bind(this, order.id); removeToCollection();}}}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Purchase Order"/></a></td>
                                         </tr>
                                     ))
                                     }                     

@@ -230,7 +230,7 @@ class createProduct extends Component {
                     <div class="float-left"><h3 class="text-primary">Product/Create Product</h3></div>                       
                     <form method="post" name="register" onSubmit={this.submitHandler}>
                         <div class="float-right">          
-                            <input type="reset" class="btn btn-primary mb-2" onClick={this.cancel}  value="Cancel"/>
+                            <input type="reset" class="btn btn-primary mb-2" onClick={this.cancel}  value="Reset Form"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>

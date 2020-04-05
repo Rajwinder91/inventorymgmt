@@ -39,7 +39,7 @@ class userSettings extends Component {
             }         
         })
         .then(response => {            
-            if(response.data.success == 1){console.log(response.data.data);
+            if(response.data.success == 1){//console.log(response.data.data);
                 this.setState({ 
                     fname:response.data.data[0].Fname,
                     lname:response.data.data[0].Lname,
