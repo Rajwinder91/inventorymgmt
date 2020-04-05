@@ -43,14 +43,14 @@ class salesOrder extends Component {
                 'Authorization': 'Bearer '+token
             },
             data: {
-                "companyid" : 1
+                "companyid" : user.CompanyId
             }          
         })
         .then(response => {
             //console.log(response.data.success);
             if(response.data.success == 1){
                 initialSalesOrders = response.data.data.map((order) => {
-                    return {id: order.CustomerOrderId, customerName: order.Fname, purchasedDate: order.Date, totalUnits: order.sum ,totalPrice: order.Total} 
+                    return {id: order.CustomerOrderId, customerName: order.Fname, purchasedDate: order.Date, totalUnits: order.SumofQuantity ,totalPrice: order.Total} 
                 })
                 this.setState({
                     salesOrderList: initialSalesOrders

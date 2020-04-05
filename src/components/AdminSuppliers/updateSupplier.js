@@ -77,6 +77,7 @@ class updateSupplier extends Component {
                     country: response.data.data[0].CountryId,
                     province: response.data.data[0].ProvinceId
               })
+              this.handleChange(this.state.country,'onloadType'); 
             }
             
         })        
@@ -87,11 +88,17 @@ class updateSupplier extends Component {
     }
 
     //Get Provinces list on change of country
-    handleChange(event) {
+    handleChange(event, type) {
+        let countryid = '';
+        if(type == 'onloadType'){
+            countryid = this.state.country;
+        }else{
+            countryid = event.target.value
+        }
         let initialProvinces = [];
         this.setState({
-           country: event.target.value,
-           errorMessage: event.target.value === "" ? "You must select your country" : ""
+           country: countryid,
+           errorMessage: countryid === "" ? "You must select your country" : ""
         });
 
         axios({
@@ -99,7 +106,7 @@ class updateSupplier extends Component {
             responseType: 'json',
             url: `http://18.216.15.198:3000/api/provinces/province`,
             data: {
-                "country_id" : event.target.value
+                "country_id" : countryid
             }            
         })
         .then(response => {

@@ -44,7 +44,7 @@ class purchaseOrdersDelivery extends Component {
                 'Authorization': 'Bearer '+token
             },
             data: {
-                "CompanyId" : 1
+                "CompanyId" : user.CompanyId
             }          
         })
         .then(response => {

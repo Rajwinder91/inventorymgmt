@@ -31,7 +31,7 @@ class changePurchaseOrderStatus extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.216.15.198:3000/api/purchaseorder/getpurchaseorderbyid?CompanyId=1&PurchaseOrderId=${purchaseOrderId}`,
+            url: `http://18.216.15.198:3000/api/purchaseorder/getpurchaseorderbyid?CompanyId=${user.CompanyId}&PurchaseOrderId=${purchaseOrderId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token
@@ -104,7 +104,7 @@ class changePurchaseOrderStatus extends Component {
                 'Authorization': 'Bearer '+token
             },
             data : {
-                "CompanyId": 1 ,
+                "CompanyId": user.CompanyId ,
                 "Purchase_OrderId": purchaseOrderId
             }
             

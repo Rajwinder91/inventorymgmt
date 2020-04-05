@@ -34,7 +34,6 @@ class companySettings extends Component {
     }
     //Fetch companydetail by id api
     componentDidMount() { 
-
         //Declare variable for country url
         let initialCountries = [];
 
@@ -66,7 +65,7 @@ class companySettings extends Component {
             }         
         })
         .then(response => {            
-            if(response.data.success == 1){console.log(response.data.data);
+            if(response.data.success == 1){
                 this.setState({ 
                     companyName: response.data.data.Company_name,
                     companyEmail: response.data.data.website,
@@ -79,20 +78,27 @@ class companySettings extends Component {
                     companyPostalCode: response.data.data.PostalCode,
                     showcompanyLogo: response.data.data.Logo
               })
-            }
-            
+              this.handleChange(this.state.companyCountry,'onloadType');              
+            }            
         })        
         .catch(error => {
             this.setState({errorMessage: error.response.data.message});
         })
+        
     }
 
     //Get Provinces list on change of country
-    handleChange(event) {
+    handleChange(event, type) {
+        let countryid = '';
+        if(type == 'onloadType'){
+            countryid = this.state.companyCountry;
+        }else{
+            countryid = event.target.value
+        }
         let initialProvinces = [];
         this.setState({
-            companyCountry: event.target.value,
-            errorMessage: event.target.value === "" ? "You must select your country" : ""
+            companyCountry: countryid,
+            errorMessage: countryid === "" ? "You must select your country" : ""
         });
 
         axios({
@@ -100,7 +106,7 @@ class companySettings extends Component {
             responseType: 'json',
             url: `http://18.216.15.198:3000/api/provinces/province`,
             data: {
-                "country_id" : event.target.value
+                "country_id" : countryid
             }            
         })
         .then(response => {
@@ -190,7 +196,7 @@ class companySettings extends Component {
                                 &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                             </div>
                             <br></br> <br></br> <br></br>
-                            <div class="row register-form">                                
+                            <div class="row register-form formClass">                                
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" class="form-control" required name="companyName" value={this.state.companyName} onChange={e => this.ChangeHandler(e)}  placeholder="Company Name*"/>

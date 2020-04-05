@@ -308,7 +308,7 @@ class getProducts extends Component {
                                             <td>{product.productSku}</td>
                                             <td>{product.productInventory}</td>
                                             <td>{product.productCat}</td>
-                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> |  <a href="#" onClick={this.delete.bind(this, product.id)}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></a></td>
+                                            <td><NavLink to={`/updateProduct?productId=${product.id}`}><img src="https://img.icons8.com/bubbles/50/000000/edit.png" title="Update Product"/></NavLink> |  <a onClick={() => {if(window.confirm('DO you want to delete '+ product.productName +' product ?')){let removeToCollection = this.delete.bind(this, product.id); removeToCollection();}}}><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete Product"/></a></td>
                                         </tr>
                                     ))
                                     }                         

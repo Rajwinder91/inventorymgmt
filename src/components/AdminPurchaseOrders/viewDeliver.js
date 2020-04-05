@@ -30,7 +30,7 @@ class viewDeliver extends Component {
         axios({
             method: 'GET',
             responseType: 'json',
-            url: `http://18.216.15.198:3000/api/delivery/getdeliverybyid?CompanyId=1&DeliveryId=`+deliveryId,
+            url: `http://18.216.15.198:3000/api/delivery/getdeliverybyid?CompanyId=${user.CompanyId}&DeliveryId=`+deliveryId,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer '+token

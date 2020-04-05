@@ -314,7 +314,7 @@ class dashboard extends Component {
                                     <td>{order.supplierName}</td>
                                     <td>{order.purchaseDate}</td>
                                     <td>{order.totalUnits}</td>
-                                    <td>{order.totalPrice}</td>
+                                    <td>${order.totalPrice}</td>
                                   </tr>
                                 ))
                                 } 
@@ -339,8 +339,8 @@ class dashboard extends Component {
                                 <tr>
                                   <td>{sales.catName}</td>
                                   <td>{sales.qty}</td>
-                                  <td>{sales.total}</td>
-                                  <td>{sales.profitMargin}</td>
+                                  <td>${sales.total}</td>
+                                  <td>{sales.profitMargin.toFixed(2)}</td>
                                 </tr>
                                 ))
                               }
@@ -389,7 +389,7 @@ class dashboard extends Component {
                                   <tr>
                                     <td>{order.cutomerOrderId}</td>
                                     <td>{order.totalUnits}</td>
-                                    <td>{order.total}</td>
+                                    <td>${order.total}</td>
                                     <td>{order.customerName}</td>
                                   </tr>
                                 ))
