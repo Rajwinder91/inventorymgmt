@@ -104,11 +104,7 @@ class createSupplier extends Component {
             supplierCity: '',
             supplierAddress1: '',
             supplierAddress2: '',
-            supplierPostalCode: '',
-            errorMessage: '',
-            successMsg:'',
-            countries: [],
-            provinces: []
+            supplierPostalCode: ''
         });
     }
 
