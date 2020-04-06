@@ -1,7 +1,15 @@
 /*Home Page CSS*/
 .custom-video{margin-left: 145px;}
-.logoImg{width: 30%;}
-
+.logoImg{width: 10%; background: linear-gradient(#5626C4);}
+.headerBk{
+    background : #E67E22;
+}
+.logoTxt{
+    text-align: left!important;
+    color: #5626C4;
+    font-weight: 500;
+    font-style: italic;
+}
 /* Signup Page CSS*/
 .register{    
     margin-top: 3%;
@@ -42,10 +50,6 @@
 .label {
     font-size: 18px;
 }
-body, html, .App, #root, .auth-wrapper {
-    width: 100%;
-    height: 100%;
-}
 .forgot-password,
 .forgot-password a {
     text-align: right;
@@ -55,3 +59,200 @@ body, html, .App, #root, .auth-wrapper {
 .forgot-password a {
     color: #167bff;
 }
+.zindex{
+    z-index: 111;
+}
+
+.invenImg{
+    width: 20%;
+    margin-left: -40px;
+    margin-top: 7px;
+}
+.signupsidebar li{
+
+    margin-top:27px;
+    margin-bottom: 27px;
+}
+.signup_p1{
+    margin-top: -7px;
+    margin-bottom: -18px;
+    margin-left: 10px;
+}
+.signup_p2{
+    margin-top: -40px;
+    margin-bottom: -20px;
+    margin-left: 10px;
+}
+.signup_p3{
+    margin-top: -61px;
+    margin-left: 10px;
+}
+
+.sidebarborder{
+    border-right: 1px dashed #007bff;
+}
+
+
+/* Category Page CSS*/
+.btn_cate{
+    margin-top: 3%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 20%;
+    cursor: pointer;
+}
+
+.top_button{
+    padding-left: 82%;
+    margin-top: -37px;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+    height: 310px;
+}
+.logoStyle{
+    height: 35px;
+}
+.headings{
+    margin-bottom: 6%;
+}
+.companyLogo{
+    width: 70px;
+    height: 70px;
+}
+.table td, .table th{
+    vertical-align: baseline !important;
+}
+
+.productImage
+{
+    width: 100%;
+    height: 176px;
+    margin-top: 10px;
+}
+.react-datepicker__input-container input{
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+.deliverButtons{
+    margin-bottom: 1.6rem;
+}
+.viewPurchase .form-control{
+    border : none !important;
+}
+
+@media screen and (max-width: 992px) {
+
+    .row-offcanvas {
+      position: relative;
+      -webkit-transition: all 0.25s ease-out;
+      -moz-transition: all 0.25s ease-out;
+      transition: all 0.25s ease-out;
+    }
+  
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+      left: -33%;
+    }
+  
+    .row-offcanvas-left.active {
+      left: 33%;
+      margin-left: -6px;
+    }
+  
+    .sidebar-offcanvas {
+      position: absolute;
+      top: 0;
+      width: 33%;
+      height: 100%;
+    }
+  }
+  
+  /*
+   * Off Canvas wider at sm breakpoint
+   * --------------------------------------------------
+   */
+  @media screen and (max-width: 34em) {
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+      left: -45%;
+    }
+  
+    .row-offcanvas-left.active {
+      left: 45%;
+      margin-left: -6px;
+    }
+    
+    .sidebar-offcanvas {
+      width: 45%;
+    }
+  }
+  
+  .card {
+      overflow:hidden;
+  }
+  
+  .card-body .rotate {
+      z-index: 8;
+      float: right;
+      height: 100%;
+  }
+  
+  .card-body .rotate i {
+      color: rgba(20, 20, 20, 0.15);
+      position: absolute;
+      left: 0;
+      left: auto;
+      right: -10px;
+      bottom: 0;
+      display: block;
+      -webkit-transform: rotate(-44deg);
+      -moz-transform: rotate(-44deg);
+      -o-transform: rotate(-44deg);
+      -ms-transform: rotate(-44deg);
+      transform: rotate(-44deg);
+  }
+  .dividen{
+    border-top: 1px solid #000;
+  }
+  .fixed-link{
+      position: fixed;
+      bottom: 14%
+  }
+  .bottom-position{
+    bottom: 9% !important;
+  }
+  .margin-dashboard{
+      margin-left: 7em;
+  }
+  .borderStyle{
+      border: 1px dotted #000;
+  }
+  .formClass{
+    border-top: 1px solid #000;
+    padding-top: 30px;
+  }
+  .createForm{
+    border-top: 1px solid #000;
+    padding-top: 30px;
+  }
+  .sizeimg{
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+ } 
+ .text-orange{
+     color: #E67E22;
+ }

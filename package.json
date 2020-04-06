@@ -7,12 +7,16 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "bootstrap-icons": "^1.0.0-alpha3",
     "mdbreact": "^4.25.3",
+    "moment": "^2.24.0",
     "react": "^16.13.0",
+    "react-datepicker": "^2.14.1",
     "react-dom": "^16.13.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.4.0",
+    "react-select": "^3.0.8",
     "react-youtube": "^7.9.0"
   },
   "scripts": {
