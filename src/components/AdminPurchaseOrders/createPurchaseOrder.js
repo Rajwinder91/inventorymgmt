@@ -32,9 +32,24 @@ class createPurchaseOrder extends Component {
         price:'',
         qty:'',
         Totalp:'',
-        product:[]
+        product:[],
+        name: "",
+        shareholders: [{ name: "" }]
         //do ethe khali//this .state.
     }
+
+    handleAddShareholder = () => {
+        this.setState({
+          shareholders: this.state.shareholders.concat([{ name: "" }])
+        });
+    };
+
+    handleRemoveShareholder = idx => () => {
+        this.setState({
+            shareholders: this.state.shareholders.filter((s, sidx) => idx !== sidx)
+        });
+    };
+
 /********************************* */
     handleChange = this.handleChange.bind(this); 
     handleChangeproduct = this.handleChangeproduct.bind(this); 
@@ -330,16 +345,12 @@ class createPurchaseOrder extends Component {
                             </div> 
                         </div> 
                         <div class="row">  
-                           <div class="col-md-6">  
+                            <div class="col-md-6">  
                                 <div class="form-group">
-                                    
-                                        <input type="text" class="form-control" name="currency" value={this.state.currency} placeholder="Currency"/>
-                                        
-                                        </div>
-                                      
-                                </div>                                    
-    
-                           <div class="col-md-6"> 
+                                    <input type="text" class="form-control" name="currency" value={this.state.currency} placeholder="Currency"/>
+                                </div>
+                            </div>                                    
+                            <div class="col-md-6"> 
                                 <div class="form-group">
                                     <div class="input-group-prepend">
                                         <input type="text" class="form-control" name="discountrate" 
@@ -350,126 +361,50 @@ class createPurchaseOrder extends Component {
                                 </div>
                             </div>
                         </div>
-                           
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                    <th scope="col">Product</th>
-                                    
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Action</th>
+                                        <th scope="col">Product</th>                                    
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {this.state.shareholders.map((shareholder, idx) => (
                                     <tr>
                                         <td> 
-                                        <select name="supplierId" class="form-control" required
-                                        value={this.state.productId}
-                                       onChange={this.handleChangeproduct}                            
-                                        >
-                                        {this.state.productsList.map(product => (
-                                            <option
-                                            key={product.id}
-                                            value={product.id}
+                                            <select name="supplierId" class="form-control" required
+                                                value={this.state.productId}
+                                                onChange={this.handleChangeproduct}                            
                                             >
-                                            {product.productName}
-                                            </option>
-                                        ))}
-                                    </select> 
-                                         
-                                         
+                                            {this.state.productsList.map(product => (
+                                                <option
+                                                key={product.id}
+                                                value={product.id}
+                                                >
+                                                {product.productName}
+                                                </option>
+                                            ))}
+                                            </select>                                     
                                         </td>
-                                       
                                         <td><input type="text" name="proprice"   value={this.state.proprice} placeholder="Price"/></td>  
                                         <td><input type="text" name="qty" onChange={this.showqty} placeholder="Quantity"/></td>
-                                        <td><input type="text"   value={this.state.total} placeholder="Total"/></td>
-                                        <td><a href="#"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete order"/></a></td>
+                                        <td><input type="text" value={this.state.total} placeholder="Total"/></td>
+                                        <td>{idx > 0 &&<button type="button"onClick={this.handleRemoveShareholder(idx)}>-</button>}</td>
                                     </tr>
-                                    <tr>
-                                        <td> 
-                                        <select name="supplierId" class="form-control" required
-                                        value={this.state.productId}
-                                       onChange={this.handleChangeproduct}                            
-                                        >
-                                        {this.state.productsList.map(product => (
-                                            <option
-                                            key={product.id}
-                                            value={product.id}
-                                            >
-                                            {product.productName}
-                                            </option>
-                                        ))}
-                                    </select> 
-                                         
-                                         
-                                        </td>
-                                       
-                                        <td><input type="text" name="proprice"   value={this.state.proprice} placeholder="Price"/></td>  
-                                        <td><input type="text" name="qty" onChange={this.showqty} placeholder="Quantity"/></td>
-                                        <td><input type="text"   value={this.state.total} placeholder="Total"/></td>
-                                        <td><a href="#"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete order"/></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td> 
-                                        <select name="supplierId" class="form-control" required
-                                        value={this.state.productId}
-                                       onChange={this.handleChangeproduct}                            
-                                        >
-                                        {this.state.productsList.map(product => (
-                                            <option
-                                            key={product.id}
-                                            value={product.id}
-                                            >
-                                            {product.productName}
-                                            </option>
-                                        ))}
-                                    </select> 
-                                         
-                                         
-                                        </td>
-                                       
-                                        <td><input type="text" name="proprice"   value={this.state.proprice} placeholder="Price"/></td>  
-                                        <td><input type="text" name="qty" onChange={this.showqty} placeholder="Quantity"/></td>
-                                        <td><input type="text"   value={this.state.total} placeholder="Total"/></td>
-                                        <td><a href="#"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete order"/></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td> 
-                                        <select name="supplierId" class="form-control" required
-                                        value={this.state.productId}
-                                       onChange={this.handleChangeproduct}                            
-                                        >
-                                        {this.state.productsList.map(product => (
-                                            <option
-                                            key={product.id}
-                                            value={product.id}
-                                            >
-                                            {product.productName}
-                                            </option>
-                                        ))}
-                                    </select> 
-                                         
-                                         
-                                        </td>
-                                       
-                                        <td><input type="text" name="proprice"   value={this.state.proprice} placeholder="Price"/></td>  
-                                        <td><input type="text" name="qty" onChange={this.showqty} placeholder="Quantity"/></td>
-                                        <td><input type="text"   value={this.state.total} placeholder="Total"/></td>
-                                        <td><a href="#"><img src="https://img.icons8.com/bubbles/50/000000/delete-sign.png" title="Delete order"/></a></td>
-                                    </tr>
-                                </tbody>
+                                    ))}
+                                </tbody>                                
                             </table>
-
+                            <br/> 
+                            <button class="btn btn-primary float-right" type="button"onClick={this.handleAddShareholder}>Add Product</button>
                         </div>   
-                            
                     </form>
                 </div>
             </div> 
-        </div>      
-             
+        </div>
       );
     }
     // End Render Function
