@@ -285,7 +285,7 @@ class createPurchaseOrder extends Component {
                 "SupplierId" : this.state.supplierId,
                 "CurrencyId" :1,
                 "DiscountRate": this.state.discountrate,
-                "PurchaseOrderTotal": 400,
+                "PurchaseOrderTotal": this.state.total,
                 "products":[{
                 "ProductId" : this.state.productId,
                 "Price" : this.state.proprice,

@@ -248,3 +248,11 @@
     border-top: 1px solid #000;
     padding-top: 30px;
   }
+  .sizeimg{
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+ } 
+ .text-orange{
+     color: #E67E22;
+ }

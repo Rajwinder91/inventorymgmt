@@ -31,17 +31,86 @@ class getProducts extends Component {
         let initialSuppliers = [];
 
         let url = '';
-        if( !this.state.productName && (this.state.productSku || this.state.productCat || this.state.productSupplier)){
-            console.log("NO length"+this.state.productName);
-            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName='`+this.state.productName+'`&&SKU='+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+
+        //IF product Name 1
+        if(this.state.productName && !this.state.productSku && !this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName;
+
+        //IF SKU 2
+        }else if(!this.state.productName && this.state.productSku && !this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?SKU=`+this.state.productSku;
+
+        //IF Category 3
+        }else if(!this.state.productName && !this.state.productSku && this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?category=`+this.state.productCat;
+
+        //IF Supplier 4
+        }else if(!this.state.productName && !this.state.productSku && !this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?SupplierName=`+this.state.productSupplier;
         
-        }else if( this.state.productName && (!this.state.productSku || !this.state.productCat || !this.state.productSupplier)){
-            console.log("have length"+this.state.productName);
+        //Product name and SKU 5
+        }else if(this.state.productName && this.state.productSku && !this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku;
+
+        //Product name and Catgeory 6
+        }else if(this.state.productName && !this.state.productSku && this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&category='+this.state.productCat;
+        
+        //Product name and supplier 7
+        }else if(this.state.productName && !this.state.productSku && !this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SupplierName='+this.state.productSupplier;
+        
+        //SKU and category 8
+        }else if(!this.state.productName && this.state.productSku && this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?SKU=`+this.state.productSku+'&&category='+this.state.productCat;
+        
+        //SKU and supplier 9
+        }else if(!this.state.productName && this.state.productSku && !this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?SKU=`+this.state.productSku+'&&SupplierName='+this.state.productSupplier;
+        
+        //category and supplier 10
+        }else if(!this.state.productName && !this.state.productSku && this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?category=`+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+        
+        //product and sku and category 11
+        }else if(this.state.productName && this.state.productSku && this.state.productCat && !this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku+'&&category='+this.state.productCat;
+        
+        //sku and category and supplier 12
+        }else if(!this.state.productName && this.state.productSku && this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?SKU=`+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+        
+        //category and supplier and product name 13
+        }else if(this.state.productName && !this.state.productSku && this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+        
+        //supplier and product name  and sku 14
+        }else if(this.state.productName && this.state.productSku && !this.state.productCat && this.state.productSupplier){
+
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku+'&&SupplierName='+this.state.productSupplier;
+        
+        //supplier and product name  and sku  and category 15
+        }else if(this.state.productName && this.state.productSku && this.state.productCat && this.state.productSupplier){
+
             url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
-        
+        // None
         }else{
             url =`http://18.216.15.198:3000/api/product/getproducts`;
         }
+        
         axios({
 
             method: 'POST',
@@ -139,7 +208,7 @@ class getProducts extends Component {
                     return {id: category.CategoryId, categoryname: category.categoryname} 
                 })
                 this.setState({
-                    categoriesList: [{id: '', categoryname: 'Please select catgeory'}].concat(initialCategories)
+                    categoriesList: [{id: '', categoryname: 'Please select category'}].concat(initialCategories)
                 })
                 
             }else{

@@ -14,7 +14,10 @@ class beforeLoginNav extends Component {
                     <li className="nav-item active">
                         <NavLink to="/" className="nav-link">Home</NavLink>
                     </li>
-                        <li className="nav-item">
+                    <li className="nav-item">
+                        <NavLink to="/team" className="nav-link">About Us</NavLink>                      
+                    </li>
+                    <li className="nav-item">
                         <NavLink to="/signup" className="nav-link">Signup</NavLink>
                     </li>
                         <li className="nav-item">

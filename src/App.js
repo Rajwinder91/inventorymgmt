@@ -47,6 +47,9 @@ import CreatePurchaseOrders from './components/AdminPurchaseOrders/createPurchas
 //Settings Components
 import UpdateCompanySettings from './components/AdminSettings/companySettings';
 import UpdateUserSettings from './components/AdminSettings/userSettings';
+
+//Project Team
+import TeamMember from './components/ProjectTeam/team'; 
 /* End Load Components */
 
 /* Start Load CSS */
@@ -98,6 +101,7 @@ class App extends Component {
                       <PublicRoute exact path="/login" component={Login}/>                      
                       <PublicRoute  exact path="/signup" component={SignUp}/>
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
+                      <PublicRoute  exact path="/team" component={TeamMember}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>
                       <PrivateRoute  exact path="/createSupplier" component={CreateSupplier}/>                      
