@@ -71,22 +71,10 @@ class dashboardSidebar extends Component {
                         </a>
                         <ul class="list-unstyled flex-column pl-3 collapse" id="submenu2" aria-expanded="false">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="layers"></span>
-                                    Stock Level
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <NavLink to="/getPurchaseOrders" className="nav-link">Purchase Orders</NavLink>
                             </li>
                             <li class="nav-item">
                                 <NavLink to="/deliveries" className="nav-link">Deliveries</NavLink>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="layers"></span>
-                                    Inventory Logs
-                                </a>
                             </li>
                         </ul>
                     </li>  

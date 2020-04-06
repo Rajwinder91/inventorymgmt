@@ -58,12 +58,18 @@ class getProducts extends Component {
         .then(response => {
             //console.log(response.data.success);
             if(response.data.success == 1){
-                initialProducts = response.data.data.map((product) => { //console.log(product.SupplierId);
-                    return {id: product.ProductId, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} 
-                })
-                this.setState({
-                    productsList: initialProducts
-                })
+                if(response.data.data){
+                    initialProducts = response.data.data.map((product) => { //console.log(product.SupplierId);
+                        return {id: product.ProductId, productName: product.ProductName, productSku: product.SKU, productInventory: product.Inventory ,productCat: product.category} 
+                    })
+                    this.setState({
+                        productsList: initialProducts
+                    })
+                }else{
+                    this.setState({
+                        productsList: []
+                    })
+                }
                 
             }else{
                 this.setState({
