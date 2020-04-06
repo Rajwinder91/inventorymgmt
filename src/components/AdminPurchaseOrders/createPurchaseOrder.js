@@ -314,18 +314,18 @@ class createPurchaseOrder extends Component {
     // Start Render Function
     render() {       
       return ( 
-        <div class="container-fluid">
+        <div class="container-fluid  pt-5 mt-3">
             <div class="row">
                 <DashboardSidebar/>
                 <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
                     <div class="float-left"><h3 class="text-primary topheading">Create Purchase Order</h3></div>                 
-                    <form method="post" class="formClass" name="register"  onSubmit={this.submitHandler} id="SupplierForm">                           
+                    <form method="post" name="register"  onSubmit={this.submitHandler} id="SupplierForm">                           
                         <div class="float-right">        
                             <input type="reset" class="btn btn-primary mb-2"  value="Cancel"/>
                             &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Save"/>
                         </div>
                         <br></br> <br></br> <br></br>
-                        <div class="row register-form">
+                        <div class="row register-form createForm">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <select name="supplierId" class="form-control" required
