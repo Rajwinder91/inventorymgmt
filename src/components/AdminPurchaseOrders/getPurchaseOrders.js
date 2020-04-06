@@ -174,7 +174,7 @@ class getPurchaseOrders extends Component {
                     <div class="col-md-9 ml-sm-auto col-lg-10 px-4">    
                         <div class="headings">
                             <div class="float-left"><h3 class="text-primary">Purchase Orders</h3></div>
-                            <div class="float-right"><NavLink to="/createProduct" className="btn btn-primary">Create Purchase Order</NavLink></div>
+                            <div class="float-right"><NavLink to="/createPurchaseOrder" className="btn btn-primary">Create Purchase Order</NavLink></div>
                         </div> 
                         <form method="post" name="register" class="formClass" onSubmit={this.submitHandler}>
                             <div class="float-right">

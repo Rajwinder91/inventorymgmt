@@ -31,8 +31,14 @@ class getProducts extends Component {
         let initialSuppliers = [];
 
         let url = '';
-        if(this.state.productName || this.state.productSku || this.state.productCat || this.state.productSupplier){
+        if( !this.state.productName && (this.state.productSku || this.state.productCat || this.state.productSupplier)){
+            console.log("NO length"+this.state.productName);
+            url =`http://18.216.15.198:3000/api/product/getproducts?ProductName='`+this.state.productName+'`&&SKU='+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+        
+        }else if( this.state.productName && (!this.state.productSku || !this.state.productCat || !this.state.productSupplier)){
+            console.log("have length"+this.state.productName);
             url =`http://18.216.15.198:3000/api/product/getproducts?ProductName=`+this.state.productName+'&&SKU='+this.state.productSku+'&&category='+this.state.productCat+'&&SupplierName='+this.state.productSupplier;
+        
         }else{
             url =`http://18.216.15.198:3000/api/product/getproducts`;
         }

@@ -42,6 +42,7 @@ import ChangePurchaseStatus from './components/AdminPurchaseOrders/changePurchas
 import GetPurchaseOrders from './components/AdminPurchaseOrders/getPurchaseOrders';
 import ViewDelivery from './components/AdminPurchaseOrders/viewDeliver';
 import UpdatePurchaseOrders from './components/AdminPurchaseOrders/updatePurchaseOrder';
+import CreatePurchaseOrders from './components/AdminPurchaseOrders/createPurchaseOrder';
 
 //Settings Components
 import UpdateCompanySettings from './components/AdminSettings/companySettings';
@@ -113,6 +114,7 @@ class App extends Component {
                       <PrivateRoute  exact path="/changeStatus" component={ChangePurchaseStatus}/>
                       <PrivateRoute  exact path="/getPurchaseOrders" component={GetPurchaseOrders}/>                                            
                       <PrivateRoute  exact path="/updatePurchaseOrder" component={UpdatePurchaseOrders}/>
+                      <PrivateRoute  exact path="/createPurchaseOrder" component={CreatePurchaseOrders}/>                      
                       <PrivateRoute  exact path="/updateCompanySettings" component={UpdateCompanySettings}/>                     
                       <PrivateRoute  exact path="/userSettings" component={UpdateUserSettings}/>                       
                       <Route  exact path="/404" component={NotFoundPage}/>
