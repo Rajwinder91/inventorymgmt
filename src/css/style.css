@@ -133,16 +133,6 @@
     vertical-align: baseline !important;
 }
 
-/******************************/
-.my-custom-scrollbar {
-    position: relative;
-    height: 200px;
-    overflow: auto;
-    }
-    .table-wrapper-scroll-y {
-    display: block;
-    }
-
 .productImage
 {
     width: 100%;
@@ -156,7 +146,6 @@
     border: 1px solid #ced4da;
     border-radius: .25rem;
 }
-
 .deliverButtons{
     margin-bottom: 1.6rem;
 }
@@ -253,18 +242,17 @@
   }
   .formClass{
     border-top: 1px solid #000;
-   /* padding-top: 30px;*/
-    margin-top: 50px;
+    padding-top: 30px;
   }
   .createForm{
     border-top: 1px solid #000;
     padding-top: 30px;
   }
-  .topheading{
-      margin-top: 20px;
-  }
-.sizeimg{
+  .sizeimg{
     border-radius: 50%;
     width: 300px;
     height: 300px;
-}
+ } 
+ .text-orange{
+     color: #E67E22;
+ }
