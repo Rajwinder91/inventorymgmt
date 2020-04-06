@@ -233,13 +233,18 @@ class dashboard extends Component {
       .then(response => {
           //console.log(response.data.success);
           if(response.data.success == 1){
-            initialSalesOrders = response.data.data.map((sale) => {
+            if( response.data.data == 0){
+              this.setState({
+                newSalesOrders: []
+              })
+            }else{
+              initialSalesOrders = response.data.data.map((sale) => {
                   return {cutomerOrderId: sale.CustomerOrderId, totalUnits: sale.Total_Unit, total: sale.Total, customerName:sale.customer} 
               })
               this.setState({
                   newSalesOrders: initialSalesOrders
               })
-              
+            }              
           }else{
               this.setState({
                 salesPerCategory: []
