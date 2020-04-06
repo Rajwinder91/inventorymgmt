@@ -235,7 +235,7 @@ class updateProduct extends Component {
                         <div class="float-left"><h3 class="text-primary">Product/Update Product/#{this.state.productName}</h3></div>                       
                         <form method="post" name="register" onSubmit={this.submitHandler}>
                             <div class="float-right">        
-                                <input type="submit" class="btn btn-primary mb-2"  value="Cancel"/>
+                                <input type="submit" onClick={this.cancelCourse} class="btn btn-primary mb-2"  value="Cancel"/>
                                 &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
                             </div>
                             <br></br> <br></br> <br></br>
