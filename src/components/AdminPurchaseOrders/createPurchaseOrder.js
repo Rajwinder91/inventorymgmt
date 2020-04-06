@@ -308,6 +308,8 @@ class createPurchaseOrder extends Component {
             console.log("Error"+error);
             this.setState({errorMessage: error.response.data.message});
         });
+        //<button class="btn btn-primary float-right" type="button"onClick={this.handleAddShareholder}>Add Product</button>
+                        
 };
 /********************************/
 
@@ -399,7 +401,6 @@ class createPurchaseOrder extends Component {
                                 </tbody>                                
                             </table>
                             <br/> 
-                            <button class="btn btn-primary float-right" type="button"onClick={this.handleAddShareholder}>Add Product</button>
                         </div>   
                     </form>
                 </div>
