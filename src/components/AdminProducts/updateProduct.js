@@ -189,7 +189,7 @@ class updateProduct extends Component {
         data.append('RetailPrice', this.state.productRetailPrice)        
         data.append('CategoryId', this.state.productCat)
         data.append('Country_Origin_id', this.state.productCountry)        
-        data.append('Image', this.state.productImg)
+        data.append('Image', this.state.productImg ? this.state.productImg : '')
         data.append('SupplierId', this.state.productSupplier)
         data.append('Barcode', this.state.productBarcode)        
         data.append('QtyMinRequired', this.state.productQuantity)
