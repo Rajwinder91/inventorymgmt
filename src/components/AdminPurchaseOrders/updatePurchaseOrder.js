@@ -1,267 +1,384 @@
-import React, { Component } from 'react';
-import DashboardSidebar from '../../components/Dashboard/dashboardSidebar';
+import React, { Component } from "react";
+import DashboardSidebar from "../../components/Dashboard/dashboardSidebar";
 
-import axios from 'axios';
-import { getUser } from '../Utils/common';
-import { getToken } from '../Utils/common';
+import axios from "axios";
+import { getUser } from "../Utils/common";
+import { getToken } from "../Utils/common";
 
 /* Get User and Token From Session */
 const user = getUser();
+debugger;
 const token = getToken();
 
-
-
 class updatePurchaseOrder extends Component {
+  /*********************** */
+  //Set State values
+  state = {
+    purchaseId: "",
+    purchaseTotalOrder: "",
+    SupplierId: "",
+    quantity: "",
+    totalprice: "",
+    productName: "",
+    productPurchasePrice: "",
+    currency: "",
+    purchaseProduct: "",
+    purchaseSupplier: "",
+    suppliersList: [],
+    productSupplier: " ",
+    discountrate: "",
+    productList: [],
+    errorMessage: "",
+    successMsg: "",
+    //do ethe khali//this .state.
+  };
 
-    /*********************** */
-    //Set State values
-    state = {
-        purchaseTotalOrder: '',
-        quantity: '',
-        totalprice: '',
-        productName:'',
-        productPurchasePrice: '',
-        currency:'',
-        purchaseProduct:'',
-        purchaseSupplier:'',
-        suppliersList:[] ,
-        productSupplier: " ",
-        discountrate:"",
-       
-        //do ethe khali//this .state.
-    }
-    
-/********************************* */
- //Fetch Country, Supplier and Category List
- componentDidMount() { 
-
+  /********************************* */
+  //Fetch Country, Supplier and Category List
+  componentDidMount() {
     let initialSuppliers = [];
-    const purchase_ord_Id = new URLSearchParams(this.props.location.search).get('purchase_ord_Id');
-  
+    let initialProducts = [];
+    const purchase_ord_Id = new URLSearchParams(this.props.location.search).get(
+      "purchase_ord_Id"
+    );
+
     //Supplier API
     axios({
-        method: 'POST',
-        responseType: 'json',
-        url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+token
-        },
-        data: {
-            "CompanyId" : user.CompanyId
-        }          
+      method: "POST",
+      responseType: "json",
+      url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      data: {
+        CompanyId: user.CompanyId,
+      },
     })
-    .then(response => {
+      .then((response) => {
         console.log(response.data.success);
-        if(response.data.success == 1){
-            initialSuppliers = response.data.data.map((supplier) => { 
-                return {id: supplier.SupplierId, suppliername: supplier.SupplierName} 
-            })
-            this.setState({
-                suppliersList: [{id: '', suppliername: 'Please select supplier'}].concat(initialSuppliers)
-            })
-            
-        }else{
-            this.setState({
-                suppliersList: []
-            })
+        if (response.data.success == 1) {
+          initialSuppliers = response.data.data.map((supplier) => {
+            return {
+              id: supplier.SupplierId,
+              suppliername: supplier.SupplierName,
+            };
+          });
+          this.setState({
+            suppliersList: [
+              { id: "", suppliername: "Please select supplier" },
+            ].concat(initialSuppliers),
+          });
+        } else {
+          this.setState({
+            suppliersList: [],
+          });
         }
-        
-    })        
-    .catch(error => {
-        console.log("Error:"+ error)
-        this.setState({errorMessage: error.response});
-    })
+      })
+      .catch((error) => {
+        console.log("Error:" + error);
+        this.setState({ errorMessage: error.response });
+      });
 
     //Get Purchase order by id API
     axios({
-        method: 'GET',
-        responseType: 'json',
-        url: `http://18.216.15.198:3000/api/purchaseorder/getpurchaseorderbyid?CompanyId=${user.CompanyId}&PurchaseOrderId=${purchase_ord_Id}`,
-       
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+token
-        }         
-    })
-    .then(response => {
-        
-        if(response.data.success == 1){console.log(response.data.data[0]);
-            this.setState({ 
-                productName: response.data.data[0].ProductName,
-                productPurchasePrice: response.data.data[0].PurchasePrice,
-                purchaseTotalOrder: response.data.data[0].PurchaseOrderTotal,
-                totalPrice: response.data.data[0].Total,
-                quantity: response.data.data[0].Quantity,
-                currency: response.data.data[0].Currency,
-                purchaseProduct: response.data.data[0].ProductId,
-                purchaseSupplier:response.data.data[0].SupplierId,
-                discountrate:response.data.data[0].DiscountRate,
-          })
-        }
-        
-    })        
-    .catch(error => {
-        console.log("Error:"+ error)
-        this.setState({errorMessage: error.response.data.message});
-    })
+      method: "GET",
+      responseType: "json",
+      url: `http://18.216.15.198:3000/api/purchaseorder/getpurchaseorderbyid?CompanyId=${user.CompanyId}&PurchaseOrderId=${purchase_ord_Id}`,
 
-    
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        if (response.data.success == 1) {
+          this.setState({
+            SupplierId: response.data.data.purchaseOrder_details.SupplierId,
+            purchaseTotalOrder:
+              response.data.data.purchaseOrder_details.Purchase_order_Total,
+            currency: response.data.data.purchaseOrder_details.Currency_Code,
+            discountrate: response.data.data.purchaseOrder_details.DiscountRate,
+            purchaseId:
+              "#" + response.data.data.purchaseOrder_details.Purchase_OrderId,
+          });
+          initialProducts = response.data.data.products.map((product) => {
+            return {
+              ProductId: product.ProductId,
+              PurchaseOrder_ProductId: product.PurchaseOrder_ProductId,
+              productSku: product.SKU,
+              productName: product.Product_name,
+              productDesc: product.Description,
+              productPrice: product.PurchasePrice,
+              productQty: product.Quantity,
+              productTotal: product.Total,
+            };
+          });
+          this.setState({
+            productList: initialProducts,
+          });
+        }
+      })
+      .catch((error) => {
+        debugger;
+        console.log("Error:" + error);
+        this.setState({ errorMessage: error.response.data.message });
+      });
+  }
+
+  //Get form values on change handler
+  ChangeHandler = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  updateHandler = (index, newValue) => {
+    if (newValue < 0) {
+      alert("Quantity cannot be less than zero!");
+      return;
+    }
+
+    const updatedArray = [...this.state.productList];
+    updatedArray[index].productQty = newValue;
+    updatedArray[index].productTotal =
+      updatedArray[index].productQty * updatedArray[index].productPrice;
+    let grandTotal = 0;
+    for (var i = 0; i < updatedArray.length; i++) {
+      grandTotal += updatedArray[i].productTotal;
+    }
+    this.setState({ purchaseTotalOrder: grandTotal });
+
+    this.setState({
+      productList: updatedArray,
+    });
+  };
+
+  //on click of cancel
+
+  cancelupdate = () => {
+    window.location.href = "/getPurchaseOrders";
+  };
+
+  //Update product api
+  submitHandler = (e) => {
+    const purchase_ord_Id = new URLSearchParams(this.props.location.search).get(
+      "purchase_ord_Id"
+    );
+    for (var i = 0; i < this.state.productList.length; i++) {
+      if (this.state.productList[i].productQty === "") {
+        alert("Product Quantity cannot be null");
+        window.location.reload();
+      }
+      if (this.state.productList[i].productQty === "0") {
+        alert("Product Quantity cannot be zero");
+        window.location.reload();
+      }
+    }
+    let updatedProductlist = this.state.productList.map((product) => {
+      return {
+        ProductId: product.ProductId,
+        PurchaseOrder_ProductId: product.PurchaseOrder_ProductId,
+        Quantity: product.productQty,
+        Total: product.productTotal,
+      };
+    });
+
+    e.preventDefault();
+    axios({
+      method: "PUT",
+      responseType: "json",
+      url: `http://18.216.15.198:3000/api/purchaseorder/edit`,
+      data: {
+        purchase_ord_id: purchase_ord_Id,
+        SupplierId: this.state.SupplierId,
+        PurchaseOrderTotal: this.state.purchaseTotalOrder,
+        products: updatedProductlist,
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        if (response.data.success === 0) {
+          this.setState({ errorMessage: response.data.message });
+        } else {
+          this.setState({ successMsg: response.data.message });
+          window.location.href = "/getPurchaseOrders";
+        }
+      })
+      .catch((error) => {
+        //console.log("Error"+error);
+        this.setState({ errorMessage: error.response.data.message });
+      });
+  };
+
+  // Start Render Function
+  render() {
+    return (
+      <div class="container-fluid pt-5 mt-3">
+        <div class="row">
+          <DashboardSidebar />
+          <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            {" "}
+            {this.state.errorMessage && (
+              <p className="alert alert-danger"> {this.state.errorMessage} </p>
+            )}
+            {this.state.successMsg && (
+              <p className="alert alert alert-success">
+                {" "}
+                {this.state.successMsg}{" "}
+              </p>
+            )}
+            <div class="float-left">
+              <h3 class="text-primary">
+                Purchase Orders/Update PurchaseOrder/{this.state.purchaseId}
+              </h3>
+            </div>
+            <form
+              method="post"
+              name="register"
+              id="SupplierForm"
+              onSubmit={this.submitHandler}
+            >
+              <div class="float-right">
+                <input
+                  type="submit"
+                  class="btn btn-primary mb-2"
+                  onClick={this.cancelupdate}
+                  value="Cancel"
+                />
+                &nbsp;&nbsp;{" "}
+                <input
+                  type="submit"
+                  class="btn btn-primary mb-2"
+                  value="Update"
+                />
+              </div>
+              <br></br> <br></br> <br></br>
+              <div class="row register-form">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select
+                      name="selectSupplier"
+                      class="form-control"
+                      required
+                      value={this.state.SupplierId}
+                      disabled
+                    >
+                      {this.state.suppliersList.map((supplier) => (
+                        <option key={supplier.id} value={supplier.id}>
+                          {supplier.suppliername}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group-prepend">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="currency"
+                        value={this.state.currency}
+                        placeholder="Currency"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="input-group-prepend">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="discountrate"
+                        value={this.state.discountrate}
+                        placeholder="Discount Rate"
+                        disabled
+                      />
+                      <div class="input-group-text">%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <br />
+                <br></br>
+              </div>
+              <div
+                class="table-wrapper-scroll-y my-custom-scrollbar"
+                style={{ height: "165px" }}
+              >
+                <table class="table table-bordered table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.productList.map((product, index) => (
+                      <tr>
+                        <td>
+                          <input
+                            type="text"
+                            value={product.productName}
+                            placeholder="Product Name"
+                            disabled
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={product.productPrice}
+                            placeholder="Price"
+                            disabled
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={product.productQty}
+                            placeholder="Quantity"
+                            onChange={(e) =>
+                              this.updateHandler(index, e.target.value)
+                            }
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            value={product.productTotal}
+                            placeholder="Total"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div class="float-right">
+                <label>
+                  <b>Purchase Order Total :</b>
+                </label>
+                <label>{this.state.purchaseTotalOrder}</label>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  // End Render Function
 }
 
-    //Update product api
-    submitHandler = e => {
-        const purchase_ord_Id = new URLSearchParams(this.props.location.search).get('purchase_ord_Id');
-        const data = new FormData() 
-        data.append('purchase_ord_id', purchase_ord_Id)
-        data.append('ProductName', this.state.productName)        
-        data.append('PurchasePrice', this.state.productPurchasePrice)
-        data.append('PurchaseOrderTotal', this.state.purchaseTotalOrder)        
-        data.append('Total', this.state.totalPrice)
-        data.append('Quantity', this.state.quantity)        
-        data.append('CurrencyCurrency', this.state.currency)
-        data.append('ProductId', this.state.purchaseProductpurchaseProduct)
-        data.append('SupplierId', this.state.productSupplier)
-        data.append('DiscountRate', this.state.discountrate)
-        data.append('CompanyId', user.CompanyId)
-        e.preventDefault();
-        axios({
-            method: 'PUT',
-            responseType: 'json',
-            url: `http://18.216.15.198:3000/api/purchaseorder/edit`,data,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+token
-            }
-            
-        })
-        .then(response => {
-            if(response.data.success === 0){
-                this.setState({errorMessage: response.data.message});
-            }else{
-                this.setState({successMsg: response.data.message})
-                window.location.href ='/getPurchaseOrders';
-            }                
-        })
-        .catch(error => {
-            //console.log("Error"+error);
-            this.setState({errorMessage: error.response.data.message});
-        });
-    };
-
-
-
-    // Start Render Function
-    render() {       
-      return ( 
-        <div class="container-fluid">
-            <div class="row">
-                <DashboardSidebar/>
-                <div class="col-md-9 ml-sm-auto col-lg-10 px-4">                    
-                       
-                    <div class="float-left"><h3 class="text-primary">Delete Purchase Order</h3></div>                 
-                    <form method="post" name="register"  id="SupplierForm" onSubmit={this.submitHandler}>                           
-                        <div class="float-right">        
-                            <input type="reset" class="btn btn-primary mb-2"  value="Cancel"/>
-                            &nbsp;&nbsp;  <input type="submit" class="btn btn-primary mb-2"  value="Update"/>
-                        </div>
-                        <br></br> <br></br> <br></br>
-                        <div class="row register-form">
-                            <div class="col-md-6">
-                            <div class="form-group">
-
-
-                                    <select name="selectSupplier" class="form-control" required
-                                        value={this.state.productSupplier}
-                                        onChange={this.handleChange}                              
-                                        >
-                                      {this.state.suppliersList.map(supplier => (
-                                            <option
-                                            key={supplier.id}
-                                            value={supplier.id}
-                                            >
-                                            {supplier.suppliername}
-                                            </option>
-                                        ))}
-                                    </select> 
-                                </div>
-                            </div> 
-                        </div> 
-                        <div class="form-group row">  
-                           <div class="col-md-6">  
-                                                      
-                                <div class="form-group">
-                                <div class="input-group-prepend">
-                                    <input type="text" class="form-control" name="currency" placeholder="Currency"/>
-                                    <div class="input-group-text">CAD</div>
-                                        </div>
-                                    </div>
-                                </div>                                         
-                          
-                           <div class="col-md-6"> 
-                                <div class="form-group">
-                                    <div class="input-group-prepend">
-                                    <input type="text" class="form-control" name="discountrate" 
-                                     value={this.state.discountrate}
-                                      placeholder="Discount Rate"/> 
-                                    <div class="input-group-text">%</div>
-                                    </div>
-                                   
-                                </div>
-                                </div>
-                                                                        
-                            </div>
-                                <div class="col-md-3">
-                                    <input type="submit" class="btn btn-primary mb-2"   value="Add"/>
-                                   &nbsp;&nbsp; <input type="submit" class="btn btn-primary mb-2"  value="Delete"/>
-                                </div>
-                           
-                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
-                    <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                        <tr>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                        <tr>
-                            <td> <select class="form-control" id="exampleFormControlSelect1">
-                            
-                                    <option>Select Product</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select></td>
-                                    <td><input type="text" placeholder="Price"/></td>  
-                                    <td><input type="text" placeholder="Quantity"/></td>
-                                    <td><input type="text" placeholder="Total"/></td>
-                                    <td><button type="button" class="btn btn-primary">Delete</button></td>
-                           
-                        </tr>
-                        
-                    
-                        
-                    </tbody>
-                    </table>
-
-                    </div>   
-                            
-                    
-                    </form>
-                </div>
-            </div> 
-        </div>          
-             
-      );
-    }
-    // End Render Function
-  }
-  
-  export default updatePurchaseOrder;
+export default updatePurchaseOrder;
