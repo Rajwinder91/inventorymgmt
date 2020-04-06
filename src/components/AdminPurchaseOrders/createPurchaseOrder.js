@@ -314,7 +314,7 @@ class createPurchaseOrder extends Component {
     // Start Render Function
     render() {       
       return ( 
-        <div class="container-fluid  pt-5 mt-3">
+        <div class="container-fluid pt-5 mt-3">
             <div class="row">
                 <DashboardSidebar/>
                 <div class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
