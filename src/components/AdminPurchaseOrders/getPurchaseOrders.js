@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 /* Get User and Token From Session */
 const user = getUser();
 const token = getToken();
-console.log(user.CompanyId);
+//console.log(user.CompanyId);
 class getPurchaseOrders extends Component { 
    
     //Set state values

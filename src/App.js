@@ -5,6 +5,8 @@ import NotFoundPage from "./components/PageNotFound/pageNotFound";
 import PrivateRoute from './components/Utils/privateRoute';
 import PublicRoute from './components/Utils/publicRoute';
 
+import TeamMember from './components/ProjectTeam/team'; 
+
 //Public pages
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
@@ -93,6 +95,9 @@ class App extends Component {
                       <Route exact path="/" component={Home}/> 
                       <PublicRoute exact path="/login" component={Login}/>                      
                       <PublicRoute  exact path="/signup" component={SignUp}/>
+
+                      <PublicRoute  exact path="/team" component={TeamMember}/>
+
                       <PublicRoute  exact path="/forgotpassword" component={ForgotPass}/>
                       <PrivateRoute  exact path="/dashboard" component={Dashboard}/>
                       <PrivateRoute  exact path="/getSuppliers" component={GetSupplier}/>

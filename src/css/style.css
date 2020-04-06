@@ -263,3 +263,8 @@
   .topheading{
       margin-top: 20px;
   }
+.sizeimg{
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+}

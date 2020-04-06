@@ -50,6 +50,16 @@ class createPurchaseOrder extends Component {
         });
     };
 
+
+    handleShareholderNameChange = idx => evt => {
+        const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
+          if (idx !== sidx) return shareholder;
+          return { ...shareholder, name: evt.target.value };
+        });
+    
+        this.setState({ shareholders: newShareholders });
+      };
+    
 /********************************* */
     handleChange = this.handleChange.bind(this); 
     handleChangeproduct = this.handleChangeproduct.bind(this); 
@@ -378,7 +388,8 @@ class createPurchaseOrder extends Component {
                                         <td> 
                                             <select name="supplierId" class="form-control" required
                                                 value={this.state.productId}
-                                                onChange={this.handleChangeproduct}                            
+                                                onInput={this.handleChangeproduct}
+                                                onChange={this.handleShareholderNameChange(idx)}                         
                                             >
                                             {this.state.productsList.map(product => (
                                                 <option

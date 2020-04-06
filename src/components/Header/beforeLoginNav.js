@@ -20,6 +20,10 @@ class beforeLoginNav extends Component {
                         <li className="nav-item">
                         <NavLink to="/login" className="nav-link">Login</NavLink>                      
                     </li>
+                    <li className="nav-item">
+                        <NavLink to="/team" className="nav-link">About Us</NavLink>                      
+                    </li>
+
                 </ul>  
             </div> 
         </nav>          
