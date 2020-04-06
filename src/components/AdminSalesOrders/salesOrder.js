@@ -28,8 +28,15 @@ class salesOrder extends Component {
                 
         let initialSalesOrders = [];
         let url = '';
-        if(this.state.filterOrderId || this.state.filterDate){
+        if(this.state.filterOrderId && !this.state.filterDate){
+            url =`http://18.216.15.198:3000/api/sales/getsales?CustomerOrderId=`+this.state.filterOrderId;
+        
+        }else if(this.state.filterDate && !this.state.filterOrderId){
+            url =`http://18.216.15.198:3000/api/sales/getsales?Date=`+moment(this.state.filterDate).format("YYYY-MM-DD");
+        
+        }else if(this.state.filterOrderId && this.state.filterDate){
             url =`http://18.216.15.198:3000/api/sales/getsales?CustomerOrderId=`+this.state.filterOrderId+'&&Date='+moment(this.state.filterDate).format("YYYY-MM-DD");
+        
         }else{
             url =`http://18.216.15.198:3000/api/sales/getsales`;
         }
