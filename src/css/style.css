@@ -253,9 +253,13 @@
   }
   .formClass{
     border-top: 1px solid #000;
-    padding-top: 30px;
+   /* padding-top: 30px;*/
+    margin-top: 50px;
   }
   .createForm{
     border-top: 1px solid #000;
     padding-top: 30px;
+  }
+  .topheading{
+      margin-top: 20px;
   }
