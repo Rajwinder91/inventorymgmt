@@ -135,7 +135,7 @@ class updatePurchaseOrder extends Component {
 
   updateHandler = (index, newValue) => {
     if (newValue < 0) {
-      alert("Quantity cannot be less than one!");
+      alert("Quantity cannot be less than zero!");
       return;
     }
 
@@ -168,6 +168,10 @@ class updatePurchaseOrder extends Component {
     for (var i = 0; i < this.state.productList.length; i++) {
       if (this.state.productList[i].productQty === "") {
         alert("Product Quantity cannot be null");
+        window.location.reload();
+      }
+      if (this.state.productList[i].productQty === "0") {
+        alert("Product Quantity cannot be zero");
         window.location.reload();
       }
     }
