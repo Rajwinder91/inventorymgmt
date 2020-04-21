@@ -46,7 +46,7 @@ class updatePurchaseOrder extends Component {
     axios({
       method: "POST",
       responseType: "json",
-      url: `http://18.216.15.198:3000/api/supplier/getsuppliers`,
+      url: `https://api-tradego.herokuapp.com/api/supplier/getsuppliers`,
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
@@ -84,7 +84,7 @@ class updatePurchaseOrder extends Component {
     axios({
       method: "GET",
       responseType: "json",
-      url: `http://18.216.15.198:3000/api/purchaseorder/getpurchaseorderbyid?CompanyId=${user.CompanyId}&PurchaseOrderId=${purchase_ord_Id}`,
+      url: `https://api-tradego.herokuapp.com/api/purchaseorder/getpurchaseorderbyid?CompanyId=${user.CompanyId}&PurchaseOrderId=${purchase_ord_Id}`,
 
       headers: {
         "Content-Type": "application/json",
@@ -188,7 +188,7 @@ class updatePurchaseOrder extends Component {
     axios({
       method: "PUT",
       responseType: "json",
-      url: `http://18.216.15.198:3000/api/purchaseorder/edit`,
+      url: `https://api-tradego.herokuapp.com/api/purchaseorder/edit`,
       data: {
         purchase_ord_id: purchase_ord_Id,
         SupplierId: this.state.SupplierId,
