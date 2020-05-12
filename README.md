@@ -15,7 +15,7 @@
    http://ims-react-app.herokuapp.com/
 
 ## Technologies and Web Tools
-    React Js, HTML, CSS, Bootstrap, API, Visual Studio Code
+    React Js, HTML, CSS, Bootstrap, API, Visual Studio Code, Axios
 
 ## Trello Link
    https://trello.com/b/SigxVSzG/inventory-management-frontend-team
