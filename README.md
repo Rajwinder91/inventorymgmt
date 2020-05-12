@@ -20,7 +20,8 @@
 ## Trello Link
    https://trello.com/b/SigxVSzG/inventory-management-frontend-team
  
-## Commands to run project
+## Setup
+To run this project, install it locally using npm:
  
 ```jsx
 npm install 
