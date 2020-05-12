@@ -1,8 +1,18 @@
-# Project Title
+# TradeGo (Inventory Management System)
+TradeGo is an inventory management system that manages the inventory of a store.
 
-TradeGo (Inventory Management System)
+# Tasks List
+. Design and Develop the products, categories, suppliers, purchase orders, and dashboard pages from the admin section. 
+. Implement the API on Dashboard page for displaying the Lowest sold products and Highest sold products, Current Incoming Products, Sales per Category, On hand items and New Sales Orders.
+. Design Login, Signup, Products, Sales, Inventory, User and company Profile Settings.
 
-## Getting Started
+## Production URL
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+http://ims-react-app.herokuapp.com/
+
+# Technologies
+React Js, HTML, CSS, Bootstrap, API
+
+# Trello Link
+ https://trello.com/b/SigxVSzG/inventory-management-frontend-team
 
