@@ -12,7 +12,7 @@ TradeGo is an inventory management system that manages the inventory of a store.
  <li>
    Design Login, Signup, Products, Sales, Inventory, User and company Profile Settings.
  </li>
-
+ 
 ## Production URL
 
 http://ims-react-app.herokuapp.com/
