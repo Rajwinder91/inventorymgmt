@@ -1,7 +1,7 @@
-# TradeGo (Inventory Management System)
+# [TradeGo (Inventory Management System)]
 TradeGo is an inventory management system that manages the inventory of a store.
 
-## Tasks List
+ ## Tasks List
  <ul>
   <li>
    Design and Develop the products, categories, suppliers, purchase orders, and dashboard pages from the admin section.
@@ -14,17 +14,16 @@ TradeGo is an inventory management system that manages the inventory of a store.
  </li>
  
 ## Production URL
-
-http://ims-react-app.herokuapp.com/
+   http://ims-react-app.herokuapp.com/
 
 ## Technologies and Web Tools
-[React Js], [HTML], [CSS], [Bootstrap], [API], [Visual Studio Code]
+    React Js, HTML, CSS, Bootstrap, API, Visual Studio Code
 
 ## Trello Link
- https://trello.com/b/SigxVSzG/inventory-management-frontend-team
+   https://trello.com/b/SigxVSzG/inventory-management-frontend-team
  
 ## Commands to run project
-
+ 
 ```jsx
 npm install 
 npm start
