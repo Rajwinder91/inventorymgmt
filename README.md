@@ -10,6 +10,7 @@
  <li>
    Design Login, Signup, Products, Sales, Inventory, User and company Profile Settings.
  </li>
+ </ul>
  
 ## Production URL
    http://ims-react-app.herokuapp.com/
